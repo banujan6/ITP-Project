@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
@@ -249,7 +250,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="retail-customer" role="tabpanel" style="cursor: pointer;">
-                                <div class="bg-success" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <div class="bg-success btn-create" id="createButton">
                                     <i class="fas fa-plus text-white p-2" data-toggle="tooltip" data-placement="top" title="Add retail Customer"></i><span class="font-weight-bold text-white">Add A Retail Customer</span>
                                 </div>
                                 <div class=" container-fluid">
@@ -259,53 +260,98 @@
                                     <div class="row mt-2">
                                         <div class="col-12">
                                             <div class="card-body p-0 mt-">
-                                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+                                                <div class="modal fade bd-confirmation-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title font-weight-bold" id="confirmationModalLabel">Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="card mb-0">
+                                                                    <form id="confirmationModal" class="form-horizontal">
+                                                                        <div class="form-group row">
+                                                                            <span class="alert col-12" role="alert" style="display:none" id="confirmationAlert"></span>
+                                                                        </div>
+                                                                        <div>NOTICE: You are going to delete the "<b id="deleteCustomerName"></b>" retail customer. </div>
+                                                                        <div class="card-body float-right">
+                                                                            <input type="hidden" name="delete_id" id="deleteId"/>
+                                                                            <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
+                                                                            <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
+                                                                        </div>
+                                                                        
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Retail customer Info</h5>
+                                                                <h5 class="modal-title" id="formModalLabel">Retail customer Info</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="card">
-                                                                    <form class="form-horizontal">
+                                                                    <form id="formModal" class="form-horizontal">
                                                                         <div class="card-body">
+
+                                                                            <div class="form-group row">
+                                                                                <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
+                                                                            </div>
                                                                             <div class="form-group row">
                                                                                 <label for="fname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control" id="fname" placeholder="First Name Here">
+                                                                                    <input type="text" class="form-control form-input" id="name" placeholder="First Name Here">
+                                                                                    <span id="nameError" class="text-danger form-error" ></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Contact No</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control" id="cono1" placeholder="Contact No Here">
+                                                                                    <input type="text" class="form-control form-input" id="contactNumber" placeholder="Contact No Here">
+                                                                                    <span id="contactNumberError" class="text-danger form-error" ></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <label for="email1" class="col-sm-3 text-left control-label col-form-label">Address</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control" id="email1" placeholder="Address Here">
+                                                                                    <input type="text" class="form-control form-input" id="address" placeholder="Address Here">
+                                                                                    <span id="addressError" class="text-danger form-error" ></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <label for="lname" class="col-sm-3 text-left control-label col-form-label">Occupation</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control" id="lname" placeholder="Occupation">
+                                                                                    <select type="text" class="form-control form-input" id="occupation" placeholder="Occupation">
+                                                                                        <option value="" >Select An Occupation</option>
+                                                                                        @foreach($occupations as $occupation)
+                                                                                            <option value="{{$occupation->getKey()}}">{{$occupation->name}}</option>
+                                                                                        @endForeach
+                                                                                    </select>
+                                                                                    <span id="occupationError" class="text-danger form-error" ></span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <textarea class="form-control"></textarea>
+                                                                                    <textarea id="description" class="form-control form-input"></textarea>
+                                                                                    <span id="descriptionError" class="text-danger form-error" ></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="border-top">
                                                                             <div class="card-body">
-                                                                                <button type="button" class="btn btn-success">Submit</button>
+                                                                                <input type="hidden" id="updateId" name="update" />
+                                                                                <button type="submit" class="btn btn-success">Submit</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -333,46 +379,18 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach($customers as $key=> $customer)
                                                             <tr>
                                                                 <td></td>
-                                                                <td>Alex Gunawardana</td>
-                                                                <td>011234567892</td>
-                                                                <td>Colombo, SriLanka</td>
-                                                                <td>Banker</td>
-                                                                <td>A grade Customer</td>
-                                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                                                                <td>{{ $customer->name }}</td>
+                                                                <td>{{ $customer->phone_number }}</td>
+                                                                <td>{{ $customer->address }}</td>
+                                                                <td>{{ $customer->occupation->name }}</td>
+                                                                <td>{{ $customer->description }}</td>
+                                                                <td><button data-data="{{  $customer }}" data-index="{{ $key }}" data-id='{{ $customer->getKey() }}' id="editButton{{ $customer->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
+                                                                <td><button data-name="{{ $customer->name }}" data-index="{{ $key }}" data-id='{{ $customer->getKey() }}' id="deleteButton{{ $customer->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>Alex Gunawardana</td>
-                                                                <td>011234567892</td>
-                                                                <td>Colombo, SriLanka</td>
-                                                                <td>Banker</td>
-                                                                <td>A grade Customer</td>
-                                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>Alex Gunawardana</td>
-                                                                <td>011234567892</td>
-                                                                <td>Colombo, SriLanka</td>
-                                                                <td>Banker</td>
-                                                                <td>A grade Customer</td>
-                                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>Alex Gunawardana</td>
-                                                                <td>011234567892</td>
-                                                                <td>Colombo, SriLanka</td>
-                                                                <td>Banker</td>
-                                                                <td>A grade Customer</td>
-                                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
+                                                            @endForeach
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
@@ -469,8 +487,16 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/dataTables.select.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
+    var table ;
+
     $(document).ready(function() {
-        var table = $('#example').DataTable({
+        table = $('#example').DataTable({
             dom: 'Bfrtip',
             autoWidth: false,
             responsive: true,
@@ -512,6 +538,9 @@
                         extend: 'collection',
                         className: 'btn btn-sm btn-secondary dropdown-toggle border',
                         text: 'Export',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
                         buttons: [{
                             extend: 'excel',
                             className: 'dropdown-item',
@@ -548,7 +577,204 @@
             ]
         });
     });
-    </script>>
+
+    $(document).on('click','.btn-edit', function(){
+        $(".bd-form-modal-lg").modal('show');
+
+        var updateId = $(this).data("id");
+
+        var data = $(this).data("data");
+        
+        $("#updateId").val(updateId);
+
+        $("#name").val(data.name);
+        $("#contactNumber").val(data.phone_number);
+        $("#address").val(data.address);
+        $("#occupation").val(data.occupation.id);
+        $("#description").val(data.description);
+    });
+
+    $(document).on('click','.btn-create', function(){
+        
+        $("#updateId").val("");
+
+        $("#name").val("");
+        $("#contactNumber").val("");
+        $("#address").val("");
+        $("#occupation").val("");
+        $("#description").val("");
+
+        $(".bd-form-modal-lg").modal('show');
+    });
+
+    $(document).on('submit', '#formModal', function(e){
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        var updateId = $("#updateId").val();
+
+        var name = $("#name").val();
+        var contactNumber = $("#contactNumber").val();
+        var address = $("#address").val();
+        var occupation = $("#occupation").val();
+        var description = $("#description").val();
+
+        var mode = isNaN(parseInt(updateId))?"create":"update";
+    
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/retail_customer') }}/"+mode,
+            dataType: "json",
+            data: {
+                name: name,
+                contactNumber: contactNumber,
+                address: address,
+                occupation: occupation,
+                description: description,
+                updateId: updateId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#modalAlert").html(`You have successfully ${mode}d the retail customer.`);
+                    $("#modalAlert").show();
+                    $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-form-modal-lg").modal('hide');
+                        $('.form-input').val('');
+                        hideErrors();
+                    }, 600)
+                    if(mode=="update"){
+                        var index = $("#editButton"+updateId).data("index");
+                        data.customer['phone_number'] = data.customer.contactNumber;
+
+                        table.row(index).data([
+                            "",
+                            data.customer.name,
+                            data.customer.contactNumber,
+                            data.customer.address,
+                            data.customer.occupation.name,
+                            data.customer.description,
+                            `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                            `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`
+                        ]);
+                    } else {
+                        var index = table.count();
+
+                        table.rows.add([[
+                            "",
+                            data.customer.name,
+                            data.customer.contactNumber,
+                            data.customer.address,
+                            data.customer.occupation.name,
+                            data.customer.description,
+                            `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                            `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`
+                        ]]).draw();
+                    }
+                }
+            },
+            error: function(e){
+                var data = e.responseJSON;
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+                    
+                    case 400: 
+                        var keys = Object.keys(data.errors); 
+                        mainError = "Some fiedls have incorrect values";
+
+                        for(var i=0; i< keys.length; i++){
+                            var id = keys[i];
+                            var errorMsg = data.errors[id][0];
+
+                            $("#"+id).addClass("is-invalid");
+                            $("#"+id+"Error").html(errorMsg);
+                        }
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#modalAlert").html(mainError);
+                $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#modalAlert").show();
+            }
+        });
+
+    })
+
+    $(document).on('click keyup',".form-input", function(){
+            hideErrors();
+    });
+
+    function hideErrors(){
+        $("#modalAlert").hide();
+        $(".form-error").html("");
+        $(".form-input").removeClass("is-invalid");
+    }
+
+    $(document).on('click', '.btn-delete', function(){
+        var deleteId = $(this).data('id');
+
+        $("#deleteId").val(deleteId);
+
+        var name = $(this).data("name");
+
+        $("#deleteCustomerName").html(name);
+
+        $(".bd-confirmation-modal-lg").modal('show');
+    })
+
+    $(document).on("submit", "#confirmationModal", function(e){
+        e.preventDefault();
+        var deleteId = $("#deleteId").val();
+        $("#confirmationAlert").hide();
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/retail_customer/delete') }}",
+            dataType: "json",
+            data: {
+                id: deleteId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#confirmationAlert").html(`You have successfully deleted the retail customer.`);
+                    $("#confirmationAlert").show();
+                    $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-confirmation-modal-lg").modal('hide');
+                    }, 600);
+
+                    var index = $("#deleteButton"+deleteId).data("index");
+
+                    table.row(index).remove().draw();
+                }
+            },
+            error: function(e){
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+                    case 400: 
+                        mainError = "Invalid request";
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#confirmationAlert").html(mainError);
+                $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#confirmationAlert").show();
+                $("#deleteButton").html("Try Again");
+            }
+        });
+    })
+    </script>
 </body>
 
 </html>
