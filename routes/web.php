@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Controller\CRUD;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/crud/retail_customer','CRUD\RetailCustomerController@index');
 Route::post('/crud/retail_customer/update', 'CRUD\RetailCustomerController@update');
 Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@create');
 Route::post('/crud/retail_customer/delete', 'CRUD\RetailCustomerController@delete');
+
+Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index');
+Route::get('/crud/readymade_sub/view', 'CRUD\ReadymadeSubController@indexView');
+
+Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');
+Route::post('/crud/readymade_sub/view/update', 'CRUD\ReadymadeSubController@update');
+Route::post('/crud/readymade_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
