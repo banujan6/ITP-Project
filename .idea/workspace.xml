@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41dd3fb6-75c2-43fb-a418-36b9b5680b3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/supplier.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/supplier.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +186,8 @@
       <workItem from="1599147377506" duration="967000" />
       <workItem from="1599295820613" duration="2467000" />
       <workItem from="1599578009587" duration="677000" />
-      <workItem from="1600364768487" duration="2246000" />
+      <workItem from="1600364768487" duration="2860000" />
+      <workItem from="1600376568700" duration="320000" />
     </task>
     <servers />
   </component>
@@ -209,27 +204,28 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1600365843228">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600365843228" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1600364878441">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1600368357066">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600364878441" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1600364878441">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600368357066" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1600368357066">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600364878441" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1600364878441">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600368357066" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1600368357066">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600364878441" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1600364878441">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600368357066" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1600368357066">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600364878441" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600368357066" />
   </component>
 </project>
