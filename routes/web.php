@@ -40,4 +40,8 @@ Route::post('/crud/retail_transaction/create','CRUD\RetailTransactionController@
 Route::post('/crud/retail_transaction/update','CRUD\RetailTransactionController@update');
 Route::post('/crud/retail_transaction/delete','CRUD\RetailTransactionController@delete');
 
+Route::get('/supplier','SupplierController@index');
+Route::post('/supplier/update','SupplierController@update');
+Route::post('/supplier/create','SupplierController@create');
+Route::post('/supplier/delete','SupplierController@delete');
 
