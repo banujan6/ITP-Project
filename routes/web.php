@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Controller\CRUD;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,13 +23,21 @@ Route::post('/crud/retail_customer/update', 'CRUD\RetailCustomerController@updat
 Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@create');
 Route::post('/crud/retail_customer/delete', 'CRUD\RetailCustomerController@delete');
 
+Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index');
+Route::get('/crud/readymade_sub/view', 'CRUD\ReadymadeSubController@indexView');
+
+Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');
+Route::post('/crud/readymade_sub/view/update', 'CRUD\ReadymadeSubController@update');
+Route::post('/crud/readymade_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
+
 Route::get('/crud/wholesale_transaction','CRUD\WholesaleTransactionController@index');
 Route::post('/crud/wholesale_transaction/create','CRUD\WholesaleTransactionController@create');
 Route::post('/crud/wholesale_transaction/update','CRUD\WholesaleTransactionController@update');
 Route::post('/crud/wholesale_transaction/delete','CRUD\WholesaleTransactionController@delete');
 
-
 Route::get('/crud/retail_transaction','CRUD\RetailTransactionController@index');
 Route::post('/crud/retail_transaction/create','CRUD\RetailTransactionController@create');
 Route::post('/crud/retail_transaction/update','CRUD\RetailTransactionController@update');
 Route::post('/crud/retail_transaction/delete','CRUD\RetailTransactionController@delete');
+
+
