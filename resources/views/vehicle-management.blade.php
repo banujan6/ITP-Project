@@ -266,44 +266,50 @@
                                                     <hr>
 
                                                     <div class="form-group row">
-                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Vehicle Make</label>
+                                                        <label for="make" class="col-sm-3 text-left control-label col-form-label">Vehicle Make</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="accountNo" placeholder="Enter Vehicle make Here  eg:Toyota,Honda,Suzuki">
+                                                            <input type="text" class="form-control form-input" id="make" placeholder="Enter Vehicle make Here  eg:Toyota,Honda,Suzuki">
+                                                            <span id="makeError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                        <label for="model" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="accountNo" placeholder="Enter Vehicle Model eg:Car,Lorry,Bike">
+                                                            <input type="text" class="form-control form-input" id="model" placeholder="Enter Vehicle Model eg:Car,Lorry,Bike">
+                                                            <span id="modelError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Year of Purchase</label>
+                                                        <label for="year_of_purchase" class="col-sm-3 text-left control-label col-form-label">Year of Purchase</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="accountNo" placeholder="Enter vehicle registered year">
+                                                            <input type="text" class="form-control form-input" id="year_of_purchase" placeholder="Enter vehicle registered year">
+                                                            <span id="year_of_purchaseError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Registered Number</label>
+                                                        <label for="registered_number" class="col-sm-3 text-left control-label col-form-label">Registered Number</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="payment" placeholder="WP XXX XXXX">
+                                                            <input type="text" class="form-control form-input" id="registered_number" placeholder="WP XXX XXXX">
+                                                            <span id="registered_numberError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Colour</label>
+                                                        <label for="colour" class="col-sm-3 text-left control-label col-form-label">Colour</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="payment" placeholder="Enter Vehicle Colour Here">
+                                                            <input type="text" class="form-control form-input" id="colour" placeholder="Enter Vehicle Colour Here">
+                                                            <span id="colourError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="fname" class="col-sm-3 text-left control-label col-form-label">Capacity</label>
+                                                        <label for="capacity" class="col-sm-3 text-left control-label col-form-label">Capacity</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="PDate" placeholder="Enter Vehicle Capacity Here">
+                                                            <input type="text" class="form-control form-input" id="capacity" placeholder="Enter Vehicle Capacity Here">
+                                                            <span id="capacityError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
 
@@ -430,7 +436,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($vehicles as $key=> $vehicle)
+                                                    {{--@foreach($vehicles as $key=> $vehicle)
                                                     <tr>
                                                         <td>{{$vehicle->make}}</td>
                                                         <td>{{$vehicle->model}}</td>
@@ -441,7 +447,7 @@
                                                         <td><button data-data="{{  $vehicle }}" data-index="{{ $key }}" data-id='{{ $vehicle->getKey() }}' id="editButton{{ $vehicle->getKey() }}" type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-form-modal-lg">Edit</button> </td>
                                                         <td><button data-name="{{ $vehicle->make }}" data-index="{{ $key }}" data-id='{{ $vehicle->getKey() }}' id="deleteButton{{ $vehicle->getKey() }}" type="button" class="btn btn-danger btn-sm">Delete</button> </td>
                                                     </tr>
-                                                        @endforeach
+                                                        @endforeach--}}
 
                                                     </tbody>
                                                 </table>
@@ -582,190 +588,268 @@
         });
     });
 
+
+    $(document).on('submit','#formCreate',function(e){
+        e.stopPropagation()
+        e.preventDefault();
+
+        var make = $("#make").val();
+        var model = $("#model").val();
+        var year_of_purchase = $("#year_of_purchase").val();
+        var registered_number = $("#registered_number").val();
+        var colour = $("#colour").val();
+        var capacity = $("#capacity").val();
+
+        console.log(make,model,year_of_purchase,registered_number,colour,capacity);
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/vehicle/create') }}",
+            dataType: "json",
+            data: {
+                make: make,
+                model: model,
+                year_of_purchase: year_of_purchase,
+                registered_number: registered_number,
+                colour: colour,
+                capacity:capacity
+            },
+            success: function(data){
+                if(data.success){
+                    $("#modalAlert1").html(`You have successfully added the Vehicle  details.`);
+                    $("#modalAlert1").show();
+                    $("#modalAlert1").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $("#modalAlert1").alert('close');
+                        $('.form-input').val('');
+                        hideErrors();
+                    }, 600)
+
+                }
+            },
+            error: function(e){
+
+                var data = e.responseJSON;
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+
+                    case 400:
+                        var keys = Object.keys(data.errors);
+                        mainError = "Some fiedls have incorrect values";
+
+                        for(var i=0; i< keys.length; i++){
+                            var id = keys[i];
+                            var errorMsg = data.errors[id][0];
+
+                            $("#"+id).addClass("is-invalid");
+                            $("#"+id+"Error").html(errorMsg);
+                        }
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#modalAlert1").html(mainError);
+                $("#modalAlert1").removeClass('alert-success').addClass('alert-danger');
+                $("#modalAlert1").show();
+            }
+        });
+
+        $(document).on('click keyup',".form-input", function(){
+            hideErrors();
+        });
+
+        function hideErrors(){
+            $("#modalAlert1").hide();
+            $(".form-error").html("");
+            $(".form-input").removeClass("is-invalid");
+        }
+
+    });
+
     $(document).on('click','.btn-edit', function(){
         $(".bd-form-modal-lg").modal('show');
 
-         var updateId = $(this).data("id");
+        var updateId = $(this).data("id");
+        console.log(updateId);
 
-         var data = $(this).data("data");
+        var data = $(this).data("data");
 
-         $("#updateId").val(updateId);
+        $("#updateId").val(updateId);
 
-        $("#make").val(data.make);
-        $("#model").val(data.model);
-        $("#year_of_purchase").val(data.year_of_purchase);
-        $("#registered_number").val(data.registered_number);
-        $("#colour").val(data.colour);
-        $("#capacity").val(data.capacity);
+        $("#make1").val(data.make);
+        $("#model1").val(data.model);
+        $("#year_of_purchase1").val(data.year_of_purchase);
+        $("#registered_number1").val(data.registered_number);
+        $("#colour1").val(data.colour);
+        $("#capacity1").val(data.capacity);
     });
 
-    {{--$(document).on('submit', '#formModal', function(e){--}}
 
-    {{--    e.stopPropagation();--}}
-    {{--    e.preventDefault();--}}
+    $(document).on('submit','#formModal',function(e){
+        e.stopPropagation()
+        e.preventDefault();
 
-    {{--    var updateId = $("#updateId").val();--}}
+        var updateId = $("#updateId").val();
+        var make = $("#make1").val();
+        var model = $("#model1").val();
+        var year_of_purchase = $("#year_of_purchase1").val();
+        var registered_number = $("#registered_number1").val();
+        var colour = $("#colour1").val();
+        var capacity = $("#capacity1").val();
 
-    {{--    var name = $("#name").val();--}}
-    {{--    var contactNumber = $("#contactNumber").val();--}}
-    {{--    var address = $("#address").val();--}}
-    {{--    var occupation = $("#occupation").val();--}}
-    {{--    var description = $("#description").val();--}}
+        $("#modalAlert").show();
 
-    {{--    var mode = isNaN(parseInt(updateId))?"create":"update";--}}
 
-    {{--    $.ajax({--}}
-    {{--        method: "POST",--}}
-    {{--        url: "{{ url('/crud/retail_customer') }}/"+mode,--}}
-    {{--        dataType: "json",--}}
-    {{--        data: {--}}
-    {{--            name: name,--}}
-    {{--            contactNumber: contactNumber,--}}
-    {{--            address: address,--}}
-    {{--            occupation: occupation,--}}
-    {{--            description: description,--}}
-    {{--            updateId: updateId--}}
-    {{--        },--}}
-    {{--        success: function(data){--}}
-    {{--            if(data.success){--}}
-    {{--                $("#modalAlert").html(`You have successfully ${mode}d the retail customer.`);--}}
-    {{--                $("#modalAlert").show();--}}
-    {{--                $("#modalAlert").removeClass('alert-danger').addClass('alert-success');--}}
-    {{--                window.setTimeout(function(){--}}
-    {{--                    $(".bd-form-modal-lg").modal('hide');--}}
-    {{--                    $('.form-input').val('');--}}
-    {{--                    hideErrors();--}}
-    {{--                }, 600)--}}
-    {{--                if(mode=="update"){--}}
-    {{--                    var index = $("#editButton"+updateId).data("index");--}}
-    {{--                    data.customer['phone_number'] = data.customer.contactNumber;--}}
 
-    {{--                    table.row(index).data([--}}
-    {{--                        "",--}}
-    {{--                        data.customer.name,--}}
-    {{--                        data.customer.contactNumber,--}}
-    {{--                        data.customer.address,--}}
-    {{--                        data.customer.occupation.name,--}}
-    {{--                        data.customer.description,--}}
-    {{--                        `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,--}}
-    {{--                        `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`--}}
-    {{--                    ]);--}}
-    {{--                } else {--}}
-    {{--                    var index = table.count();--}}
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/vehicle/update') }}",
+            dataType: "json",
+            data: {
+                make: make,
+                model: model,
+                year_of_purchase: year_of_purchase,
+                registered_number: registered_number,
+                colour: colour,
+                capacity: capacity,
+                updateId:updateId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#modalAlert").html(`You have successfully updated the Vehicle details.`);
+                    $("#modalAlert").show();
+                    $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $("#modalAlert").alert('close');
+                        $('.form-input').val('');
+                        $(".bd-form-modal-lg").modal('hide');
+                        hideErrors();
+                    }, 600)
 
-    {{--                    table.rows.add([[--}}
-    {{--                        "",--}}
-    {{--                        data.customer.name,--}}
-    {{--                        data.customer.contactNumber,--}}
-    {{--                        data.customer.address,--}}
-    {{--                        data.customer.occupation.name,--}}
-    {{--                        data.customer.description,--}}
-    {{--                        `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,--}}
-    {{--                        `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`--}}
-    {{--                    ]]).draw();--}}
-    {{--                }--}}
-    {{--            }--}}
-    {{--        },--}}
-    {{--        error: function(e){--}}
-    {{--            var data = e.responseJSON;--}}
-    {{--            var mainError = "Something went wrong!";--}}
-    {{--            switch (e.status) {--}}
+                    var index = $("#editButton"+updateId).data("index");
+                    table.row(index).data([
+                        "",
+                        data.vehicle_finance.model,
+                        data.vehicle_finance.finance_company,
+                        data.vehicle_finance.account_number,
+                        data.vehicle_finance.monthly_payment_amount,
+                        data.vehicle_finance.payment_date,
+                        `<button data-data='${JSON.stringify(data.vehicle_finance)}' data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                        `<button  data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                    ]);
 
-    {{--                case 400:--}}
-    {{--                    var keys = Object.keys(data.errors);--}}
-    {{--                    mainError = "Some fiedls have incorrect values";--}}
+                }
+            },
+            error: function(e){
 
-    {{--                    for(var i=0; i< keys.length; i++){--}}
-    {{--                        var id = keys[i];--}}
-    {{--                        var errorMsg = data.errors[id][0];--}}
+                var data = e.responseJSON;
+                var mainError = "Something went wrong!";
+                switch (e.status) {
 
-    {{--                        $("#"+id).addClass("is-invalid");--}}
-    {{--                        $("#"+id+"Error").html(errorMsg);--}}
-    {{--                    }--}}
-    {{--                    break;--}}
-    {{--                case 500:--}}
-    {{--                    mainError = "Server error appeared";--}}
-    {{--                    break;--}}
-    {{--                default:--}}
-    {{--                    break;--}}
-    {{--            }--}}
+                    case 400:
+                        var keys = Object.keys(data.errors);
+                        mainError = "Some fiedls have incorrect values";
 
-    {{--            $("#modalAlert").html(mainError);--}}
-    {{--            $("#modalAlert").removeClass('alert-success').addClass('alert-danger');--}}
-    {{--            $("#modalAlert").show();--}}
-    {{--        }--}}
-    {{--    });--}}
+                        for(var i=0; i< keys.length; i++){
+                            var id = keys[i];
+                            console.log(id);
+                            var errorMsg = data.errors[id][0];
 
-    {{--})--}}
+                            $("#"+id+"1").addClass("is-invalid");
+                            $("#"+id+"1"+"Error").html(errorMsg);
+                        }
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
 
-    {{--$(document).on('click keyup',".form-input", function(){--}}
-    {{--    hideErrors();--}}
-    {{--});--}}
+                $("#modalAlert").html(mainError);
+                $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#modalAlert").show();
+            }
+        });
 
-    {{--function hideErrors(){--}}
-    {{--    $("#modalAlert").hide();--}}
-    {{--    $(".form-error").html("");--}}
-    {{--    $(".form-input").removeClass("is-invalid");--}}
-    {{--}--}}
+        $(document).on('click keyup',".form-input", function(){
+            hideErrors();
+        });
 
-    {{--$(document).on('click', '.btn-delete', function(){--}}
-    {{--    var deleteId = $(this).data('id');--}}
+        function hideErrors(){
+            $("#modalAlert").hide();
+            $(".form-error").html("");
+            $(".form-input").removeClass("is-invalid");
+        }
 
-    {{--    $("#deleteId").val(deleteId);--}}
+    });
 
-    {{--    var name = $(this).data("name");--}}
+    $(document).on('click', '.btn-delete', function(){
+        var deleteId = $(this).data('id');
 
-    {{--    $("#deleteCustomerName").html(name);--}}
+        $("#deleteId").val(deleteId);
 
-    {{--    $(".bd-confirmation-modal-lg").modal('show');--}}
-    {{--})--}}
+        var name = $(this).data("name");
 
-    {{--$(document).on("submit", "#confirmationModal", function(e){--}}
-    {{--    e.preventDefault();--}}
-    {{--    var deleteId = $("#deleteId").val();--}}
-    {{--    $("#confirmationAlert").hide();--}}
+        $("#deleteCustomerName").html(name);
 
-    {{--    $.ajax({--}}
-    {{--        method: "POST",--}}
-    {{--        url: "{{ url('/crud/retail_customer/delete') }}",--}}
-    {{--        dataType: "json",--}}
-    {{--        data: {--}}
-    {{--            id: deleteId--}}
-    {{--        },--}}
-    {{--        success: function(data){--}}
-    {{--            if(data.success){--}}
-    {{--                $("#confirmationAlert").html(`You have successfully deleted the retail customer.`);--}}
-    {{--                $("#confirmationAlert").show();--}}
-    {{--                $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');--}}
-    {{--                window.setTimeout(function(){--}}
-    {{--                    $(".bd-confirmation-modal-lg").modal('hide');--}}
-    {{--                }, 600);--}}
+        $(".bd-confirmation-modal-lg").modal('show');
+    })
 
-    {{--                var index = $("#deleteButton"+deleteId).data("index");--}}
+    $(document).on("submit", "#confirmationModal", function(e){
+        e.preventDefault();
+        var deleteId = $("#deleteId").val();
+        $("#confirmationAlert").hide();
 
-    {{--                table.row(index).remove().draw();--}}
-    {{--            }--}}
-    {{--        },--}}
-    {{--        error: function(e){--}}
-    {{--            var mainError = "Something went wrong!";--}}
-    {{--            switch (e.status) {--}}
-    {{--                case 400:--}}
-    {{--                    mainError = "Invalid request";--}}
-    {{--                    break;--}}
-    {{--                case 500:--}}
-    {{--                    mainError = "Server error appeared";--}}
-    {{--                    break;--}}
-    {{--                default:--}}
-    {{--                    break;--}}
-    {{--            }--}}
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/vehicle_finance/delete') }}",
+            dataType: "json",
+            data: {
+                id: deleteId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#confirmationAlert").html(`You have successfully deleted the finance details.`);
+                    $("#confirmationAlert").show();
+                    $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-confirmation-modal-lg").modal('hide');
+                    }, 600);
 
-    {{--            $("#confirmationAlert").html(mainError);--}}
-    {{--            $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');--}}
-    {{--            $("#confirmationAlert").show();--}}
-    {{--            $("#deleteButton").html("Try Again");--}}
-    {{--        }--}}
-    {{--    });--}}
-    {{--})--}}
+                    var index = $("#deleteButton"+deleteId).data("index");
+
+                    table.row(index).remove().draw();
+                }
+            },
+            error: function(e){
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+                    case 400:
+                        mainError = "Invalid request";
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#confirmationAlert").html(mainError);
+                $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#confirmationAlert").show();
+                $("#deleteButton").html("Try Again");
+            }
+        });
+    })
+
+
+
+
 </script>
 
 

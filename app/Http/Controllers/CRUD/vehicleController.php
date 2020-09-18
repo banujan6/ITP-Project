@@ -1,61 +1,153 @@
 <?php
-
-namespace App\Http\Controllers;
-
-use App\Models\vehicle;
-use Illuminate\Http\Request;
-
-class vehicleController extends Controller
-{
-    public function index()
-    {
-        if (request('eager')) {
-            $vehicles = vehicle::with('vehicle_finance')->get();
-        } else {
-            $vehicles = vehicle::all();
-        }
-        return view('vehicles.index', compact('vehicles'));
-    }
-
-    public function create()
-    {
-        //return view('vehicles.create');
-    }
-
-    /*public function store(Request $request, $vehicle_finance)
-    {
-        $vehicles = vehicle::create($request->only(['make','model','year_of_purchase','registered_number','colour','capacity']));
-        $vehicles = new vehicle();
-        $vehicle_finance -> model = $request->get('model');
-        $vehicle_finance->finance_company = $request->get('finance_company');
-        $vehicle_finance->account_number = $request->get('account_number');
-        $vehicle_finance->monthly_payment_amount = $request->get('monthly_payment_amount');
-        $vehicle_finance->payment_date = $request->get('payment_date');
-        $vehicles->vehicle_finance()->save($vehicle_finance);
-        return redirect()->route('views/vehicle-management');
-    }*/
-
-    public function delete(Request $request)
-    {
-        $id = $request->input("id");
-
-        if (empty($id)) {
-            return abort(400);
-        }
-
-        $vehicle = vehicle::with("vehicle_finance")->find($id);
-
-        if (empty($vehicle)) {
-            return abort(404);
-        }
-
-        $vehicle->delete();
-
-        return [
-            "success" => true
-        ];
-    }
-
-
-
-}
+//
+//namespace App\Http\Controllers;
+//
+//use App\Models\vehicle;
+//use App\Models\vehicle_finance;
+//use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Response;
+//use Illuminate\Support\Facades\Validator;
+//
+//
+//class vehicleController extends Controller
+//{
+//    public function index()
+//    {
+////        if (request('eager')) {
+////            $vehicles = vehicle::with('vehicle_finance')->get();
+////        } else {
+////            $vehicles = vehicle::all();
+////        }
+////        return view('vehicles.index', compact('vehicles'));
+//
+//        $vehicle_finances = Vehicle_finance::all();
+//        return view('vehicle-management',[
+//            "vehicle-management" => $vehicle_finances
+//        ]);
+//    }
+//
+//
+//    public function update(Request $request){
+//        $id= $request->input("updateId");
+//
+//        if(empty($id)){
+//            return abort(400);
+//        }
+//
+//        $vehicle = Vehicle::find($id);
+//
+//        $validator = Validator::make($request->all(), [
+//            'make' => 'required',
+//            'model' => 'required',
+//            'year_of_purchase'=> 'required',
+//            'registered_number'=> 'required',
+//            'colour'=> 'required',
+//            'capacity'=> 'required'
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return Response::json([
+//                'success'=> false,
+//                'errors'=> $validator->errors()
+//            ],400);
+//        }
+//
+//        $vehicle->update([
+//            "make"=> $request->input("make"),
+//            "model"=> $request->input("model"),
+//            "year_of_purchase"=> $request->input("year_of_purchase"),
+//            "registered_number"=> $request->input("registered_number"),
+//            "colour"=> $request->input("colour"),
+//            "capacity"=> $request->input("capacity")
+//
+//        ]);
+//
+//        return [
+//            'success'=> true,
+//            "vehicle_finance"=> [
+//                "id"=> $vehicle->getKey(),
+//                "make"=> $vehicle->make,
+//                "model"=> $vehicle->model,
+//                "year_of_purchase"=> $vehicle->year_of_purchase,
+//                "registered_number"=> $vehicle->registered_number,
+//                "colour"=> $vehicle->colour,
+//                "capacity"=> $vehicle->capacity,
+//            ]
+//        ];
+//    }
+//
+//
+//    public function create(Request $request){
+//
+//        $validator = Validator::make($request->all(), [
+//            'make' => 'required',
+//            'model' => 'required',
+//            'year_of_purchase'=> 'required',
+//            'registered_number'=> 'required',
+//            'colour'=> 'required',
+//            'capacity'=> 'required',
+//
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return Response::json([
+//                'success'=> false,
+//                'errors'=> $validator->errors()
+//            ],400);
+//        }
+//
+//        $vehicle = Vehicle::create([
+//            "make"=> $request->input("make"),
+//            "model"=> $request->input("model"),
+//            "year_of_purchase"=> $request->input("year_of_purchase"),
+//            "registered_number"=> $request->input("registered_number"),
+//            "colour"=> $request->input("colour"),
+//            "capacity"=> $request->input("capacity")
+//        ]);
+//
+////       $vehicle_finance = vehicle_finance::$id;
+//
+//        return [
+//            'success'=> true,
+//            "vehicle_finance"=> [
+//                "id"=> $vehicle->getKey(),
+//                "make"=> $vehicle->make,
+//                "model"=> $vehicle->model,
+//                "year_of_purchase"=> $vehicle->year_of_purchase,
+//                "registered_number"=> $vehicle->registered_number,
+//                "colour"=> $vehicle->colour,
+//                "capacity"=> $vehicle->capacity
+//
+//            ]
+//
+//        ];
+//    }
+//
+//
+//
+//
+//
+//    public function delete(Request $request)
+//    {
+//        $id = $request->input("id");
+//
+//        if (empty($id)) {
+//            return abort(400);
+//        }
+//
+//        $vehicle= vehicle::$id;
+//
+//        if (empty($vehicle)) {
+//            return abort(404);
+//        }
+//
+//        $vehicle->delete();
+//
+//        return [
+//            "success" => true
+//        ];
+//    }
+//
+//
+//
+//}

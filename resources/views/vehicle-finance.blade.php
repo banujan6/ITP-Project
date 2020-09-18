@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
@@ -246,7 +247,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs nav-justified" role="tablist">
                         <li class="nav-item"> <a class="nav-link active font-weight-bold" data-toggle="tab" href="#add-vehicle" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Add Vehicle Finance Info</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link font-weight-bold" data-toggle="tab" href="#view-vehicle" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Vehicle Finance Report</span></a> </li>
+                        <li class="nav-item" id="reload"> <a class="nav-link font-weight-bold" data-toggle="tab" href="#view-vehicle" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Vehicle Finance Report</span></a> </li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content tabcontent-border">
@@ -258,7 +259,10 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal" id="formCreate">
+
+                                                    <div class="col-12 alert" role="alert" id="modalAlert1" style="display:none;">
+                                                    </div>
 
                                                     <div class="col-12">
                                                         <hr>
@@ -266,41 +270,46 @@
                                                         <hr>
 
                                                         <div class="form-group row">
-                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                            <label for="model" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" id="accountNo" placeholder="Enter Vehicle model">
+                                                                <input type="text" class="form-control form-input" id="model" placeholder="Enter Vehicle model">
+                                                                <span id="modelError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
-                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Finance Company</label>
+                                                            <label for="finance_company" class="col-sm-3 text-left control-label col-form-label">Finance Company</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" id="accountNo" placeholder="Finance Company Name">
+                                                                <input type="text" class="form-control form-input" id="finance_company" placeholder="Finance Company Name">
+                                                                <span id="finance_companyError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
-                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Account Number</label>
+                                                            <label for="account_number" class="col-sm-3 text-left control-label col-form-label">Account Number</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" id="accountNo" placeholder="Account Number Here">
+                                                                <input type="text" class="form-control form-input" id="account_number" placeholder="Account Number Here">
+                                                                <span id="account_numberError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
-                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Monthly Payment Amount</label>
+                                                            <label for="monthly_payment_amount" class="col-sm-3 text-left control-label col-form-label">Monthly Payment Amount</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control" id="payment" placeholder="XXX XXXX">
+                                                                <input type="text" class="form-control form-input" id="monthly_payment_amount" placeholder="XXX XXXX">
+                                                                <span id="monthly_payment_amountError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="fname" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
+                                                            <label for="payment_date" class="col-sm-3 text-left control-label col-form-label">Date</label>
                                                             <div class="col-sm-9">
-                                                                <input type="Date" class="form-control" id="PDate" placeholder="Payment Date Here">
+                                                                <input type="Date" class="form-control form-input" id="payment_date" placeholder="Payment Date Here">
+                                                                <span id="payment_dateError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
                                                         <div class="border-top">
                                                             <div class="card-body float-right">
-                                                                <button type="button" class="btn btn-primary">Submit</button>
+                                                                <button type="submit" class="btn btn-primary btn-submit">Submit</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,6 +329,35 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="card-body">
+                                                <div class="modal fade bd-confirmation-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title font-weight-bold" id="confirmationModalLabel">Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="card mb-0">
+                                                                    <form id="confirmationModal" class="form-horizontal">
+                                                                        <div class="form-group row">
+                                                                            <span class="alert col-12" role="alert" style="display:none" id="confirmationAlert"></span>
+                                                                        </div>
+                                                                        <div>NOTICE: You are going to delete the  the "<b id="deleteModel"></b>". </div>
+                                                                        <div class="card-body float-right">
+                                                                            <input type="hidden" name="delete_id" id="deleteId"/>
+                                                                            <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
+                                                                            <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
@@ -335,39 +373,45 @@
                                                                     <div class="card-body p-1">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <input type="hidden" id="ptype" name="payment_type" value="cash">
-
-
+                                                                                <input type="hidden" id="updateId" name="update" />
+                                                                                <div class="col-12 alert" role="alert" id="modalAlert" style="display:none;">
+                                                                                </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="price" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                                                    <label for="model1" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="price" placeholder="Enter vehicle model">
+                                                                                        <input type="text" class="form-control form-input" id="model1" placeholder="Enter vehicle model">
+                                                                                        <span id="model1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="invoiceNo" class="col-sm-3 text-left control-label col-form-label">Finance Company</label>
+                                                                                    <label for="finance_company1" class="col-sm-3 text-left control-label col-form-label">Finance Company</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control" id="invoiceNo" placeholder="Enter Finance company name">
+                                                                                        <input type="text" class="form-control form-input" id="finance_company1" placeholder="Enter Finance company name">
+                                                                                        <span id="finance_company1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="quantity" class="col-sm-3 text-left control-label col-form-label">Account Number</label>
+                                                                                    <label for="account_number1" class="col-sm-3 text-left control-label col-form-label">Account Number</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="quantity" placeholder="xxxxxxxx">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group row">
-                                                                                    <label for="cash" class="col-sm-3 text-left control-label col-form-label">Monthly Payment Amount</label>
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="cash" placeholder="Enter payment amount">
+                                                                                        <input type="number" class="form-control form-input" id="account_number1" placeholder="xxxxxxxx">
+                                                                                        <span id="account_number1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="form-group row">
-                                                                                    <label for="date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
+                                                                                    <label for="monthly_payment_amount1" class="col-sm-3 text-left control-label col-form-label">Monthly Payment Amount</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="Date" class="form-control" id="date" placeholder="Enter payment Date Here">
+                                                                                        <input type="number" class="form-control form-input" id="monthly_payment_amount1" placeholder="Enter payment amount">
+                                                                                        <span id="monthly_payment_amount1Error" class="text-danger form-error" ></span>
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="payment_date1" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="Date" class="form-control form-input" id="payment_date1" placeholder="Enter payment Date Here">
+                                                                                        <span id="payment_date1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
 
@@ -413,18 +457,18 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                 @foreach($vehicle_finances as $key => $vehicle_finance)
                                                     <tr>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><button type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-form-modal-lg">Edit</button></td>
-                                                        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                                                        <td>{{$vehicle_finance->model}}</td>
+                                                        <td>{{$vehicle_finance->finance_company}}</td>
+                                                        <td>{{$vehicle_finance->account_number}}</td>
+                                                        <td>{{$vehicle_finance->monthly_payment_amount}}</td>
+                                                        <td>{{$vehicle_finance->payment_date}}</td>
+                                                        <td><button data-data="{{  $vehicle_finance }}" data-index="{{ $key }}" data-id='{{ $vehicle_finance->getKey() }}' id="editButton{{ $vehicle_finance->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
+                                                        <td><button data-index="{{ $key }}" data-id='{{ $vehicle_finance->getKey() }}' id="deleteButton{{ $vehicle_finance->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                     </tr>
-
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -453,9 +497,9 @@
 <!-- Bootstrap tether Core JavaScript -->
 <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- slimscrollbar scrollbar JavaScript - ->
+<!-- slimscrollbar scrollbar JavaScript -->
 <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<!-- Wave Effects -->
+<!--Wave Effects -->
 <script src="../../dist/js/waves.js"></script>
 <!--Menu sidebar -->
 <script src="../../dist/js/sidebarmenu.js"></script>
@@ -564,189 +608,264 @@
         });
     });
 
-    $(document).on('click','.btn-edit', function(){
-        $(".bd-form-modal-lg").modal('show');
-        //
-        // var updateId = $(this).data("id");
-        //
-        // var data = $(this).data("data");
-        //
-        // $("#updateId").val(updateId);
-        //
-        // $("#name").val(data.name);
-        // $("#contactNumber").val(data.phone_number);
-        // $("#address").val(data.address);
-        // $("#occupation").val(data.occupation.id);
-        // $("#description").val(data.description);
+
+
+
+    $(document).on('submit','#formCreate',function(e){
+        e.stopPropagation()
+        e.preventDefault();
+
+        var model = $("#model").val();
+        var finance_company = $("#finance_company").val();
+        var account_number = $("#account_number").val();
+        var monthly_payment_amount = $("#monthly_payment_amount").val();
+        var payment_date = $("#payment_date").val();
+
+        console.log(model,finance_company,account_number,monthly_payment_amount,payment_date);
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/vehicle_finance/create') }}",
+            dataType: "json",
+            data: {
+                model: model,
+                finance_company: finance_company,
+                account_number: account_number,
+                monthly_payment_amount: monthly_payment_amount,
+                 payment_date: payment_date
+            },
+            success: function(data){
+                if(data.success){
+                    $("#modalAlert1").html(`You have successfully added the finance details.`);
+                    $("#modalAlert1").show();
+                    $("#modalAlert1").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $("#modalAlert1").alert('close');
+                        location.reload();
+                        $('.form-input').val('');
+                        hideErrors();
+                    }, 600)
+
+                }
+            },
+            error: function(e){
+
+                var data = e.responseJSON;
+                    var mainError = "Something went wrong!";
+                    switch (e.status) {
+
+                        case 400:
+                            var keys = Object.keys(data.errors);
+                            mainError = "Some fiedls have incorrect values";
+
+                            for(var i=0; i< keys.length; i++){
+                                var id = keys[i];
+                                var errorMsg = data.errors[id][0];
+
+                                $("#"+id).addClass("is-invalid");
+                                $("#"+id+"Error").html(errorMsg);
+                            }
+                            break;
+                        case 500:
+                            mainError = "Server error appeared";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    $("#modalAlert1").html(mainError);
+                    $("#modalAlert1").removeClass('alert-success').addClass('alert-danger');
+                    $("#modalAlert1").show();
+                }
+            });
+
+        $(document).on('click keyup',".form-input", function(){
+            hideErrors();
+        });
+
+        function hideErrors(){
+            $("#modalAlert1").hide();
+            $(".form-error").html("");
+            $(".form-input").removeClass("is-invalid");
+        }
+
     });
 
-    {{--$(document).on('submit', '#formModal', function(e){--}}
+   $(document).on('click','.btn-edit', function(){
+        $(".bd-form-modal-lg").modal('show');
 
-    {{--    e.stopPropagation();--}}
-    {{--    e.preventDefault();--}}
+        var updateId = $(this).data("id");
+        console.log(updateId);
 
-    {{--    var updateId = $("#updateId").val();--}}
+        var data = $(this).data("data");
 
-    {{--    var name = $("#name").val();--}}
-    {{--    var contactNumber = $("#contactNumber").val();--}}
-    {{--    var address = $("#address").val();--}}
-    {{--    var occupation = $("#occupation").val();--}}
-    {{--    var description = $("#description").val();--}}
+        $("#updateId").val(updateId);
 
-    {{--    var mode = isNaN(parseInt(updateId))?"create":"update";--}}
+        $("#model1").val(data.model);
+        $("#finance_company1").val(data.finance_company);
+        $("#account_number1").val(data.account_number);
+        $("#monthly_payment_amount1").val(data.monthly_payment_amount);
+        $("#payment_date1").val(data.payment_date);
+    });
 
-    {{--    $.ajax({--}}
-    {{--        method: "POST",--}}
-    {{--        url: "{{ url('/crud/retail_customer') }}/"+mode,--}}
-    {{--        dataType: "json",--}}
-    {{--        data: {--}}
-    {{--            name: name,--}}
-    {{--            contactNumber: contactNumber,--}}
-    {{--            address: address,--}}
-    {{--            occupation: occupation,--}}
-    {{--            description: description,--}}
-    {{--            updateId: updateId--}}
-    {{--        },--}}
-    {{--        success: function(data){--}}
-    {{--            if(data.success){--}}
-    {{--                $("#modalAlert").html(`You have successfully ${mode}d the retail customer.`);--}}
-    {{--                $("#modalAlert").show();--}}
-    {{--                $("#modalAlert").removeClass('alert-danger').addClass('alert-success');--}}
-    {{--                window.setTimeout(function(){--}}
-    {{--                    $(".bd-form-modal-lg").modal('hide');--}}
-    {{--                    $('.form-input').val('');--}}
-    {{--                    hideErrors();--}}
-    {{--                }, 600)--}}
-    {{--                if(mode=="update"){--}}
-    {{--                    var index = $("#editButton"+updateId).data("index");--}}
-    {{--                    data.customer['phone_number'] = data.customer.contactNumber;--}}
 
-    {{--                    table.row(index).data([--}}
-    {{--                        "",--}}
-    {{--                        data.customer.name,--}}
-    {{--                        data.customer.contactNumber,--}}
-    {{--                        data.customer.address,--}}
-    {{--                        data.customer.occupation.name,--}}
-    {{--                        data.customer.description,--}}
-    {{--                        `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,--}}
-    {{--                        `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`--}}
-    {{--                    ]);--}}
-    {{--                } else {--}}
-    {{--                    var index = table.count();--}}
+    $(document).on('submit','#formModal',function(e){
+        e.stopPropagation()
+        e.preventDefault();
 
-    {{--                    table.rows.add([[--}}
-    {{--                        "",--}}
-    {{--                        data.customer.name,--}}
-    {{--                        data.customer.contactNumber,--}}
-    {{--                        data.customer.address,--}}
-    {{--                        data.customer.occupation.name,--}}
-    {{--                        data.customer.description,--}}
-    {{--                        `<button data-data='${JSON.stringify(data.customer)}' data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,--}}
-    {{--                        `<button data-index="${index}" data-id="${data.customer.id}" id="editButton${data.customer.id}" type="button" class="btn btn-danger btn-sm">Delete</button>`--}}
-    {{--                    ]]).draw();--}}
-    {{--                }--}}
-    {{--            }--}}
-    {{--        },--}}
-    {{--        error: function(e){--}}
-    {{--            var data = e.responseJSON;--}}
-    {{--            var mainError = "Something went wrong!";--}}
-    {{--            switch (e.status) {--}}
+        var updateId = $("#updateId").val();
+        var model = $("#model1").val();
+        var finance_company = $("#finance_company1").val();
+        var account_number = $("#account_number1").val();
+        var monthly_payment_amount = $("#monthly_payment_amount1").val();
+        var payment_date = $("#payment_date1").val();
 
-    {{--                case 400:--}}
-    {{--                    var keys = Object.keys(data.errors);--}}
-    {{--                    mainError = "Some fiedls have incorrect values";--}}
+        $("#modalAlert").show();
 
-    {{--                    for(var i=0; i< keys.length; i++){--}}
-    {{--                        var id = keys[i];--}}
-    {{--                        var errorMsg = data.errors[id][0];--}}
 
-    {{--                        $("#"+id).addClass("is-invalid");--}}
-    {{--                        $("#"+id+"Error").html(errorMsg);--}}
-    {{--                    }--}}
-    {{--                    break;--}}
-    {{--                case 500:--}}
-    {{--                    mainError = "Server error appeared";--}}
-    {{--                    break;--}}
-    {{--                default:--}}
-    {{--                    break;--}}
-    {{--            }--}}
 
-    {{--            $("#modalAlert").html(mainError);--}}
-    {{--            $("#modalAlert").removeClass('alert-success').addClass('alert-danger');--}}
-    {{--            $("#modalAlert").show();--}}
-    {{--        }--}}
-    {{--    });--}}
+    $.ajax({
+        method: "POST",
+        url: "{{ url('/crud/vehicle_finance/update') }}",
+        dataType: "json",
+        data: {
+            model: model,
+            finance_company: finance_company,
+            account_number: account_number,
+            monthly_payment_amount: monthly_payment_amount,
+            payment_date: payment_date,
+            updateId:updateId
+        },
+        success: function(data){
+            if(data.success){
+                $("#modalAlert").html(`You have successfully updated the finance details.`);
+                $("#modalAlert").show();
+                $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
+                window.setTimeout(function(){
+                    $("#modalAlert").alert('close');
+                    $('.form-input').val('');
+                    $(".bd-form-modal-lg").modal('hide');
+                    hideErrors();
+                }, 600)
 
-    {{--})--}}
+                var index = $("#editButton"+updateId).data("index");
+                table.row(index).data([
+                    "",
+                    data.vehicle_finance.model,
+                    data.vehicle_finance.finance_company,
+                    data.vehicle_finance.account_number,
+                    data.vehicle_finance.monthly_payment_amount,
+                    data.vehicle_finance.payment_date,
+                    `<button data-data='${JSON.stringify(data.vehicle_finance)}' data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                    `<button  data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                ]);
 
-    {{--$(document).on('click keyup',".form-input", function(){--}}
-    {{--    hideErrors();--}}
-    {{--});--}}
+            }
+        },
+        error: function(e){
 
-    {{--function hideErrors(){--}}
-    {{--    $("#modalAlert").hide();--}}
-    {{--    $(".form-error").html("");--}}
-    {{--    $(".form-input").removeClass("is-invalid");--}}
-    {{--}--}}
+            var data = e.responseJSON;
+            var mainError = "Something went wrong!";
+            switch (e.status) {
 
-    {{--$(document).on('click', '.btn-delete', function(){--}}
-    {{--    var deleteId = $(this).data('id');--}}
+                case 400:
+                    var keys = Object.keys(data.errors);
+                    mainError = "Some fiedls have incorrect values";
 
-    {{--    $("#deleteId").val(deleteId);--}}
+                    for(var i=0; i< keys.length; i++){
+                        var id = keys[i];
+                        console.log(id);
+                        var errorMsg = data.errors[id][0];
 
-    {{--    var name = $(this).data("name");--}}
+                        $("#"+id+"1").addClass("is-invalid");
+                        $("#"+id+"1"+"Error").html(errorMsg);
+                    }
+                    break;
+                case 500:
+                    mainError = "Server error appeared";
+                    break;
+                default:
+                    break;
+            }
 
-    {{--    $("#deleteCustomerName").html(name);--}}
+            $("#modalAlert").html(mainError);
+            $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
+            $("#modalAlert").show();
+        }
+    });
 
-    {{--    $(".bd-confirmation-modal-lg").modal('show');--}}
-    {{--})--}}
+    $(document).on('click keyup',".form-input", function(){
+        hideErrors();
+    });
 
-    {{--$(document).on("submit", "#confirmationModal", function(e){--}}
-    {{--    e.preventDefault();--}}
-    {{--    var deleteId = $("#deleteId").val();--}}
-    {{--    $("#confirmationAlert").hide();--}}
+    function hideErrors(){
+        $("#modalAlert").hide();
+        $(".form-error").html("");
+        $(".form-input").removeClass("is-invalid");
+    }
 
-    {{--    $.ajax({--}}
-    {{--        method: "POST",--}}
-    {{--        url: "{{ url('/crud/retail_customer/delete') }}",--}}
-    {{--        dataType: "json",--}}
-    {{--        data: {--}}
-    {{--            id: deleteId--}}
-    {{--        },--}}
-    {{--        success: function(data){--}}
-    {{--            if(data.success){--}}
-    {{--                $("#confirmationAlert").html(`You have successfully deleted the retail customer.`);--}}
-    {{--                $("#confirmationAlert").show();--}}
-    {{--                $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');--}}
-    {{--                window.setTimeout(function(){--}}
-    {{--                    $(".bd-confirmation-modal-lg").modal('hide');--}}
-    {{--                }, 600);--}}
+    });
 
-    {{--                var index = $("#deleteButton"+deleteId).data("index");--}}
+    $(document).on('click', '.btn-delete', function(){
+        var deleteId = $(this).data('id');
 
-    {{--                table.row(index).remove().draw();--}}
-    {{--            }--}}
-    {{--        },--}}
-    {{--        error: function(e){--}}
-    {{--            var mainError = "Something went wrong!";--}}
-    {{--            switch (e.status) {--}}
-    {{--                case 400:--}}
-    {{--                    mainError = "Invalid request";--}}
-    {{--                    break;--}}
-    {{--                case 500:--}}
-    {{--                    mainError = "Server error appeared";--}}
-    {{--                    break;--}}
-    {{--                default:--}}
-    {{--                    break;--}}
-    {{--            }--}}
+        $("#deleteId").val(deleteId);
 
-    {{--            $("#confirmationAlert").html(mainError);--}}
-    {{--            $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');--}}
-    {{--            $("#confirmationAlert").show();--}}
-    {{--            $("#deleteButton").html("Try Again");--}}
-    {{--        }--}}
-    {{--    });--}}
-    {{--})--}}
+        var name = $(this).data("name");
+
+        $("#deleteCustomerName").html(name);
+
+        $(".bd-confirmation-modal-lg").modal('show');
+    })
+
+    $(document).on("submit", "#confirmationModal", function(e){
+        e.preventDefault();
+        var deleteId = $("#deleteId").val();
+        $("#confirmationAlert").hide();
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/vehicle_finance/delete') }}",
+            dataType: "json",
+            data: {
+                id: deleteId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#confirmationAlert").html(`You have successfully deleted the finance details.`);
+                    $("#confirmationAlert").show();
+                    $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-confirmation-modal-lg").modal('hide');
+                    }, 600);
+
+                    var index = $("#deleteButton"+deleteId).data("index");
+
+                    table.row(index).remove().draw();
+                }
+            },
+            error: function(e){
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+                    case 400:
+                        mainError = "Invalid request";
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#confirmationAlert").html(mainError);
+                $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#confirmationAlert").show();
+                $("#deleteButton").html("Try Again");
+            }
+        });
+    })
+
+
 </script>
 
 
