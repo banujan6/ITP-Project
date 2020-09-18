@@ -26,7 +26,7 @@ class WholesaleCustomerController extends Controller
             return abort(400);
         }
 
-        $customer = WholesaleCustomer::$id;
+        $customer = WholesaleCustomer::find($id);
 
         if(empty($customer)){
             return abort(404);
@@ -123,7 +123,7 @@ class WholesaleCustomerController extends Controller
             return abort(400);
         }
 
-        $customer = WholesaleCustomer::$id;
+        $customer = WholesaleCustomer::find($id);
 
         if(empty($customer)){
             return abort(404);
