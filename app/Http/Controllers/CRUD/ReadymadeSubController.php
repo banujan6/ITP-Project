@@ -9,6 +9,7 @@ use App\Models\ReadymadeSub;
 use App\Models\Colour;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ReadymadeSubController extends Controller
 {
@@ -49,7 +50,7 @@ class ReadymadeSubController extends Controller
             'initialStock' => 'required',
             'retailPrice'=> 'required',
             'wholeSalePrice'=> 'required',
-            'mainId'=>'required'
+            'mainId'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +69,8 @@ class ReadymadeSubController extends Controller
             "retail_price"=> $request->input("retailPrice"),
             "whole_sale_price"=> $request->input("wholeSalePrice"),
             //"available_size"=> $request->input("size"),
-            "description"=> $request->input("description")
+            "description"=> $request->input("description"),
+            'image'=> $request->input('image')
         ]);
 
         return [
@@ -186,6 +188,29 @@ class ReadymadeSubController extends Controller
             "success"=> true,
             //app()->call('App\Http\Controllers\CRUD\ReadymadeSubController@index')
         ];
+    }
+
+    public function fileUpload(Request $request){
+
+        if($request->hasFile('file')) {
+
+            $image       = $request->file('file');
+            $filename = time().".jpg";
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(300, 300);
+            $image_resize->save(storage_path('app/public/images/readyMade/' .$filename));
+
+            return [
+                "success"=> true,
+                "filename"=> $filename
+            ];
+
+        } else {
+            return [
+                "success"=> false,
+            ];
+        }
     }
 
 
