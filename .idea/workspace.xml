@@ -19,9 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41dd3fb6-75c2-43fb-a418-36b9b5680b3e" name="Default Changelist" comment="added wholesale customer to project">
+    <list default="true" id="41dd3fb6-75c2-43fb-a418-36b9b5680b3e" name="Default Changelist" comment="corrected delete function">
+      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CRUD/WholesaleCustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CRUD/WholesaleCustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +141,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
     </include_path>
   </component>
   <component name="ProjectId" id="1goDpdKhBRbld1scvEugprpMLoG" />
@@ -162,11 +168,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project" />
       <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project\resources\views" />
       <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project\database\seeds" />
       <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project\database\migrations" />
       <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project\app\Providers" />
-      <recent name="C:\Users\HP\Desktop\hp core i7 Desktop files 11 Feb 2021\itp project\ITP-Project\app\Http\Controllers\CRUD" />
     </key>
   </component>
   <component name="RunManager">
@@ -191,7 +197,8 @@
       <workItem from="1599295820613" duration="2467000" />
       <workItem from="1599578009587" duration="677000" />
       <workItem from="1600367742365" duration="1003000" />
-      <workItem from="1600434885223" duration="295000" />
+      <workItem from="1600434885223" duration="2272000" />
+      <workItem from="1600440201981" duration="3017000" />
     </task>
     <task id="LOCAL-00001" summary="added wholesale customer to project">
       <created>1600368050038</created>
@@ -200,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600368050038</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="corrected delete function">
+      <created>1600435222334</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1600435222334</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,16 +234,26 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added wholesale customer to project" />
-    <option name="LAST_COMMIT_MESSAGE" value="added wholesale customer to project" />
+    <MESSAGE value="corrected delete function" />
+    <option name="LAST_COMMIT_MESSAGE" value="corrected delete function" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1736" y="68" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600367929064">
       <screen x="1366" y="-170" width="1280" height="984" />
     </state>
     <state x="1736" y="68" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/1366.-170.1280.984@1366.-170.1280.984" timestamp="1600367929064" />
-    <state x="1598" y="54" key="Vcs.Push.Dialog.v2" timestamp="1600368064304">
-      <screen x="1366" y="-170" width="1280" height="984" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1600440264486">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728/1366.-170.1280.984@0.0.1366.728" timestamp="1600440264486" />
+    <state x="248" y="166" key="Vcs.Push.Dialog.v2" timestamp="1600435231907">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="1598" y="54" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-170.1280.984@1366.-170.1280.984" timestamp="1600368064304" />
+    <state x="248" y="166" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1600435231907" />
+    <state x="500" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600435189850">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="500" y="277" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1600435189850" />
   </component>
 </project>
