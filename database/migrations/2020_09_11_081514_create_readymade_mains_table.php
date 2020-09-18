@@ -29,6 +29,6 @@ class CreateReadymadeMainsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('readymade_mains');
+        Schema::dropIfExists('readymade_main');
     }
 }

@@ -22,8 +22,6 @@ class CreateTableRetailCustomer extends Migration
 
             $table->unsignedBigInteger('occupation_id');
 
-            $table->foreign('occupation_id')->references('id')->on('occupation');
-             
             $table->timestamps();
         });
     }
@@ -35,6 +33,6 @@ class CreateTableRetailCustomer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_retail_customer');
+        Schema::dropIfExists('retail_customer');
     }
 }

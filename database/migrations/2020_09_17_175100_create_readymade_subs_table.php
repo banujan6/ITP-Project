@@ -44,6 +44,6 @@ class CreateReadymadeSubsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('readymade_subs');
+        Schema::dropIfExists('readymade_sub');
     }
 }
