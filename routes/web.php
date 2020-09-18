@@ -51,9 +51,11 @@ Route::post('/crud/wholesale/create', 'CRUD\WholesaleCustomerController@create')
 Route::post('/crud/wholesale/delete', 'CRUD\WholesaleCustomerController@delete');
 
 Route::get('/employee','EmployeeBasicController@index');
-Route::post('/employee/update','EmployeeController@update');
+//Route::post('/employee/update','EmployeeController@update');
 Route::post('/employee/create','EmployeeBasicController@create');
-Route::post('/employee/delete','EmployeeController@delete');
+//Route::post('/employee/delete','EmployeeController@delete');
+
+
 
 
 
