@@ -31,7 +31,7 @@ class ReadymadeSub extends Model
     }
 
     public function productSizes(){
-        return $this->hasMany(Size::class,"id","product_id");
+        return $this->hasMany(ProductSize::class,"product_id","id");
     }
 
 //    public function colours(){

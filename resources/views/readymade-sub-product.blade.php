@@ -283,7 +283,7 @@
                                 @foreach($product as $sub)
                                     {{--                                            <input type="hidden" name="navigate_id" id="navigateId"/>--}}
                                     {{--                                                <input type="hidden" name="subId" id="subId" value="{{ $sub -> getKey() }}">--}}
-                                    <button data-id='{{ $sub->getKey() }}' onclick="window.location.href='/crud/readymade_sub/view'" class="btn btn" style="background:{{ $sub -> colour_id }}"></button>
+                                    <button data-id='{{ $sub->getKey() }}' onclick="window.location.href='/crud/readymade_sub/view/{{ $sub->getKey() }}'" class="btn btn" style="background:{{ $sub -> colour_id }}"></button>
                                 @endforeach
 
                             </div>

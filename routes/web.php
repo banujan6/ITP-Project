@@ -24,7 +24,7 @@ Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@creat
 Route::post('/crud/retail_customer/delete', 'CRUD\RetailCustomerController@delete');
 
 Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index');
-Route::get('/crud/readymade_sub/view', 'CRUD\ReadymadeSubController@indexView');
+Route::get('/crud/readymade_sub/view/{subId}', 'CRUD\ReadymadeSubController@indexView');
 Route::post('/crud/ready_made_sub/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
 Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');

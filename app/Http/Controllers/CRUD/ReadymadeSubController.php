@@ -117,20 +117,14 @@ class ReadymadeSubController extends Controller
                 "size"=> $productSizes->map(function($productSize){
                     return $productSize->size->getKey();
                 })
-//                "mainId"=> [
-//                    "id"=> $readymadeSub->main->getKey()
-//              ]
-//
-//
             ]
         ];
 
     }//create
 
-    public function indexView(){
+    public function indexView(Request $request, $subId){
 
-        $subId = 1;
-        $readymade_Sub = ReadymadeSub::get()->where('id','=',$subId);
+        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'])->where('id','=',$subId)->get();
 
         return view("readymade-sub-product-view",[
             "products"=> $readymade_Sub,
