@@ -351,25 +351,14 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 m-t-15">Sizes Available</label>
                                                     <div class="col-md-9">
-                                                        <select class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
-                                                            <optgroup label="Kids">
-                                                                <option value="Kids-SM">Kids-SM</option>
-                                                                <option value="Kids-MD">Kids-MD</option>
-                                                                <option value="Kids-L">Kids-L</option>
-                                                                <option value="Kids-XL">Kids-XL</option>
+                                                        <select name="size[]" class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
+                                                            @foreach($sizesCategories as $catName=> $sizes)
+                                                            <optgroup label="{{$catName}}">
+                                                                @foreach($sizes as $size)
+                                                                <option value="{{ $size->getKey() }}">{{$size->size}}</option>
+                                                                @endForeach
                                                             </optgroup>
-                                                            <optgroup label="Mens">
-                                                                <option value="Mens-SM">Mens-SM</option>
-                                                                <option value="Mens-MD">Mens-MD</option>
-                                                                <option value="Mens-L">Mens-L</option>
-                                                                <option value="Mens-XL">Mens-XL</option>
-                                                            </optgroup>
-                                                            <optgroup label="Ladies">
-                                                                <option value="Ladies-SM">Ladies-SM</option>
-                                                                <option value="Ladies-MD">Ladies-MD</option>
-                                                                <option value="Ladies-L">Ladies-L</option>
-                                                                <option value="Ladies-XL">Ladies-XL</option>
-                                                            </optgroup>
+                                                            @endForeach
                                                         </select>
                                                     </div>
                                                 </div>

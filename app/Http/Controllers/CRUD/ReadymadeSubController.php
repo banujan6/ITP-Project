@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ReadymadeSub;
 use App\Models\Colour;
+use App\Models\ProductSize;
+use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -20,9 +22,25 @@ class ReadymadeSubController extends Controller
 
         $readymade_Sub = ReadymadeSub::get()->where('main_id','=',$mainId);
 
+        $sizes = Size::all();
+
+        $sizesFormatted = array();
+
+        foreach($sizes as $size){
+            $exploded = explode("-",$size->size);
+            $mainCategory = count($exploded)>1?$exploded[0]: "Other";
+
+            if(!isset($sizesFormatted[$mainCategory])){
+                $sizesFormatted[$mainCategory] = [];
+            }
+
+            array_push($sizesFormatted[$mainCategory], $size);
+        }
+
         return view("readymade-sub-product",[
             "product"=> $readymade_Sub,
-            "mainId"=>$mainId
+            "mainId"=>$mainId,
+            "sizesCategories"=> $sizesFormatted
         ]);
     }
 
@@ -51,6 +69,7 @@ class ReadymadeSubController extends Controller
             'retailPrice'=> 'required',
             'wholeSalePrice'=> 'required',
             'mainId'=>'required',
+            'size'=> 'required|array'
         ]);
 
         if ($validator->fails()) {
@@ -73,6 +92,16 @@ class ReadymadeSubController extends Controller
             'image'=> $request->input('image')
         ]);
 
+        foreach($request->input('size') as $sizeId){
+            ProductSize::create([
+                "product_id"=> $readymadeSub->getKey(),
+                "size_id"=>$sizeId,
+                "product_type"=>"Readymade"
+            ]);
+        }
+
+        $productSizes = ProductSize::with("size")->where("product_id",$readymadeSub->getKey())->get();
+
         return [
             "success"=> true,
             "readymadeSub"=> [
@@ -84,8 +113,10 @@ class ReadymadeSubController extends Controller
                 "wholeSalePrice"=> $readymadeSub->whole_sale_price,
                 "description"=> $readymadeSub->description,
                 "colour"=> $readymadeSub->colour_id,
-                "mainId"=> $readymadeSub->main_id
-
+                "mainId"=> $readymadeSub->main_id,
+                "size"=> $productSizes->map(function($productSize){
+                    return $productSize->size->getKey();
+                })
 //                "mainId"=> [
 //                    "id"=> $readymadeSub->main->getKey()
 //              ]
