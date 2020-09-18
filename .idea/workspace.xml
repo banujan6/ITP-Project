@@ -2,35 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41dd3fb6-75c2-43fb-a418-36b9b5680b3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/accessories-main-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/add-category.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/authentication-login.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/authentication-register.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/botttom-main-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/deposited-returned-cheques.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/employee-salary.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/employee.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/fabric-main-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/fabric-sub-product-view.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/fabric-sub-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/invoice.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/main-categories-summary.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/readymade-main-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/retail-customer.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/retail-transaction.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/supplier-transaction.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/supplier.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/vehicle-finance.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/vehicle-management.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/wholesale-customer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/wholesale-transactions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +19,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -149,24 +127,33 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
     </include_path>
   </component>
   <component name="ProjectId" id="1goDpdKhBRbld1scvEugprpMLoG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\ITP-Project\app\Models" />
+      <recent name="F:\ITP-Project\app\Http\Controllers\CRUD" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\ITP-Project" />
+      <recent name="F:\ITP-Project\app" />
       <recent name="$PROJECT_DIR$/resources/views" />
     </key>
   </component>
@@ -176,18 +163,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -202,10 +178,17 @@
       <workItem from="1599147377506" duration="967000" />
       <workItem from="1599295820613" duration="2467000" />
       <workItem from="1599578009587" duration="677000" />
+      <workItem from="1600364009238" duration="2433000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="825" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1600364163141">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="825" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1600364163141" />
   </component>
 </project>
