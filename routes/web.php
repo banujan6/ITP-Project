@@ -35,7 +35,6 @@ Route::post('/crud/wholesale_transaction/create','CRUD\WholesaleTransactionContr
 Route::post('/crud/wholesale_transaction/update','CRUD\WholesaleTransactionController@update');
 Route::post('/crud/wholesale_transaction/delete','CRUD\WholesaleTransactionController@delete');
 
-
 Route::get('/crud/retail_transaction','CRUD\RetailTransactionController@index');
 Route::post('/crud/retail_transaction/create','CRUD\RetailTransactionController@create');
 Route::post('/crud/retail_transaction/update','CRUD\RetailTransactionController@update');
@@ -45,3 +44,4 @@ Route::get('/supplier','SupplierController@index');
 Route::post('/supplier/update','SupplierController@update');
 Route::post('/supplier/create','SupplierController@create');
 Route::post('/supplier/delete','SupplierController@delete');
+
