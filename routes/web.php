@@ -45,3 +45,10 @@ Route::post('/supplier/update','SupplierController@update');
 Route::post('/supplier/create','SupplierController@create');
 Route::post('/supplier/delete','SupplierController@delete');
 
+Route::get('/crud/wholesale','CRUD\WholesaleCustomerController@index');
+Route::post('/crud/wholesale/update', 'CRUD\WholesaleCustomerController@update');
+Route::post('/crud/wholesale/create', 'CRUD\WholesaleCustomerController@create');
+Route::post('/crud/wholesale/delete', 'CRUD\WholesaleCustomerController@delete');
+
+
+
