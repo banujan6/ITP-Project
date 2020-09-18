@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableRetailCustomer extends Migration
+class CreateReadymadeMainsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateTableRetailCustomer extends Migration
      */
     public function up()
     {
-        Schema::create('retail_customer', function (Blueprint $table) {
+        Schema::create('readymade_main', function (Blueprint $table) {
             $table->id();
-            $table->string("phone_number");
-            $table->string("description");
-            $table->string("name");
-            $table->string("address");
-
-            $table->unsignedBigInteger('occupation_id');
+            $table->string('name');
+            $table->string('brand');
 
             $table->timestamps();
         });
@@ -33,6 +29,6 @@ class CreateTableRetailCustomer extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retail_customer');
+        Schema::dropIfExists('readymade_main');
     }
 }
