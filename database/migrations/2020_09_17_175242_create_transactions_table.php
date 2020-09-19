@@ -27,17 +27,15 @@ class CreateTransactionsTable extends Migration
 
             $table->unsignedBigInteger("cheque_payment_id")->nullable();
 
-            // $table->unsignedBigInteger("cheque_payment_id")->nullable();
+            // Error thrown from this line. Because wholesale customer table is not exist right now.
 
-            // $table->foreign("cheque_payment_id")->references("id")->on("cheque_payment");
+            // $table->unsignedBigInteger("wholesale_customer_id")->nullable();
 
-            $table->unsignedBigInteger("wholesale_customer_id")->nullable();
+            // $table->foreign("wholesale_customer_id")->references("id")->on("wholesale_customer");
 
             $table->unsignedBigInteger("retail_customer_id")->nullable();
 
-            // $table->unsignedBigInteger("supplier_id")->nullable();
-
-            // $table->foreign("supplier_id")->references("id")->on("supplier");
+            $table->foreign("retail_customer_id")->references("id")->on("retail_customer");
 
             $table->timestamps();
         });

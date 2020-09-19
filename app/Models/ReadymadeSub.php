@@ -30,6 +30,10 @@ class ReadymadeSub extends Model
         return $this->belongsTo(ReadymadeMain::class, 'id','main_id');
     }
 
+    public function productSizes(){
+        return $this->hasMany(ProductSize::class,"product_id","id");
+    }
+
 //    public function colours(){
 //        return $this->hasOne(Colour::class, "id", "colour_id");
 //    }

@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="../../assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/libs/jquery-minicolors/jquery.minicolors.css">
     <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <link href="{{url('/assets/libs/dropzone/dropzone.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -282,7 +283,7 @@
                                 @foreach($product as $sub)
                                     {{--                                            <input type="hidden" name="navigate_id" id="navigateId"/>--}}
                                     {{--                                                <input type="hidden" name="subId" id="subId" value="{{ $sub -> getKey() }}">--}}
-                                    <button data-id='{{ $sub->getKey() }}' onclick="window.location.href='/crud/readymade_sub/view'" class="btn btn" style="background:{{ $sub -> colour_id }}"></button>
+                                    <button data-id='{{ $sub->getKey() }}' onclick="window.location.href='/crud/readymade_sub/view/{{ $sub->getKey() }}'" class="btn btn" style="background:{{ $sub -> colour_id }}"></button>
                                 @endforeach
 
                             </div>
@@ -293,7 +294,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div id="modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -350,25 +351,14 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 m-t-15">Sizes Available</label>
                                                     <div class="col-md-9">
-                                                        <select class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
-                                                            <optgroup label="Kids">
-                                                                <option value="Kids-SM">Kids-SM</option>
-                                                                <option value="Kids-MD">Kids-MD</option>
-                                                                <option value="Kids-L">Kids-L</option>
-                                                                <option value="Kids-XL">Kids-XL</option>
+                                                        <select name="size[]" class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
+                                                            @foreach($sizesCategories as $catName=> $sizes)
+                                                            <optgroup label="{{$catName}}">
+                                                                @foreach($sizes as $size)
+                                                                <option value="{{ $size->getKey() }}">{{$size->size}}</option>
+                                                                @endForeach
                                                             </optgroup>
-                                                            <optgroup label="Mens">
-                                                                <option value="Mens-SM">Mens-SM</option>
-                                                                <option value="Mens-MD">Mens-MD</option>
-                                                                <option value="Mens-L">Mens-L</option>
-                                                                <option value="Mens-XL">Mens-XL</option>
-                                                            </optgroup>
-                                                            <optgroup label="Ladies">
-                                                                <option value="Ladies-SM">Ladies-SM</option>
-                                                                <option value="Ladies-MD">Ladies-MD</option>
-                                                                <option value="Ladies-L">Ladies-L</option>
-                                                                <option value="Ladies-XL">Ladies-XL</option>
-                                                            </optgroup>
+                                                            @endForeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -404,13 +394,13 @@
                                                         <textarea class="form-control form-input" id="description"></textarea>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div class="col-md-6" style="margin: auto">
                                                 <div class="form-group row">
                                                     <label class="col-md-3">Image</label>
-                                                    <div class="col-md-9 custom-file">
-                                                        <input type="file" class="custom-file-input form-input" id="validatedCustomFile" accept="image/*">
-                                                        <label class="custom-file-label mx-2" for="validatedCustomFile">Choose an image...</label>
-                                                        <div class="invalid-feedback remove">Remove</div>
-                                                    </div>
+                                                    <div class="image-thumbnail" style="background-image: url('{{url('/assets/images/placeholder.jpeg')}}')" id="uploadImage"></div>
+                                                    <input type="hidden" name="file_name" id="fileName" />
                                                 </div>
                                             </div>
                                         </div>
@@ -469,6 +459,7 @@
 <!--This page JavaScript -->
 <script src="../../assets/libs/select2/dist/js/select2.full.min.js"></script>
 <script src="../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+<script src="{{url('/assets/libs/dropzone/dropzone.min.js')}}"></script>
 <script>
     //***********************************//
     // For select 2
@@ -478,6 +469,34 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     });
+
+    var imageUploadDropzone;
+
+    $("#modal").on("shown.bs.modal",function(e){
+        if(!imageUploadDropzone){
+            imageUploadDropzone = new Dropzone("div#uploadImage", {
+
+                url: "/crud/ready_made_sub/fileUpload",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data, response){
+                    if(response&&response.success){
+                        $("#fileName").val(response.filename);
+                        $("#uploadImage").css({
+                            "background-image":"url({{url('/storage/images/readyMade')}}/"+response.filename+")"
+                        })
+                    } else {
+                        $("#fileName").val("");
+                        $("#uploadImage").css({
+                            "background-image":"url({{url('/assets/images/placeholder.jpeg')}})"
+                        })
+                    }
+                },
+                previewTemplate: "<span></span>"
+            });
+        }
+    })
 
     $(".select2").select2();
 
@@ -526,7 +545,7 @@
         var retailPrice = $("#retail-price").val();
         var size = $("#size").val();
         var description = $("#description").val();
-        var validatedCustomFile = $("#validatedCustomFile").val();
+        var validatedCustomFile = $("#fileName").val();
 
         $.ajax({
             method: "POST",
@@ -590,6 +609,10 @@
             }
         })
     });
+
+    function hideErrors(){
+
+    }
 
 
 </script>
