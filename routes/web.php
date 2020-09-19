@@ -49,3 +49,8 @@ Route::get('/categories', 'CRUD\CategoryController@index');
 Route::get('/categories/bottoms', 'CRUD\BottomsController@index');
 Route::get('/categories/ready-made', 'CRUD\ReadyMadeController@index')->name('category.ready-made.index');
 Route::post('/categories/ready-made', 'CRUD\ReadyMadeController@store')->name('category.ready-made.store');
+
+Route::get('/crud/wholesale','CRUD\WholesaleCustomerController@index');
+Route::post('/crud/wholesale/update', 'CRUD\WholesaleCustomerController@update');
+Route::post('/crud/wholesale/create', 'CRUD\WholesaleCustomerController@create');
+Route::post('/crud/wholesale/delete', 'CRUD\WholesaleCustomerController@delete');
