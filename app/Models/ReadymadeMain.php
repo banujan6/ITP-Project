@@ -14,7 +14,6 @@ class ReadymadeMain extends Model
 
     protected $fillable = [
         "name",
-        "brand"
     ];
 
     public function subs(){

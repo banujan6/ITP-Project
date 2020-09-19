@@ -217,7 +217,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-md-6 d-flex no-block align-items-center">
-                        <h4 class="page-title">Bottom Category Main Products
+                        <h4 class="page-title">Ready Made Category Main Products
                         </h4>
                     </div>
                     <div class="col-md-6 d-flex no-block align-items-center">
@@ -261,53 +261,54 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="card">
-                                                    <form class="form-horizontal">
+                                                    <form class="form-horizontal" method="post" action="{{ route('category.ready-made.store') }}">
+                                                        @csrf
                                                         <div class="card-body p-1">
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group row">
-                                                                        <label for="fname" class="col-sm-3 text-left control-label col-form-label">Brand</label>
+                                                                        <label for="fname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="item-code" placeholder="Brand Here">
+                                                                            <input type="text" class="form-control" name="name" placeholder="Category Name Here" required>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group row">
-                                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Suppilers</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="name" placeholder="Links of Suppilers Here">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colours</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="brand" placeholder="Colours Here">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Links Of Suppliers</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="links-of-suppliers" placeholder="Supplier Links Here">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
-                                                                        <div class="col-sm-9">
-                                                                            <textarea class="form-control"></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group row">
-                                                                        <label class="col-md-3">Image</label>
-                                                                        <div class="col-md-9 custom-file">
-                                                                            <input type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*" required>
-                                                                            <label class="custom-file-label mx-2" for="validatedCustomFile">Choose an image...</label>
-                                                                            <div class="invalid-feedback remove">Remove</div>
-                                                                        </div>
-                                                                    </div>
+{{--                                                                    <div class="form-group row">--}}
+{{--                                                                        <label for="lname" class="col-sm-3 text-left control-label col-form-label">Suppilers</label>--}}
+{{--                                                                        <div class="col-sm-9">--}}
+{{--                                                                            <input type="text" class="form-control" id="name" placeholder="Links of Suppilers Here">--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="form-group row">--}}
+{{--                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colours</label>--}}
+{{--                                                                        <div class="col-sm-9">--}}
+{{--                                                                            <input type="text" class="form-control" id="brand" placeholder="Colours Here">--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="form-group row">--}}
+{{--                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Links Of Suppliers</label>--}}
+{{--                                                                        <div class="col-sm-9">--}}
+{{--                                                                            <input type="text" class="form-control" id="links-of-suppliers" placeholder="Supplier Links Here">--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="form-group row">--}}
+{{--                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>--}}
+{{--                                                                        <div class="col-sm-9">--}}
+{{--                                                                            <textarea class="form-control"></textarea>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
+{{--                                                                    <div class="form-group row">--}}
+{{--                                                                        <label class="col-md-3">Image</label>--}}
+{{--                                                                        <div class="col-md-9 custom-file">--}}
+{{--                                                                            <input type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*" required>--}}
+{{--                                                                            <label class="custom-file-label mx-2" for="validatedCustomFile">Choose an image...</label>--}}
+{{--                                                                            <div class="invalid-feedback remove">Remove</div>--}}
+{{--                                                                        </div>--}}
+{{--                                                                    </div>--}}
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -321,40 +322,31 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th class="font-weight-bold">Brand</th>
-                                                <th class="font-weight-bold">Colours</th>
-                                                <th class="font-weight-bold">Links of suppliers</th>
-                                                <th class="font-weight-bold">Description</th>
-                                                <th class="font-weight-bold">Image</th>
-                                                <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                        <i class="fas fa-check text-center"></i>
-                                                    </a></th>
-                                                <th><a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        </i><i class=" far fa-times-circle"></i>
-                                                    </a> </th>
+                                                <th class="font-weight-bold">Name</th>
+{{--                                                <th class="font-weight-bold">Colours</th>--}}
+{{--                                                <th class="font-weight-bold">Links of suppliers</th>--}}
+{{--                                                <th class="font-weight-bold">Description</th>--}}
+{{--                                                <th class="font-weight-bold">Image</th>--}}
+                                                <th class="font-weight-bold">
+                                                    Actions
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Fila</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Black, Blue</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>www.google.com</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Lorem ipsum</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>1.jpg</td>
-                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Fila</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Black, Blue</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>www.google.com</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Lorem ipsum</td>
-                                                <td class='clickable-row' data-href='readymade-sub-product.html'>1.jpg</td>
-                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                            </tr>
+                                            @foreach($categories as $category)
+                                                <tr>
+                                                    <td></td>
+                                                    <td class='clickable-row' data-href='{{ route('readymade.sub.index', ['mainId' => $category->id]) }}'>{{ $category->name }}</td>
+    {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Black, Blue</td>--}}
+    {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>www.google.com</td>--}}
+    {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Lorem ipsum</td>--}}
+    {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>1.jpg</td>--}}
+                                                    <td>
+                                                        <button type="button" class="btn btn-cyan btn-sm">Edit</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

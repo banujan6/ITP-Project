@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="41dd3fb6-75c2-43fb-a418-36b9b5680b3e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_10_161925_create_table_occupation.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_10_161925_create_table_occupation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_10_161930_create_table_retail_customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_10_161930_create_table_retail_customer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_11_081514_create_readymade_mains_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_11_081514_create_readymade_mains_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_175242_create_transactions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_175242_create_transactions_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/ReadymadeMain.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ReadymadeMain.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/add-category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add-category.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/readymade-main-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-main-product.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -147,11 +147,11 @@
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="supplier.blade.php" aria-expanded="false"><i class="fas fa-truck-loading fa-lg"></i></i><span class="hide-menu">&#X00A0;Suppliers</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <li class="sidebar-item selected"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item active"><a href="add-category.blade.php" class="sidebar-link active"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -241,27 +241,6 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row d-flex flex-wrap">
-                    <div class="col-md-3 mb-5">
-                        <a class="btn btn-outline-info shadow-none font-weight-bold" role="button" data-toggle="collapse" href="#collapseNewCategory" aria-expanded="false" aria-controls="collapseNewCategory">
-                            <i class="fas fa-plus"></i> Add Category </a>
-                    </div>
-                    <div class="col-md-9 collapse" id="collapseNewCategory">
-                        <form class="form-horizontal">
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control shadow-sm bg-white-rounded" id="lname" placeholder="Category Name">
-                                </div>
-                                <div class="col-md-6 custom-file">
-                                    <input type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*" required>
-                                    <label class="custom-file-label mx-2 shadow-sm bg-white-rounded" for="validatedCustomFile">Choose an image...</label>
-                                    <div class="invalid-feedback remove">Remove</div>
-                                </div>
-                            </div>
-                            <button type="button" class="col-sm-3 mb-5 btn btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
                 <div class="row el-element-overlay">
                     <div class="col-lg-3 col-md-6">
                         <div class="card shadow-sm bg-white-rounded">
@@ -332,7 +311,9 @@
                                 </div>
                                 <div class="el-card-content d-flex justify-content-between">
                                     <div></div>
-                                    <h4 class="m-b-0">Readymade</h4>
+                                    <a href="{{ route('category.ready-made.index') }}">
+                                        <h4 class="m-b-0">Readymade</h4>
+                                    </a>
                                     <ul class="float-right list-style-none">
                                         <li class="dropdown">
                                             <a class="pr-2 d-inline" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>
