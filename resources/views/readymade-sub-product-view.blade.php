@@ -10,13 +10,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <!-- icon -->
-    <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
+    <link rel="icon" type="image/png" href="../../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../../assets/libs/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/libs/jquery-minicolors/jquery.minicolors.css">
-    <link href="../../dist/css/style.min.css" rel="stylesheet">
-    <link href="../../dist/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../assets/libs/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../assets/libs/jquery-minicolors/jquery.minicolors.css">
+    <link href="../../../dist/css/style.min.css" rel="stylesheet">
+    <link href="../../../dist/css/custom.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -391,7 +391,7 @@
                     <div class="row m-5">
                         <div class="col-md-6">
                             @if(empty($product->image) == false)
-                                <img src="{{$product -> image}}" alt="bottom1" class="img-thumbnail rounded border-0 bg-light" width="70%">
+                                <img src="{{ url('/storage/images/readyMade')}}/{{$product -> image}}" alt="bottom1" class="img-thumbnail rounded border-0 bg-light" width="70%">
                             @else
                                 <span>This product does not contain any image file</span>
                             @endif
@@ -442,7 +442,9 @@
                                     <p class="font-weight-bold display-8">Sizes Availble</p>
                                 </div>
                                 <div class="col-sm-8 shadow-sm bg-white-rounded">
-                                    <span class="badge badge-pill badge-info">S</span>
+                                    @foreach($product->productSizes as $productSize)
+                                    <span class="badge badge-pill badge-info">{{ $productSize->size->size }}</span>
+                                    @endForeach
                                 </div>
                             </div>
                         </div>
@@ -554,21 +556,21 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-<script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../../../assets/libs/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
-<script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-<script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+<script src="../../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="../../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="../../../assets/extra-libs/sparkline/sparkline.js"></script>
 <!--Wave Effects -->
-<script src="../../dist/js/waves.js"></script>
+<script src="../../../dist/js/waves.js"></script>
 <!--Menu sidebar -->
-<script src="../../dist/js/sidebarmenu.js"></script>
+<script src="../../../dist/js/sidebarmenu.js"></script>
 <!--Custom JavaScript -->
-<script src="../../dist/js/custom.min.js"></script>
+<script src="../../../dist/js/custom.min.js"></script>
 <!--This page JavaScript -->
-<script src="../../assets/libs/select2/dist/js/select2.full.min.js"></script>
-<script src="../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+<script src="../../../assets/libs/select2/dist/js/select2.full.min.js"></script>
+<script src="../../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
 <script>
     //***********************************//
     // For select 2
