@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ReadymadeSub;
 use App\Models\Colour;
+use App\Models\ProductSize;
+use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ReadymadeSubController extends Controller
 {
@@ -19,9 +22,25 @@ class ReadymadeSubController extends Controller
 
         $readymade_Sub = ReadymadeSub::get()->where('main_id','=',$mainId);
 
+        $sizes = Size::all();
+
+        $sizesFormatted = array();
+
+        foreach($sizes as $size){
+            $exploded = explode("-",$size->size);
+            $mainCategory = count($exploded)>1?$exploded[0]: "Other";
+
+            if(!isset($sizesFormatted[$mainCategory])){
+                $sizesFormatted[$mainCategory] = [];
+            }
+
+            array_push($sizesFormatted[$mainCategory], $size);
+        }
+
         return view("readymade-sub-product",[
             "product"=> $readymade_Sub,
-            "mainId"=>$mainId
+            "mainId"=>$mainId,
+            "sizesCategories"=> $sizesFormatted
         ]);
     }
 
@@ -49,7 +68,8 @@ class ReadymadeSubController extends Controller
             'initialStock' => 'required',
             'retailPrice'=> 'required',
             'wholeSalePrice'=> 'required',
-            'mainId'=>'required'
+            'mainId'=>'required',
+            'size'=> 'required|array'
         ]);
 
         if ($validator->fails()) {
@@ -68,8 +88,19 @@ class ReadymadeSubController extends Controller
             "retail_price"=> $request->input("retailPrice"),
             "whole_sale_price"=> $request->input("wholeSalePrice"),
             //"available_size"=> $request->input("size"),
-            "description"=> $request->input("description")
+            "description"=> $request->input("description"),
+            'image'=> $request->input('image')
         ]);
+
+        foreach($request->input('size') as $sizeId){
+            ProductSize::create([
+                "product_id"=> $readymadeSub->getKey(),
+                "size_id"=>$sizeId,
+                "product_type"=>"Readymade"
+            ]);
+        }
+
+        $productSizes = ProductSize::with("size")->where("product_id",$readymadeSub->getKey())->get();
 
         return [
             "success"=> true,
@@ -82,22 +113,18 @@ class ReadymadeSubController extends Controller
                 "wholeSalePrice"=> $readymadeSub->whole_sale_price,
                 "description"=> $readymadeSub->description,
                 "colour"=> $readymadeSub->colour_id,
-                "mainId"=> $readymadeSub->main_id
-
-//                "mainId"=> [
-//                    "id"=> $readymadeSub->main->getKey()
-//              ]
-//
-//
+                "mainId"=> $readymadeSub->main_id,
+                "size"=> $productSizes->map(function($productSize){
+                    return $productSize->size->getKey();
+                })
             ]
         ];
 
     }//create
 
-    public function indexView(){
+    public function indexView(Request $request, $subId){
 
-        $subId = 1;
-        $readymade_Sub = ReadymadeSub::get()->where('id','=',$subId);
+        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'])->where('id','=',$subId)->get();
 
         return view("readymade-sub-product-view",[
             "products"=> $readymade_Sub,
@@ -186,6 +213,29 @@ class ReadymadeSubController extends Controller
             "success"=> true,
             //app()->call('App\Http\Controllers\CRUD\ReadymadeSubController@index')
         ];
+    }
+
+    public function fileUpload(Request $request){
+
+        if($request->hasFile('file')) {
+
+            $image       = $request->file('file');
+            $filename = time().".jpg";
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(300, 300);
+            $image_resize->save(storage_path('app/public/images/readyMade/' .$filename));
+
+            return [
+                "success"=> true,
+                "filename"=> $filename
+            ];
+
+        } else {
+            return [
+                "success"=> false,
+            ];
+        }
     }
 
 

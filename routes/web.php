@@ -24,7 +24,8 @@ Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@creat
 Route::post('/crud/retail_customer/delete', 'CRUD\RetailCustomerController@delete');
 
 Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index');
-Route::get('/crud/readymade_sub/view', 'CRUD\ReadymadeSubController@indexView');
+Route::get('/crud/readymade_sub/view/{subId}', 'CRUD\ReadymadeSubController@indexView');
+Route::post('/crud/ready_made_sub/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
 Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');
 Route::post('/crud/readymade_sub/view/update', 'CRUD\ReadymadeSubController@update');
@@ -59,6 +60,12 @@ Route::post('/crud/vehicle_finance/delete', 'CRUD\vehicleFinanceController@delet
 //Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
 //Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
 //Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
+
+Route::get('/employee','EmployeeBasicController@index');
+//Route::post('/employee/update','EmployeeController@update');
+Route::post('/employee/create','EmployeeBasicController@create');
+//Route::post('/employee/delete','EmployeeController@delete');
+
 
 
 
