@@ -24,9 +24,6 @@ Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@creat
 Route::post('/crud/retail_customer/delete', 'CRUD\RetailCustomerController@delete');
 
 Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index')->name('readymade.sub.index');
-Route::get('/crud/readymade_sub/view', 'CRUD\ReadymadeSubController@indexView');
-
-Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index');
 Route::get('/crud/readymade_sub/view/{subId}', 'CRUD\ReadymadeSubController@indexView');
 Route::post('/crud/ready_made_sub/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
@@ -50,9 +47,9 @@ Route::post('/supplier/create','SupplierController@create');
 Route::post('/supplier/delete','SupplierController@delete');
 
 Route::get('/categories', 'CRUD\CategoryController@index');
-Route::get('/categories/bottoms', 'CRUD\BottomsController@index');
 Route::get('/categories/ready-made', 'CRUD\ReadyMadeController@index')->name('category.ready-made.index');
 Route::post('/categories/ready-made', 'CRUD\ReadyMadeController@store')->name('category.ready-made.store');
+Route::post('/categories/ready-made/{id}/delete', 'CRUD\ReadyMadeController@destroy')->name('category.ready-made.delete');
 
 Route::get('/crud/wholesale','CRUD\WholesaleCustomerController@index');
 Route::post('/crud/wholesale/update', 'CRUD\WholesaleCustomerController@update');
