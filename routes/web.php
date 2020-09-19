@@ -51,11 +51,20 @@ Route::post('/crud/wholesale/update', 'CRUD\WholesaleCustomerController@update')
 Route::post('/crud/wholesale/create', 'CRUD\WholesaleCustomerController@create');
 Route::post('/crud/wholesale/delete', 'CRUD\WholesaleCustomerController@delete');
 
+Route::get('/crud/vehicle_finance','CRUD\vehicleFinanceController@index');
+Route::post('/crud/vehicle_finance/create','CRUD\vehicleFinanceController@create');
+Route::post('/crud/vehicle_finance/update', 'CRUD\vehicleFinanceController@update');
+Route::post('/crud/vehicle_finance/delete', 'CRUD\vehicleFinanceController@delete');
+
+//Route::get('/crud/vehicle', 'CRUD\vehicleController@index');
+//Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
+//Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
+//Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
+
 Route::get('/employee','EmployeeBasicController@index');
 //Route::post('/employee/update','EmployeeController@update');
 Route::post('/employee/create','EmployeeBasicController@create');
 //Route::post('/employee/delete','EmployeeController@delete');
-
 
 
 
