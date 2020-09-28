@@ -82,6 +82,7 @@ class SupplierController extends Controller
             'address'=> 'required',
             'description'=>'required',
             'bankname'=>'required'
+            gi
         ]);
 
         if ($validator->fails()) {
