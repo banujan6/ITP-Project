@@ -421,7 +421,6 @@
                                                         </tr>
                                                     @endforeach
 
-
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
