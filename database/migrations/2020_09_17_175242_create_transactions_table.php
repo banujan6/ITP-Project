@@ -31,13 +31,13 @@ class CreateTransactionsTable extends Migration
 
             // $table->foreign("cheque_payment_id")->references("id")->on("cheque_payment");
 
-            $table->unsignedBigInteger("wholesale_customer_id")->nullable();
-
-            $table->foreign("wholesale_customer_id")->references("id")->on("wholesale_customer");
-
-            $table->unsignedBigInteger("retail_customer_id")->nullable();
-
-            $table->foreign("retail_customer_id")->references("id")->on("retail_customer");
+//            $table->unsignedBigInteger("wholesale_customer_id")->nullable();
+//
+//            $table->foreign("wholesale_customer_id")->references("id")->on("wholesale_customer");
+//
+//            $table->unsignedBigInteger("retail_customer_id")->nullable();
+//
+//            $table->foreign("retail_customer_id")->references("id")->on("retail_customer");
 
             // $table->unsignedBigInteger("supplier_id")->nullable();
 
