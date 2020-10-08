@@ -20,17 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="418af53e-2474-438c-a01f-658f85f171a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CRUD/ReadymadeSubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CRUD/ReadymadeSubController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ProductSize.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ProductSize.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ReadymadeSub.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ReadymadeSub.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,8 +187,16 @@
       <workItem from="1602006002630" duration="637000" />
       <workItem from="1602072339287" duration="528000" />
       <workItem from="1602073843747" duration="10942000" />
-      <workItem from="1602136529652" duration="16402000" />
+      <workItem from="1602136529652" duration="16881000" />
     </task>
+    <task id="LOCAL-00001" summary="Added new validation, img bug, relationship issue fix">
+      <created>1602157858880</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602157858880</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,6 +213,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added new validation, img bug, relationship issue fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new validation, img bug, relationship issue fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601969571681">
