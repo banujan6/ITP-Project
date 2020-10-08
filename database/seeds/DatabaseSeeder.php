@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RetailCustomerSeeder::class);
         //$this->call(ColourSeeder::class);
         $this->call(ReadymadeMainSeeder::class);
-        $this->call(ReadymadeSubSeeder::class);
+        //$this->call(ReadymadeSubSeeder::class);
         $this->call(SizesSeeder::class);
     }
 }

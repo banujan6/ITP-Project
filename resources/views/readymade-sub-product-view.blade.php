@@ -10,13 +10,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <!-- icon -->
-    <link rel="icon" type="image/png" href="../../../assets/images/logo-sm2.png">
+    <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../../../assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../../assets/libs/jquery-minicolors/jquery.minicolors.css">
     <link href="../../../dist/css/style.min.css" rel="stylesheet">
     <link href="../../../dist/css/custom.css" rel="stylesheet">
+    <link href="{{url('/assets/libs/dropzone/dropzone.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,13 +56,13 @@
                     <b class="logo-icon p-l-10">
                         <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                         <!-- Dark Logo icon -->
-                        <img src="../../assets/images/logo-sm.png" alt="homepage" class="light-logo" width="38px" height="38px" />
+                        <img src="/assets/images/logo-sm.png" alt="homepage" class="light-logo" width="38px" height="38px" />
                     </b>
                     <!--End Logo icon -->
                     <!-- Logo text -->
                     <span class="logo-text">
                             <!-- dark Logo text -->
-                            <img src="../../assets/images/logo-txt.png" width="152px" height="40px" alt="homepage" class="light-logo" />
+                            <img src="/assets/images/logo-txt.png" width="152px" height="40px" alt="homepage" class="light-logo" />
                         </span>
                 </a>
                 <!-- ============================================================== -->
@@ -111,7 +112,7 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                         <div class="dropdown-menu dropdown-menu-right user-dd animated">
                             <a class="dropdown-item" href="javascript:void(0)"><i class="far fa-user m-r-5 m-l-5"></i> My Profile</a>
                             <div class="dropdown-divider"></div>
@@ -309,6 +310,13 @@
                                                 <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
                                             </div>
                                             <div class="form-group row">
+                                                <label for="lname" class="col-sm-3 text-left control-label col-form-label">Item Code</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control form-input" id="item-code" placeholder="RSP0000" readonly>
+                                                    <span id="itemCodeError" >@error('name') {{$message}} @enderror</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label for="fname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control form-input" id="name" placeholder="Name Here" required>
@@ -319,42 +327,74 @@
                                                 <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Material</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control form-input" id="material" placeholder="Material Here" required>
-                                                    <span id="contactNumberError" class="text-danger form-error" ></span>
+                                                    <span id="materialError" >@error('name') {{$message}} @enderror</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="email1" class="col-sm-3 text-left control-label col-form-label">Colour Code</label>
+                                                <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colors Code</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-input" id="colour" placeholder="Colour Code Here" required>
-                                                    <span id="addressError" class="text-danger form-error" ></span>
+                                                    <input type="color" class="form-control form-input" id="colour" placeholder="#ffffff" required>
+                                                    <span id="colourError" >@error('name') {{$message}} @enderror</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="email1" class="col-sm-3 text-left control-label col-form-label">Initial Stock</label>
+                                                <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Initial Stocks</label>
                                                 <div class="col-sm-9">
-                                                    <input type="number" class="form-control form-input" id="stock" placeholder="Initial Stock Here" required>
-                                                    <span id="addressError" class="text-danger form-error" ></span>
+                                                    <input type="number" class="form-control form-input" id="stock" placeholder="0" required>
+                                                    <span id="initialStockError" >@error('name') {{$message}} @enderror</span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="email1" class="col-sm-3 text-left control-label col-form-label">Link Of Supplier</label>
+                                                <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Links Of Suppliers</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control form-input" id="supplier" placeholder="Supplier Link Here" required>
-                                                    <span id="addressError" class="text-danger form-error" ></span>
+                                                    <select type="text" class="form-control form-input" id="links-of-suppliers" placeholder="Supplier Link">
+                                                        <option value="" >Select Suppliers Link</option>
+                                                        @foreach($suppliers as $supplier)
+                                                            <option value="{{$supplier->getKey()}}">{{$supplier->name}}</option>
+                                                        @endForeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="email1" class="col-sm-3 text-left control-label col-form-label">Whole Sale Price</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control form-input" id="wholeSalePrice" placeholder="0.00" required>
-                                                    <span id="addressError" class="text-danger form-error" ></span>
+                                                <label class="col-md-3 m-t-15">Sizes Available</label>
+                                                <div class="col-md-9">
+                                                    <select name="size[]" class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
+                                                        @foreach($sizesCategories as $catName=> $sizes)
+                                                            <optgroup label="{{$catName}}">
+                                                                @foreach($sizes as $size)
+                                                                    <option value="{{ $size->getKey() }}">{{$size->size}}</option>
+                                                                @endForeach
+                                                            </optgroup>
+                                                        @endForeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="email1" class="col-sm-3 text-left control-label col-form-label">Retail Price</label>
-                                                <div class="col-sm-9">
-                                                    <input type="number" class="form-control form-input" id="retailPrice" placeholder="0.00" required>
-                                                    <span id="addressError" class="text-danger form-error" ></span>
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-lg-3 col-md-12 text-left">
+                                                    <label>Wholesale Price</label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control form-input" id="wholesale-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" >
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Rs</span>
+                                                        </div>
+                                                        <span id="wholeSalePriceError" >@error('name') {{$message}} @enderror</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 align-items-center">
+                                                <div class="col-lg-3 col-md-12 text-left">
+                                                    <label>Retail Price</label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control form-input" id="retail-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" >
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Rs</span>
+                                                        </div>
+                                                        <span id="retailPriceError" >@error('name') {{$message}} @enderror</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -366,11 +406,18 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-md-3">Image</label>
-                                            <div class="col-md-9 custom-file">
-                                                <input type="file" class="custom-file-input form-input" id="validatedCustomFile" accept="image/*" required>
-                                                <label class="custom-file-label mx-2" for="validatedCustomFile">Choose an image...</label>
-                                                <div class="invalid-feedback remove">Remove</div>
+{{--                                            <label class="col-md-3">Image</label>--}}
+{{--                                            <div class="col-md-9 custom-file">--}}
+{{--                                                <input type="file" class="custom-file-input form-input" id="validatedCustomFile" accept="image/*">--}}
+{{--                                                <label class="custom-file-label mx-2" for="validatedCustomFile">Choose an image...</label>--}}
+{{--                                                <div class="invalid-feedback remove">Remove</div>--}}
+{{--                                            </div>--}}
+                                            <div class="col-md-6" style="margin: auto">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3">Image</label>
+                                                    <div class="image-thumbnail" style="background-image: url('{{url('/assets/images/placeholder.jpeg')}}')" id="uploadImage"></div>
+                                                    <input type="hidden" name="file_name" id="fileName" accept="image/*"/>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="border-top">
@@ -408,17 +455,18 @@
                                 @endif
                             </div>
                             <div class="row product-description shadow-sm bg-white-rounded">
-                                <div class="col-sm-4 shadow-sm bg-white-rounded">
-                                    <p class="font-weight-bold display-8">Item Code</p>
-                                </div>
-                                <div class="col-sm-8 shadow-sm bg-white-rounded">
-                                    <p class="font-weight-bold display-8"><Mark>item001</Mark></p>
-                                </div>
+
                                 <div class="col-sm-4 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">Initial Stocks</p>
                                 </div>
                                 <div class="col-sm-8 shadow-sm bg-white-rounded">
-                                    <p class="font-weight-bold display-8"><Mark>{{$product -> initial_stocks}}</Mark></p>
+                                    <p class="font-weight-bold display-8"><span>{{$product -> initial_stocks}}</span></p>
+                                </div>
+                                <div class="col-sm-4 shadow-sm bg-white-rounded">
+                                    <p class="font-weight-bold display-8">Colour Code</p>
+                                </div>
+                                <div class="col-sm-8 shadow-sm bg-white-rounded">
+                                    <p class="font-weight-bold display-8"><span style="background:{{ $product -> colour_id }}" >{{$product -> colour_id}}</span></p>
                                 </div>
                                 <div class="col-sm-4 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">WholeSale Price</p>
@@ -436,7 +484,9 @@
                                     <p class="font-weight-bold display-8">Supplier Link</p>
                                 </div>
                                 <div class="col-sm-8 shadow-sm bg-white-rounded">
-                                    <p class="font-weight-bold display-8"><Mark><a href="https://www.google.com" class="text-decoration-none">Alpha</a></Mark></p>
+                                    @foreach($product->productSupplier as $supplier)
+                                        <p class="font-weight-bold display-8"><Mark>{{ $supplier-> supplier_id }}</Mark></p>
+                                    @endforeach
                                 </div>
                                 <div class="col-sm-4 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">Sizes Availble</p>
@@ -571,6 +621,7 @@
 <!--This page JavaScript -->
 <script src="../../../assets/libs/select2/dist/js/select2.full.min.js"></script>
 <script src="../../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+<script src="{{url('/assets/libs/dropzone/dropzone.min.js')}}"></script>
 <script>
     //***********************************//
     // For select 2
@@ -581,6 +632,34 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     });
+
+    var imageUploadDropzone;
+
+    $("#modal").on("shown.bs.modal",function(e){
+        if(!imageUploadDropzone){
+            imageUploadDropzone = new Dropzone("div#uploadImage", {
+
+                url: "/crud/ready_made_sub/fileUpload",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data, response){
+                    if(response&&response.success){
+                        $("#fileName").val(response.filename);
+                        $("#uploadImage").css({
+                            "background-image":"url({{url('/storage/app/public/images/readyMade')}}/"+response.filename+")"
+                        })
+                    } else {
+                        $("#fileName").val("");
+                        $("#uploadImage").css({
+                            "background-image":"url({{url('/assets/images/placeholder.jpeg')}})"
+                        })
+                    }
+                },
+                previewTemplate: "<span></span>"
+            });
+        }
+    })
 
     $('input[type="file"]').change(function(e) {
         var fileName = e.target.files[0].name;
@@ -619,14 +698,15 @@
         //e.preventDefault();
 
         var updateId = $("#updateId").val();
+        var itemCode = $("#item-code").val();
         var name = $("#name").val();
         var material = $("#material").val();
         var mainId = $("#mainId").val();
         var initialStock = $("#stock").val();
         var colour = $("#colour").val();
         var linkOfSupplier = $("#links-of-suppliers").val();
-        var wholeSalePrice = $("#wholeSalePrice").val();
-        var retailPrice = $("#retailPrice").val();
+        var wholeSalePrice = $("#wholesale-price").val();
+        var retailPrice = $("#retail-price").val();
         var size = $("#size").val();
         var description = $("#description").val();
         var validatedCustomFile = $("#validatedCustomFile").val();
@@ -637,11 +717,13 @@
             dataType: "json",
             data: {
                 updateId: updateId,
+                itemCode:itemCode,
                 name: name,
                 material:material,
                 mainId:mainId,
                 initialStock:initialStock,
                 image:validatedCustomFile,
+                linkOfSupplier:linkOfSupplier,
                 description:description,
                 size:size,
                 colour:colour,
@@ -704,11 +786,12 @@
         $("#updateId").val(updateId);
 
         $("#name").val(data.name);
+        $("#item-code").val(data.item_code);
         $("#material").val(data.material);
         $("#colour").val(data.colour_id);
         $("#stock").val(data.initial_stocks);
-        $("#wholeSalePrice").val(data.whole_sale_price);
-        $("#retailPrice").val(data.retail_price);
+        $("#wholesale-price").val(data.whole_sale_price);
+        $("#retail-price").val(data.retail_price);
         $("#description").val(data.description);
 
     });

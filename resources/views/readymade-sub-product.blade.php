@@ -242,18 +242,7 @@
         <!-- ============================================================== -->
         <div class="container-fluid">
             <div class="card">
-                {{--                    <div class="shadow-sm bg-white-rounded">--}}
-                {{--                        <ul class="float-right list-style-none">--}}
-                {{--                            <li class="dropdown">--}}
-                {{--                                <a class="pr-2" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>--}}
-                {{--                                </a>--}}
-                {{--                                <div class="dropdown-menu mr-3 shadow-sm bg-white-rounded" aria-labelledby="navbarDropdown">--}}
-                {{--                                    <a class="dropdown-item pl-2" href="#">Edit</a>--}}
-                {{--                                    <a class="dropdown-item pl-2" href="#">Delete</a>--}}
-                {{--                                </div>--}}
-                {{--                            </li>--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
+
                 <div class="row m-5">
                     <div class="col-md-6">
                         <img src="../../assets/images/big/img-bottom.jfif" alt="bottom1" class="img-thumbnail rounded border-0 bg-light" width="70%">
@@ -269,9 +258,7 @@
                                 <p class="font-weight-bold display-8">Product Id</p>
                             </div>
                             <div class="col-sm-8 shadow-sm bg-white-rounded">
-                                {{--                                    @foreach($main as $m)--}}
-                                {{--                                    <p class="font-weight-bold display-8">{{ $m -> id }}</p>--}}
-                                {{--                                    @endforeach--}}
+                                    <p class="font-weight-bold display-8">{{ $mainId }}</p>
                             </div>
                         </div>
                         <div class="row colors-category mt-5">
@@ -306,6 +293,17 @@
                         <div class="modal-body">
                             <div class="card">
                                 <form id="formModal" class="form-horizontal">
+
+{{--                                    @if (count($errors) > 0)--}}
+{{--                                        <div class = "alert alert-danger">--}}
+{{--                                            <ul>--}}
+{{--                                                @foreach ($errors->all() as $error)--}}
+{{--                                                    <li>{{ $error }}</li>--}}
+{{--                                                @endforeach--}}
+{{--                                            </ul>--}}
+{{--                                        </div>--}}
+{{--                                    @endif--}}
+
                                     <div class="card-body p-1">
 
                                         <div class="form-group row">
@@ -315,6 +313,13 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group row">
+                                                    <label for="lname" class="col-sm-3 text-left control-label col-form-label">Item Code</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control form-input" id="item-code" placeholder="RSP0000" required>
+                                                        <span id="itemCodeError" >@error('name') {{$message}} @enderror</span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control form-input" id="name" placeholder="Name Here" required>
@@ -322,28 +327,35 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Meterial</label>
+                                                    <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Material</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control form-input" id="material" placeholder="Meterial Here" required>
+                                                        <input type="text" class="form-control form-input" id="material" placeholder="Material Here" required>
+                                                        <span id="materialError" >@error('name') {{$message}} @enderror</span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colors Code</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control form-input" id="colour" placeholder="Colors Here" required>
-                                                        <span id="nameError" >@error('colour') {{$message}} @enderror</span>
+                                                        <input type="color" class="form-control form-input" id="colour" placeholder="#ffffff" required>
+                                                        <span id="colourError" >@error('name') {{$message}} @enderror</span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Initial Stocks</label>
                                                     <div class="col-sm-9">
-                                                        <input type="number" class="form-control form-input" id="stock" placeholder="Initial Stock Here" required>
+                                                        <input type="number" class="form-control form-input" id="stock" placeholder="0" required>
+                                                        <span id="initialStockError" >@error('name') {{$message}} @enderror</span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Links Of Suppliers</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control form-input" id="links-of-suppliers" placeholder="Supplier Links Here" required>
+                                                        <select type="text" class="form-control form-input" id="links-of-suppliers" placeholder="Supplier Link">
+                                                            <option value="" >Select Suppliers Link</option>
+                                                            @foreach($suppliers as $supplier)
+                                                                <option value="{{$supplier->getKey()}}">{{$supplier->name}}</option>
+                                                            @endForeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -351,7 +363,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 m-t-15">Sizes Available</label>
                                                     <div class="col-md-9">
-                                                        <select name="size[]" class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" required>
+                                                        <select name="size[]" class="select2 form-control m-t-15 form-input" id="size" multiple="multiple" style="height: 50px;width: 100%;" >
                                                             @foreach($sizesCategories as $catName=> $sizes)
                                                             <optgroup label="{{$catName}}">
                                                                 @foreach($sizes as $size)
@@ -368,10 +380,11 @@
                                                     </div>
                                                     <div class="col-lg-9 col-md-12">
                                                         <div class="input-group">
-                                                            <input type="number" class="form-control form-input" id="wholesale-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" required>
+                                                            <input type="number" class="form-control form-input" id="wholesale-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" >
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Rs</span>
                                                             </div>
+                                                            <span id="wholeSalePriceError" >@error('name') {{$message}} @enderror</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -381,10 +394,11 @@
                                                     </div>
                                                     <div class="col-lg-9 col-md-12">
                                                         <div class="input-group">
-                                                            <input type="number" class="form-control form-input" id="retail-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" required>
+                                                            <input type="text" class="form-control form-input" id="retail-price" placeholder="0.00" aria-label="Recipient 's username" aria-describedby="basic-addon2" >
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Rs</span>
                                                             </div>
+                                                            <span id="retailPriceError" >@error('name') {{$message}} @enderror</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -400,7 +414,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3">Image</label>
                                                     <div class="image-thumbnail" style="background-image: url('{{url('/assets/images/placeholder.jpeg')}}')" id="uploadImage"></div>
-                                                    <input type="hidden" name="file_name" id="fileName" />
+                                                    <input type="hidden" name="file_name" id="fileName" accept="image/*"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -484,7 +498,7 @@
                     if(response&&response.success){
                         $("#fileName").val(response.filename);
                         $("#uploadImage").css({
-                            "background-image":"url({{url('/storage/images/readyMade')}}/"+response.filename+")"
+                            "background-image":"url({{url('/storage/app/public/images/readyMade')}}/"+response.filename+")"
                         })
                     } else {
                         $("#fileName").val("");
@@ -536,6 +550,7 @@
 
 
         var name = $("#name").val();
+        var itemCode = $("#item-code").val();
         var material = $("#material").val();
         var initialStock = $("#stock").val();
         var mainId = $("#mainId").val();
@@ -553,12 +568,14 @@
             dataType: "json",
             data: {
                 name: name,
+                itemCode: itemCode,
                 material:material,
                 mainId:mainId,
                 initialStock:initialStock,
                 image:validatedCustomFile,
                 description:description,
                 size:size,
+                linkOfSupplier:linkOfSupplier,
                 colour:colour,
                 wholeSalePrice:wholeSalePrice,
                 retailPrice:retailPrice
