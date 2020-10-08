@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\CRUD;
 
-use App\Models\ReadymadeMain;
+use App\Models\ProductSupplier;
+//use App\Models\ReadymadeMain;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ReadymadeSub;
-use App\Models\Colour;
+//use App\Models\Colour;
 use App\Models\ProductSize;
 use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
@@ -18,13 +20,14 @@ class ReadymadeSubController extends Controller
     //
     public function index($mainId){
 
-        //return view("readymade-sub-product-view");
 
         $readymade_Sub = ReadymadeSub::get()->where('main_id','=',$mainId);
 
         $sizes = Size::all();
+        $suppliers = Supplier::all();
 
         $sizesFormatted = array();
+
 
         foreach($sizes as $size){
             $exploded = explode("-",$size->size);
@@ -40,34 +43,21 @@ class ReadymadeSubController extends Controller
         return view("readymade-sub-product",[
             "product"=> $readymade_Sub,
             "mainId"=>$mainId,
-            "sizesCategories"=> $sizesFormatted
+            "sizesCategories"=> $sizesFormatted,
+            "suppliers"=>$suppliers
         ]);
     }
 
     public function create(Request $request){
 
-
-        //$request->image->store('public');
-//        $readymadeSub = new ReadymadeSub();
-//        if($request->hasFile('image')){
-//
-//            $file = $request->file('image');
-//            $extension = $file->getClientOriginalExtension();
-//            $fileName = time().','.$extension;
-//            $file->move('uploads/highlights/', $fileName);
-//            $highligths->image = $fileName;
-//        }else{
-//            return $request;
-//            $highligths->image = '';
-//        }
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
-            'material' => 'required',
-            'colour'=> 'required',
-            'initialStock' => 'required',
-            'retailPrice'=> 'required',
-            'wholeSalePrice'=> 'required',
+            'itemCode' => 'required|unique:readymade_sub,item_code|regex:/[R][S][P]\d{4}\b/',
+            'material' => 'required|min:3',
+            'colour'=> 'required|min:4',
+            'initialStock' => 'required|numeric|min:1',
+            'retailPrice'=> 'required|numeric',
+            'wholeSalePrice'=> 'required|numeric',
             'mainId'=>'required',
             'size'=> 'required|array'
         ]);
@@ -81,6 +71,7 @@ class ReadymadeSubController extends Controller
 
         $readymadeSub = ReadymadeSub::create([
             "name"=> $request->input("name"),
+            "item_code"=> $request->input("itemCode"),
             "material"=> $request->input("material"),
             "colour_id"=> $request->input("colour"),
             "main_id"=> $request->input("mainId"),
@@ -92,6 +83,14 @@ class ReadymadeSubController extends Controller
             'image'=> $request->input('image')
         ]);
 
+
+
+        ProductSupplier::create([
+            "product_id"=> $readymadeSub->getKey(),
+            "supplier_id"=>$request->input("linkOfSupplier"),
+            "product_type"=>"Readymade"
+        ]);
+
         foreach($request->input('size') as $sizeId){
             ProductSize::create([
                 "product_id"=> $readymadeSub->getKey(),
@@ -101,7 +100,7 @@ class ReadymadeSubController extends Controller
         }
 
         $productSizes = ProductSize::with("size")->where("product_id",$readymadeSub->getKey())->get();
-
+       // $suplier = ProductSupplier::with("linkOfSupplier")->where("product_id",$readymadeSub->getKey())->get();
         return [
             "success"=> true,
             "readymadeSub"=> [
@@ -124,11 +123,31 @@ class ReadymadeSubController extends Controller
 
     public function indexView(Request $request, $subId){
 
-        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'])->where('id','=',$subId)->get();
+        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'],['productSupplier','productSupplier'])->where('id','=',$subId)->get();
+
+        $sizes = Size::all();
+        $suppliers = Supplier::all();
+
+        $sizesFormatted = array();
+
+
+        foreach($sizes as $size) {
+            $exploded = explode("-", $size->size);
+            $mainCategory = count($exploded) > 1 ? $exploded[0] : "Other";
+
+            if (!isset($sizesFormatted[$mainCategory])) {
+                $sizesFormatted[$mainCategory] = [];
+            }
+
+            array_push($sizesFormatted[$mainCategory], $size);
+        }
+
 
         return view("readymade-sub-product-view",[
             "products"=> $readymade_Sub,
-            //"id" => $id
+            "sizesCategories"=> $sizesFormatted,
+            "suppliers"=>$suppliers
+
         ]);
     }
 
@@ -138,11 +157,15 @@ class ReadymadeSubController extends Controller
 
         $id = $request->input("updateId");
 
+
+
         if(empty($id)){
             return abort(400);
         }
 
         $readyMadeSub = ReadymadeSub::find($id);
+
+        $supplier = ProductSupplier::find('product_id', '=', $id);
 
         if(empty($readyMadeSub)){
             return abort(404);
@@ -178,6 +201,24 @@ class ReadymadeSubController extends Controller
             "description"=> $request->input("description")
         ]);
 
+        $supplier->update([
+            "supplier_id"=>$request->input("linkOfSupplier"),
+        ]);
+
+//        ProductSupplier::update([
+//            "product_id"=> $readyMadeSub->getKey(),
+//            "supplier_id"=>$request->input("linkOfSupplier"),
+//            "product_type"=>"Readymade"
+//        ]);
+
+//        foreach($request->input('size') as $sizeId){
+//            ProductSize::update([
+//                "product_id"=> $readyMadeSub->getKey(),
+//                "size_id"=>$sizeId,
+//                "product_type"=>"Readymade"
+//            ]);
+//        }
+
         return [
             "success"=> true,
             "readyMadeSub"=> [
@@ -211,7 +252,6 @@ class ReadymadeSubController extends Controller
 
         return [
             "success"=> true,
-            //app()->call('App\Http\Controllers\CRUD\ReadymadeSubController@index')
         ];
     }
 

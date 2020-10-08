@@ -14,6 +14,7 @@ class ReadymadeSub extends Model
 
     protected $fillable = [
         "name",
+        "item_code",
         "colour_id",
         "image",
         "material",
@@ -28,6 +29,10 @@ class ReadymadeSub extends Model
 
     public function main(){
         return $this->belongsTo(ReadymadeMain::class, 'id','main_id');
+    }
+
+    public function productSupplier(){
+        return $this->hasMany(ProductSupplier::class,"product_id","id");
     }
 
     public function productSizes(){
