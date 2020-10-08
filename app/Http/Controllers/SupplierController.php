@@ -78,7 +78,7 @@ class SupplierController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'contactNo' => 'required',
+            'contactNo' => 'required|regex:/(0)[0-9]{2}(-)[0-9]{7}\b/',
             'address'=> 'required',
             'description'=>'required',
             'bankname'=>'required'
