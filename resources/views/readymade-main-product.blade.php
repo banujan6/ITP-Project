@@ -247,14 +247,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <button class="btn btn-info shadow-none font-weight-bold" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <button class="btn btn-info shadow-none font-weight-bold" onclick="newReadyMade()" data-toggle="modal" data-target=".bd-example-modal-lg">
                                     <i class="fas fa-plus"></i> Add Readymade</a>
                                 </button>
-                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal fade bd-example-modal-lg" id="form_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Add A New Readymade</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Add / Edit A Readymade</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -263,13 +263,14 @@
                                                 <div class="card">
                                                     <form class="form-horizontal" method="post" action="{{ route('category.ready-made.store') }}">
                                                         @csrf
+                                                        <input type="hidden" value="" id="record_id" name="id">
                                                         <div class="card-body p-1">
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group row">
                                                                         <label for="fname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" name="name" placeholder="Category Name Here" required>
+                                                                            <input type="text" class="form-control" id="form_field_name" name="name" placeholder="Category Name Here" required>
                                                                         </div>
                                                                     </div>
 {{--                                                                    <div class="form-group row">--}}
@@ -342,8 +343,11 @@
     {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>Lorem ipsum</td>--}}
     {{--                                                <td class='clickable-row' data-href='readymade-sub-product.html'>1.jpg</td>--}}
                                                     <td>
-                                                        <button type="button" class="btn btn-cyan btn-sm">Edit</button>
-                                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                        <button type="button" class="btn btn-cyan btn-sm" onclick="editReadyMade({{ $category->id }}, '{{ $category->name }}')">Edit</button>
+                                                        <form class="d-inline" action="{{ route('category.ready-made.delete', ['id' => $category->id]) }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -513,6 +517,18 @@
             window.location = $(this).data("href");
         });
     });
+
+    function editReadyMade(id, name) {
+        $('#record_id').val(id);
+        $('#form_field_name').val(name);
+        $('#form_modal').modal('show');
+    }
+
+    function newReadyMade() {
+        $('#record_id').val('');
+    }
+
+
     </script>>
 </body>
 

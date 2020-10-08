@@ -21,10 +21,23 @@ class ReadyMadeController extends Controller
             'name' => 'required'
         ]);
 
-        $category = new ReadymadeMain();
+        if ( !empty($request->get('id'))) {
+            $category = ReadymadeMain::findOrFail($request->get('id'));
+        } else {
+            $category = new ReadymadeMain();
+        }
+
+
         $category->name = $data['name'];
         $category->brand = 0;
         $category->save();
+
+        return redirect()->route('category.ready-made.index');
+    }
+
+    public function destroy($id)
+    {
+        ReadymadeMain::where('id', $id)->delete();
 
         return redirect()->route('category.ready-made.index');
     }
