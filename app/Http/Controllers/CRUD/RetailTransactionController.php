@@ -82,11 +82,20 @@ class RetailTransactionController extends Controller
     public function create(Request $request){
 
         $payment_type = $request->input("payment_type");
+        $price_per_quantity = $request->input("price_per_quantity");
+        $quantity_or_peices = $request->input("quantity_or_peices");
+        $cash = $request->input("cash");
+
+        $total = $price_per_quantity * $quantity_or_peices;
 
         if($payment_type !=='cash'){
             return abort(400);
         }
-        
+
+        // if($total !== $cash){
+        //     return abort_if($total !== $cash, 400);
+        // }
+    
         $validator = Validator::make($request->all(), [
             'invoice_number'=>'required',
             'date'=>'required',
@@ -97,7 +106,6 @@ class RetailTransactionController extends Controller
             'cash'=>'required',
             'retail_customer'=>'required'
         ]);
-
 
         if ($validator->fails()) {
             return Response::json([

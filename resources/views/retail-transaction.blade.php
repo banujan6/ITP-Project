@@ -358,7 +358,7 @@
                                                                                     <div class="form-group row">
                                                                                         <label for="cash" class="col-sm-3 text-left control-label col-form-label">Cash</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cash" placeholder="Cash here">
+                                                                                            <input type="number" class="form-control form-input" id="cash" placeholder="Cash here" readonly>
                                                                                             <span id="cashError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
@@ -615,6 +615,16 @@
         $(".bd-form-modal-lg").modal('show');
     });
 
+    $(document).ready(function(){
+        var price_per_quantity = $("#price_per_quantity");
+        var quantity_or_peices = $("#quantity_or_peices");
+        quantity_or_peices.keyup(function(){
+        var total=isNaN(parseInt(quantity_or_peices.val()* $("#price_per_quantity").val())) ? 0 :(quantity_or_peices.val()* $("#price_per_quantity").val())
+        $("#cash").val(total);
+    });
+
+    });
+
 
     $(document).on('submit', '#formModal', function(e){
 
@@ -675,8 +685,8 @@
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
-                            data.transaction.cash,
                             data.transaction.retail_customer.name,
+                            data.transaction.cash,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]);
@@ -690,8 +700,8 @@
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
-                            data.transaction.cash,
                             data.transaction.retail_customer.name,
+                            data.transaction.cash,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
@@ -703,20 +713,23 @@
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
 
+                console.log(data);
+
                 switch (e.status){
                     
                     case 400:
                         mainError = "Something went wrong!";
-                        var key = Object.keys(data.errors);
 
-                        for(var i = 0; i < key.length; i++){
-                            var id = key[i];
-                            var errorMsg=data.errors[id][0];
+                            var key = Object.keys(data.errors);
 
-                            
-                            $("#"+id).addClass("is-invalid");
-                            $("#"+id+"Error").html(errorMsg);
-                        }
+                            for(var i = 0; i < key.length; i++){
+                                var id = key[i];
+                                var errorMsg=data.errors[id][0];
+
+                                $("#"+id).addClass("is-invalid");
+                                $("#"+id+"Error").html(errorMsg);
+                            }
+                        
                         break;
                     case 500:
                         mainError = "Server Error!"
@@ -727,8 +740,7 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();  
-                
+                $("#modalAlert").show();             
             }
 
         })
