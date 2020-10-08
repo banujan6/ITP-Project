@@ -142,3 +142,5 @@ class WholesaleTransactionController extends Controller
 
     }
 }
+
+

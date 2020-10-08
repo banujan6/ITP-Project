@@ -302,7 +302,7 @@
                                                                 <div class="card">
                                                                     <form id="formModal" class="form-horizontal">
                                                                         <div class="card-body p-1">
-                                                                            <div class="row d-flex">
+                                                                            <div class="row d-flex justify-content-around align-items-stretch ">
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group row">
                                                                                         <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
@@ -333,63 +333,53 @@
                                                                                     <div class="form-group row">
                                                                                         <label for="cheque_number" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cheque_number" placeholder="cheque_number">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="cheque_number" placeholder="Cheque Number Here">
+                                                                                            <span id="cheque_numberError" class="text-danger form-error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="cheque_Date" class="col-sm-3 text-left control-label col-form-label">Cheque Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cheque_Date" placeholder="cheque_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="Date" class="form-control form-input" id="cheque_Date" placeholder="Cheque Date Here">
+                                                                                            <span id="cheque_DateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div> 
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="Date" class="form-control form-input" id="payment_Date" placeholder="Payment Date Here">
+                                                                                            <span id="payment_DateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div> 
                                                                                     <div class="form-group row">
                                                                                         <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="bank" placeholder="bank">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="text" class="form-control form-input" id="bank" placeholder="Bank Name Here">
+                                                                                            <span id="bankError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
-                                                                                    
-                                                                                    
+                                                                         
                                                                                     <div class="form-group row">
                                                                                         <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="deposited_bank_account" placeholder="deposited_bank_account">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="deposited_bank_account" placeholder="Depositted Bank Account Number Here">
+                                                                                            <span id="deposited_bank_accountError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
-                                                                                        <label for="deposited_bank" class="col-sm-3 text-left control-label col-form-label">Depositted Bank</label>
+                                                                                        <label for="transaction_status" class="col-sm-3 text-left control-label col-form-label">Transaction Status</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="deposited_bank" placeholder="deposited_bank">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="text" class="form-control form-input" id="transaction_status" placeholder="Transaction Status Here">
+                                                                                            <span id="transaction_statusError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="new_cheque_date" class="col-sm-3 text-left control-label col-form-label">New Cheque Date</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="new_cheque_date" placeholder="new_cheque_date">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group row mt-2">
                                                                                         <label for="wholesale" class="col-sm-3 text-left control-label col-form-label">Wholesale Customer</label>
                                                                                         <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control form-input" id="wholesale" placeholder="transaction_status">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                        <input type="text" class="form-control form-input" id="wholesale" placeholder="wholesale customer Name">
+                                                                                            <span id="wholesaleError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
@@ -402,35 +392,43 @@
                                                                                     <div class="form-group row">
                                                                                         <label for="amount" class="col-sm-3 text-left control-label col-form-label">Cheque Amount</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="amount" placeholder="amount">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="amount" placeholder="Amount">
+                                                                                            <span id="amountError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div> 
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="Date" class="form-control form-input" id="payment_Date" placeholder="Payment Date">
+                                                                                            <span id="payment_DateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div> 
                                                                                     <div class="form-group row">
                                                                                         <label for="branch" class="col-sm-3 text-left control-label col-form-label">Branch</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="branch" placeholder="branch">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="text" class="form-control form-input" id="branch" placeholder="Branch Name Here">
+                                                                                            <span id="branchError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="description" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <textarea id="description" class="form-control form-input"></textarea>
+                                                                                            <textarea id="description" class="form-control form-input" rows="5"></textarea>
+                                                                                            <span id="descriptionError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
-                                                                                        <label for="transaction_status" class="col-sm-3 text-left control-label col-form-label">Transaction Status</label>
+                                                                                        <label for="deposited_bank" class="col-sm-3 text-left control-label col-form-label">Depositted Bank</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="transaction_status" placeholder="transaction_status">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="deposited_bank" placeholder="Deposited Bank">
+                                                                                            <span id="deposited_bankError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <label for="new_cheque_date" class="col-sm-3 text-left control-label col-form-label">New Cheque Date</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="new_cheque_date" placeholder="New Cheque Date">
+                                                                                            <span id="new_cheque_dateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
