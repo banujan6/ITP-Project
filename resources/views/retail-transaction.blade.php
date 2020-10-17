@@ -682,7 +682,7 @@
                         ]);
                     } else {
                         var index = table.count();
-
+                        console.log(index);
                         table.rows.add([[
                             "",
                             data.transaction.invoice_number,

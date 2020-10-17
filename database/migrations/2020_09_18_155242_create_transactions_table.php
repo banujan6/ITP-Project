@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->date("date");
             $table->string("invoice_number");
+            $table->string("item_code")->nullable();
             $table->string("description");
             $table->unsignedBigInteger("quantity_or_peices");
             $table->unsignedBigInteger("price_per_quantity");
@@ -31,11 +32,13 @@ class CreateTransactionsTable extends Migration
 
             // $table->unsignedBigInteger("wholesale_customer_id")->nullable();
 
+
             // $table->foreign("wholesale_customer_id")->references("id")->on("wholesale_customer");
 
             $table->unsignedBigInteger("retail_customer_id")->nullable();
 
             $table->foreign("retail_customer_id")->references("id")->on("retail_customer");
+
 
             $table->timestamps();
         });

@@ -10,5 +10,18 @@ class Supplier extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = ["name", "phone_number", "address", "description", "bank_name" ];
+
+    public function readymades(){
+
+        return $this->belongsToMany('App\Models\ReadymadeSub','product_suppliers','supplier_id','product_id');
+
+
+    }
+
+    public function transactions(){
+
+        return $this -> hasMany(Transaction::class);
+
+    }
 }
 
