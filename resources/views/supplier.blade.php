@@ -25,7 +25,7 @@
     <!-- Custom CSS -->
     <link href="../../dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../assets/libs/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/libs/jquery-minicolors/jquery.minicolors.css">
+
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://nightly.datatables.net/buttons/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
@@ -339,23 +339,7 @@
                                                                                 <span id="addressError" class="text-danger form-error" ></span>
                                                                             </div>
                                                                         </div>
-                                                                        <!--<div class="form-group row">
-                                                                            <label class="col-md-3 m-t-15">Mostly purchasing products</label>
-                                                                            <div class="col-md-9">
-                                                                                <select class="select2 form-control m-t-15" multiple="multiple" style="height: 36px;width: 100%;">
-                                                                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                                                        <option value="AK">Alaska</option>
-                                                                                        <option value="HI">Hawaii</option>
-                                                                                    </optgroup>
-                                                                                    <optgroup label="Pacific Time Zone">
-                                                                                        <option value="CA">California</option>
-                                                                                        <option value="NV">Nevada</option>
-                                                                                        <option value="OR">Oregon</option>
-                                                                                        <option value="WA">Washington</option>
-                                                                                    </optgroup>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>-->
+
                                                                         <div class="form-group row">
                                                                             <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                             <div class="col-sm-9">
@@ -366,19 +350,27 @@
 
 
                                                                         <div class="form-group row">
-                                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Bank Name</label>
+                                                                            <label for="lname" class="col-sm-3 text-left control-label col-form-label">Name of bank</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control form-input" id="bankname" placeholder="Bank Name here">
+                                                                                <select type="text" class="form-control form-input" id="bankname" placeholder="Occupation">
+                                                                                    <option value="" >Select An Bank</option>
+                                                                                    @foreach($banks as $bank)
+                                                                                        <option value="{{$bank->getKey()}}">{{$bank->name}}</option>
+                                                                                    @endForeach
+                                                                                </select>
                                                                                 <span id="banknameError" class="text-danger form-error" ></span>
                                                                             </div>
                                                                         </div>
+
                                                                     </div>
+                                                                    <input type="hidden" id="products">
                                                                     <div class="border-top">
                                                                         <div class="card-body">
                                                                             <input type="hidden" id="updateId" name="update" />
                                                                             <button type="submit" class="btn btn-primary">Submit</button>
                                                                         </div>
                                                                     </div>
+
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -393,7 +385,7 @@
                                                         <th class="font-weight-bold">Name</th>
                                                         <th class="font-weight-bold">Contact No</th>
                                                         <th class="font-weight-bold">Address</th>
-                                                        <!--<th class="font-weight-bold">Mostly Purchasing Products</th>-->
+                                                        <th class="font-weight-bold">Mostly Purchasing Products</th>
                                                         <th class="font-weight-bold">Description</th>
 
                                                         <th class="font-weight-bold">Bank Name</th>
@@ -414,10 +406,23 @@
                                                             <td>{{$supplier->name}}</td>
                                                             <td>{{$supplier->phone_number}}</td>
                                                             <td>{{$supplier->address}}</td>
+                                                            <td>@foreach ($supplier->readymades as $readymade)
+
+                                                                    {{ $readymade->item_code }}
+
+                                                                    {{ " | " }}
+                                                                    @if ($loop->iteration == 3)
+                                                                        @break
+                                                                    @endif
+
+                                                                @endforeach
+
+
+                                                            </td>
                                                             <td>{{$supplier->description}}</td>
-                                                            <td>{{$supplier->bank_name}}</td>
+                                                            <td>{{$supplier->bank->name}}</td>
                                                             <td><button type="button" data-data="{{$supplier}}" data-index="{{ $key }}" data-id = '{{ $supplier->getkey() }}' id="editButton{{ $supplier->getKey() }}"  class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
-                                                            <td><button type="button" data-name="{{$supplier->name}}" data-index="{{ $key }}" data-id = '{{ $supplier->getkey() }}' id="editButton{{ $supplier->getKey() }}" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
+                                                            <td><button type="button" data-name="{{$supplier->name}}" data-index="{{ $key }}" data-id = '{{ $supplier->getkey() }}' id="deleteButton{{ $supplier->getKey() }}" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                         </tr>
                                                     @endforeach
 
@@ -429,7 +434,7 @@
                                                         <th class="font-weight-bold">Name</th>
                                                         <th class="font-weight-bold">Contact No</th>
                                                         <th class="font-weight-bold">Address</th>
-                                                        <!--<th class="font-weight-bold">Mostly Purchasing Products</th>-->
+                                                        <th class="font-weight-bold">Mostly Purchasing Products</th>
                                                         <th class="font-weight-bold">Description</th>
 
                                                         <th class="font-weight-bold">Bank Name</th>
@@ -457,92 +462,151 @@
                         <div class="tab-pane  p-20" id="debit-report" role="tabpanel">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title m-b-0">Monthly Supplier - Debt report</h5>
+                                    <h5 class="card-title m-b-0 font-weight-bold">Monthly Supplier Debt Summary</h5>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table">
+                                <div class="table-responsive-md">
+                                    <table class="table mb-2" class="display" style="width: 100%" id="debt-table">
 
-                                        <tbody class="customtable">
-                                        <thead>
+                                        <thead class="bg-light">
                                         <tr>
-                                            <th scope="col">Supplier Name</th>
-                                            <td>Cheque No</td>
-                                            <th scope="col">Debt</th>
-                                            <th scope="col">Last Payment Date</th>
+                                            <th></th>
+                                            <th>Supplier Name</th>
+                                            <th>Debt</th>
                                         </tr>
                                         </thead>
-                                        <tr>
-                                            <td>Pasindu Pvt Ltd</td>
-                                            <td>000123</td>
-                                            <td>80000</td>
-                                            <td>2020/02/30</td>
-                                        </tr>
+                                        <tbody class="customtable">
+                                        @foreach($sum as $return)
+                                            <tr>
+                                                <td></td>
+                                                <td>{{$return->name}}</td>
+                                                <td>{{$return->total_sales}}</td>
+                                            </tr>
+                                        @endforeach
 
-                                        <tr>
-                                            <td>Dinuka Mayadunne</td>
-                                            <td>243234</td>
-                                            <td>74000</td>
-                                            <td>2019/11/30</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Kalhara Stores</td>
-                                            <td>897090</td>
-                                            <td>120000</td>
-                                            <td>2020/01/26</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Hassan Pvt Ltd</td>
-                                            <td>654689</td>
-                                            <td>240000</td>
-                                            <td>2020/01/12</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Banujan Stores</td>
-                                            <td>567890</td>
-                                            <td>298000</td>
-                                            <td>2020/01/11</td>
-                                        </tr>
-                                        <tr>
-                                            <td><button type="submit" class="btn btn-success">Print Report</button></td>
-                                        </tr>
                                         </tbody>
+
                                     </table>
+
+                                    <td><button role="button" data-toggle="collapse" href="#debtReport" aria-expanded="false" aria-controls="debtReport" class="btn btn-success btn btn-outline-info shadow-none font-weight-bold">View details</button></td>
+
+
+                                    <div id="debtReport" class="collapse" >
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title m-b-0 font-weight-bold">Monthly Supplier - Returned Cheque Details</h5>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table" id="cheque-table">
+
+                                                    <thead class="bg-light">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Supplier Name</th>
+                                                        <th>Cheque No</th>
+                                                        <th>Amount</th>
+                                                        <th>Last Payment Date</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="customtable">
+                                                    @foreach($share as $return)
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>{{$return->name}}</td>
+                                                            <td>{{$return->cheque_number}}</td>
+                                                            <td>{{$return->amount}}</td>
+                                                            <td>{{$return->payment_Date}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+{{--                                    <div class="row mb-5 mx-5">--}}
+{{--                                        <div class="col">--}}
+                                            <a class="btn btn-outline-info shadow-none font-weight-bold float-right" role="button" data-toggle="collapse" href="#collapseNewCategory" aria-expanded="false" aria-controls="collapseNewCategory">
+                                                <i class="fas fa-chart-bar"></i> View Supplier Stock Report </a>
+                                        </div>
+                                        <div class="collapse" id="collapseNewCategory">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title m-b-0 font-weight-bold">Supplier Stock Summary</h5>
+                                                </div>
+                                                <div class="table-responsive-md">
+                                                    <table  class="display" style="width:100%" id ="stock">
+
+                                                        <thead class="bg-light">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th scope="col">Supplier Name</th>
+                                                            <th scope="col">Item code and stock size</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($suppliers as $supplier)
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>{{$supplier->name}}</td>
+                                                            <td>@foreach ($supplier->readymades as $readymade)
+
+                                                                    {{ $readymade->item_code }}
+
+                                                                    {{ " = " }}
+
+                                                                    {{ nl2br(e($readymade->initial_stocks)) }}
+
+                                                                <br class="m-2">
+
+
+                                                                @endforeach
+                                                            </td>
+
+                                                        </tr>
+                                                        @endforeach
+
+
+                                                        </tbody>
+                                                    </table>
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End PAge Content -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
-        <!-- Right sidebar -->
+        <!-- footer -->
         <!-- ============================================================== -->
-        <!-- .right-sidebar -->
+        <footer class="footer text-center">
+            All Rights Reserved by Mass Line (pvt) Ltd. Designed and Developed by <a href="#">####</a>.
+        </footer>
         <!-- ============================================================== -->
-        <!-- End Right sidebar -->
+        <!-- End footer -->
         <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
-    <!-- End Container fluid  -->
+    <!-- End Page wrapper  -->
     <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center">
-        All Rights Reserved by Mass Line (pvt) Ltd. Designed and Developed by <a href="#">####</a>.
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
-</div>
-<!-- ============================================================== -->
-<!-- End Page wrapper  -->
-<!-- ============================================================== -->
 </div>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
@@ -577,6 +641,7 @@
 <script src="../../assets/libs/select2/dist/js/select2.full.min.js"></script>
 <script src="../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
 
+
 <script>
 
     $.ajaxSetup({
@@ -586,9 +651,270 @@
     });
 
     var table;
+    var table1;
+    var table2;
+    var table3;
+
 
     $(document).ready(function() {
         table = $('#example').DataTable({
+            dom: 'Bfrtip',
+            autoWidth: false,
+            responsive: true,
+            columnDefs: [{
+                targets: 1,
+                className: 'noVis'
+            }],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                    extend: 'selectAll',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect All.',
+                    text: 'select All',
+                }, {
+                    extend: 'selectNone',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect None.',
+                    text: 'select None',
+                },
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7) '
+
+                    },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'Supplier Records',
+                            exportOptions: {
+                                columns: [1,2,3,4,5,6]
+                            }
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records',
+                            exportOptions: {
+                                columns: [1,2,3,4,5,6]
+                            }
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records',
+                            exportOptions: {
+                                columns: [1,2,3,4,5,6]
+                            },
+
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records',
+                            exportOptions: {
+                                columns: [1,2,3,4,5,6]
+                            }
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        table1 = $('#debt-table').DataTable({
+            dom: 'Bfrtip',
+            autoWidth: false,
+            responsive: true,
+            columnDefs: [{
+                targets: 1,
+                className: 'noVis'
+            }],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                    extend: 'selectAll',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect All.',
+                    text: 'select All',
+                }, {
+                    extend: 'selectNone',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect None.',
+                    text: 'select None',
+                },
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+
+                    },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
+
+
+    $(document).ready(function() {
+        table2 = $('#cheque-table').DataTable({
+            dom: 'Bfrtip',
+            autoWidth: false,
+            responsive: true,
+            columnDefs: [{
+                targets: 1,
+                className: 'noVis'
+            }],
+            columnDefs: [{
+                orderable: false,
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                    extend: 'selectAll',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect All.',
+                    text: 'select All',
+                }, {
+                    extend: 'selectNone',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect None.',
+                    text: 'select None',
+                },
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+
+                    },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'supplier Records'
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
+
+
+    $(document).ready(function() {
+        table3 = $('#stock').DataTable({
             dom: 'Bfrtip',
             autoWidth: false,
             responsive: true,
@@ -681,6 +1007,7 @@
         $("#name").val("");
         $("#contactNo").val("");
         $("#address").val("");
+        $("#products").val("");
         $("#description").val("");
         $("#bankname").val("");
 
@@ -700,8 +1027,9 @@
         $("#name").val(data.name);
         $("#contactNo").val(data.phone_number);
         $("#address").val(data.address);
+        $("#products").val(data.products);
         $("#description").val(data.description);
-        $("#bankname").val(data.bank_name);
+        $("#bankname").val(data.bank.id);
 
 
     });
@@ -716,8 +1044,9 @@
         var name = $("#name").val();
         var contactNo = $("#contactNo").val();
         var address = $("#address").val();
+        var products = $("#products").val();
         var description = $("#description").val();
-        var bankname = $("#bankname").val();
+        var bank = $("#bankname").val();
 
         var mode = isNaN(parseInt(updateId))?"create":"update";
 
@@ -729,8 +1058,9 @@
                 name: name,
                 contactNo: contactNo,
                 address: address,
+                products:products,
                 description: description,
-                bankname: bankname,
+                bank: bank,
                 updateId: updateId
             },
 
@@ -750,25 +1080,27 @@
                     if (mode == "update") {
                         var index = $("#editButton" + updateId).data("index");
                         data.supplier['phone_number'] = data.supplier.contactNo;
-                        data.supplier['bank_name'] = data.supplier.bankname;
+                        data.supplier['bank_name'] = data.supplier.bank.name;
+
 
                         table.row(index).data([
                             "",
                             data.supplier.name,
                             data.supplier.contactNo,
                             data.supplier.address,
+                            data.supplier.products,
                             data.supplier.description,
-                            data.supplier.bankname,
+                            data.supplier.bank.name,
                             `<button data-data='${JSON.stringify(data.supplier)}' data-index="${index}" data-id="${data.supplier.id}" id="editButton${data.supplier.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
-                            `<button data-index="${index}" data-id="${data.supplier.id}" id="editButton${data.supplier.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                            `<button data-index="${index}" data-name="${data.supplier.name}" data-id="${data.supplier.id}" id="deleteButton${data.supplier.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]);
 
 
                     } else {
-                        var index = table.count();
-
+                        var index = table.rows().count();
+                        console.log(index);
                         data.supplier['phone_number'] = data.supplier.contactNo;
-                        data.supplier['bank_name'] = data.supplier.bankname;
+                        data.supplier['bank_name'] = data.supplier.bank.name;
 
                         table.rows.add([[
 
@@ -776,14 +1108,18 @@
                             data.supplier.name,
                             data.supplier.contactNo,
                             data.supplier.address,
+                            data.supplier.products,
                             data.supplier.description,
-                            data.supplier.bankname,
+                            data.supplier.bank.name,
                             `<button data-data='${JSON.stringify(data.supplier)}' data-index="${index}" data-id="${data.supplier.id}" id="editButton${data.supplier.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
-                            `<button data-index="${index}" data-id="${data.supplier.id}" id="editButton${data.supplier.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                            `<button data-index="${index}"  data-name="${data.supplier.name}" data-id="${data.supplier.id}" id="deleteButton${data.supplier.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
 
 
+
+
                     }
+
                 }
             },
 
@@ -838,7 +1174,7 @@
     $(document).on('click', '.btn-delete', function(){
         var deleteId = $(this).data('id');
 
-        $("#deleteId").val(deleteId);
+        var delid = $("#deleteId").val(deleteId);
 
         var name = $(this).data("name");
 
@@ -849,6 +1185,7 @@
 
     $(document).on("submit", "#confirmationModal", function(e) {
         e.preventDefault();
+
         var deleteId = $("#deleteId").val();
         $("#confirmationAlert").hide();
 
@@ -870,9 +1207,11 @@
 
                     }, 600);
 
-                    var index = $("#deleteButton" + deleteId).data("index");
-
+                    var index = $("#deleteButton"+deleteId).data("index");
+                    console.log(index)
                     table.row(index).remove().draw();
+                    console.log(index)
+
                 }
             },
             error: function (e) {
@@ -922,6 +1261,11 @@
         });
 
     })
+
+
+
+
+
 
 </script>
 
