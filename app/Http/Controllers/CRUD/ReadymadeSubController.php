@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CRUD;
 use App\Models\ProductSupplier;
 //use App\Models\ReadymadeMain;
 use App\Models\Supplier;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ReadymadeSub;
@@ -78,7 +79,6 @@ class ReadymadeSubController extends Controller
             "initial_stocks"=> $request->input("initialStock"),
             "retail_price"=> $request->input("retailPrice"),
             "whole_sale_price"=> $request->input("wholeSalePrice"),
-            //"available_size"=> $request->input("size"),
             "description"=> $request->input("description"),
             'image'=> $request->input('image')
         ]);
@@ -100,7 +100,7 @@ class ReadymadeSubController extends Controller
         }
 
         $productSizes = ProductSize::with("size")->where("product_id",$readymadeSub->getKey())->get();
-       // $suplier = ProductSupplier::with("linkOfSupplier")->where("product_id",$readymadeSub->getKey())->get();
+        //$suppliers = ProductSupplier::with("product_suppliers")->where("product_id",$readymadeSub->getKey())->get();
         return [
             "success"=> true,
             "readymadeSub"=> [
@@ -115,7 +115,10 @@ class ReadymadeSubController extends Controller
                 "mainId"=> $readymadeSub->main_id,
                 "size"=> $productSizes->map(function($productSize){
                     return $productSize->size->getKey();
-                })
+                }),
+//                "linkOfSupplier"=>$suppliers->map(function ($supplier){
+//                    return $supplier->name->getKey();
+//                })
             ]
         ];
 
@@ -123,7 +126,14 @@ class ReadymadeSubController extends Controller
 
     public function indexView(Request $request, $subId){
 
-        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'],['productSupplier','productSupplier'])->where('id','=',$subId)->get();
+        $readymade_Sub = ReadymadeSub::with(['productSizes','productSizes.size'],['productSupplier','productSupplier.name'])->where('id','=',$subId)->get();
+        $transaction = Transaction::where('item_code','LIKE','RSP%')->get();
+
+        $join = Transaction::join('readymade_sub', 'readymade_sub.item_code', '=', 'transaction.item_code')->
+        select('readymade_sub.item_code','readymade_sub.name','transaction.quantity_or_peices','transaction.created_at','transaction.date','transaction.cash','readymade_sub.initial_stocks')->
+        where('transaction.item_code','LIKE','RSP%')->get();
+
+
 
         $sizes = Size::all();
         $suppliers = Supplier::all();
@@ -142,11 +152,15 @@ class ReadymadeSubController extends Controller
             array_push($sizesFormatted[$mainCategory], $size);
         }
 
+        //echo $join;
 
         return view("readymade-sub-product-view",[
             "products"=> $readymade_Sub,
             "sizesCategories"=> $sizesFormatted,
-            "suppliers"=>$suppliers
+            "suppliers"=>$suppliers,
+            "reports"=>$transaction,
+            "join"=>$join,
+
 
         ]);
     }
@@ -157,15 +171,12 @@ class ReadymadeSubController extends Controller
 
         $id = $request->input("updateId");
 
-
-
         if(empty($id)){
             return abort(400);
         }
 
-        $readyMadeSub = ReadymadeSub::find($id);
+        $readyMadeSub = ReadymadeSub::with('productSupplier')->find($id);
 
-        $supplier = ProductSupplier::find('product_id', '=', $id);
 
         if(empty($readyMadeSub)){
             return abort(404);
@@ -190,7 +201,7 @@ class ReadymadeSubController extends Controller
 
         $readyMadeSub->update([
             "name"=> $request->input("name"),
-            "image"=> $request->input("image"),
+            "item_code"=> $request->input("itemCode"),
             "material"=> $request->input("material"),
             "colour_id"=> $request->input("colour"),
             "main_id"=> $request->input("mainId"),
@@ -198,26 +209,14 @@ class ReadymadeSubController extends Controller
             "retail_price"=> $request->input("retailPrice"),
             "whole_sale_price"=> $request->input("wholeSalePrice"),
             //"available_size"=> $request->input("size"),
-            "description"=> $request->input("description")
+            "description"=> $request->input("description"),
+            'image'=> $request->input('image'),
+            'supplier_link'=> $request->input('linkOfSupplier'),
         ]);
 
-        $supplier->update([
-            "supplier_id"=>$request->input("linkOfSupplier"),
-        ]);
 
-//        ProductSupplier::update([
-//            "product_id"=> $readyMadeSub->getKey(),
-//            "supplier_id"=>$request->input("linkOfSupplier"),
-//            "product_type"=>"Readymade"
-//        ]);
-
-//        foreach($request->input('size') as $sizeId){
-//            ProductSize::update([
-//                "product_id"=> $readyMadeSub->getKey(),
-//                "size_id"=>$sizeId,
-//                "product_type"=>"Readymade"
-//            ]);
-//        }
+        //$productSizes = ProductSize::with("size")->where("product_id",$readyMadeSub->getKey())->get();
+        //$suppliers = ProductSupplier::with("linkOfSupplier")->where("product_id",$readyMadeSub->getKey())->get();
 
         return [
             "success"=> true,
@@ -229,7 +228,12 @@ class ReadymadeSubController extends Controller
                 "initialStock"=> $readyMadeSub->initial_stocks,
                 "retailPrice"=> $readyMadeSub->retail_price,
                 "wholeSalePrice"=> $readyMadeSub->whole_sale_price,
-                "description"=> $readyMadeSub->description
+                "description"=> $readyMadeSub->description,
+                "image"=>$readyMadeSub->image,
+//                "linkOfSupplier"=> [
+//                    "id"=> $readyMadeSub->productSupplier->getKey(),
+//                    "name"=> $readyMadeSub->productSupplier->name
+//                ]
 
             ]
         ];
@@ -259,7 +263,7 @@ class ReadymadeSubController extends Controller
 
         if($request->hasFile('file')) {
 
-            $image       = $request->file('file');
+            $image = $request->file('file');
             $filename = time().".jpg";
 
             $image_resize = Image::make($image->getRealPath());
@@ -277,6 +281,4 @@ class ReadymadeSubController extends Controller
             ];
         }
     }
-
-
 }

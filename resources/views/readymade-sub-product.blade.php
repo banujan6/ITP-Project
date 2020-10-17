@@ -255,7 +255,7 @@
                         </div>
                         <div class="row product-description shadow-sm bg-white-rounded">
                             <div class="col-sm-4 shadow-sm bg-white-rounded">
-                                <p class="font-weight-bold display-8">Product Id</p>
+                                <p class="font-weight-bold display-8">Main Id</p>
                             </div>
                             <div class="col-sm-8 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">{{ $mainId }}</p>
@@ -294,16 +294,6 @@
                             <div class="card">
                                 <form id="formModal" class="form-horizontal">
 
-{{--                                    @if (count($errors) > 0)--}}
-{{--                                        <div class = "alert alert-danger">--}}
-{{--                                            <ul>--}}
-{{--                                                @foreach ($errors->all() as $error)--}}
-{{--                                                    <li>{{ $error }}</li>--}}
-{{--                                                @endforeach--}}
-{{--                                            </ul>--}}
-{{--                                        </div>--}}
-{{--                                    @endif--}}
-
                                     <div class="card-body p-1">
 
                                         <div class="form-group row">
@@ -316,35 +306,35 @@
                                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Item Code</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control form-input" id="item-code" placeholder="RSP0000" required>
-                                                        <span id="itemCodeError" >@error('name') {{$message}} @enderror</span>
+                                                        <span id="itemCodeError" ></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="lname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control form-input" id="name" placeholder="Name Here" required>
-                                                        <span id="nameError" >@error('name') {{$message}} @enderror</span>
+                                                        <span id="nameError"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Material</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control form-input" id="material" placeholder="Material Here" required>
-                                                        <span id="materialError" >@error('name') {{$message}} @enderror</span>
+                                                        <span id="materialError" ></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colors Code</label>
                                                     <div class="col-sm-9">
                                                         <input type="color" class="form-control form-input" id="colour" placeholder="#ffffff" required>
-                                                        <span id="colourError" >@error('name') {{$message}} @enderror</span>
+                                                        <span id="colourError" ></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Initial Stocks</label>
                                                     <div class="col-sm-9">
                                                         <input type="number" class="form-control form-input" id="stock" placeholder="0" required>
-                                                        <span id="initialStockError" >@error('name') {{$message}} @enderror</span>
+                                                        <span id="initialStockError" ></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -384,7 +374,7 @@
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Rs</span>
                                                             </div>
-                                                            <span id="wholeSalePriceError" >@error('name') {{$message}} @enderror</span>
+                                                            <span id="wholeSalePriceError" ></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -398,7 +388,7 @@
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text" id="basic-addon2">Rs</span>
                                                             </div>
-                                                            <span id="retailPriceError" >@error('name') {{$message}} @enderror</span>
+                                                            <span id="retailPriceError" ></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -498,7 +488,7 @@
                     if(response&&response.success){
                         $("#fileName").val(response.filename);
                         $("#uploadImage").css({
-                            "background-image":"url({{url('/storage/app/public/images/readyMade')}}/"+response.filename+")"
+                            "background-image":"url({{url('/storage/images/readyMade')}}/"+response.filename+")"
                         })
                     } else {
                         $("#fileName").val("");
@@ -584,7 +574,12 @@
             success: function(data){
                 if(data.success) {
                     console.log(data)
-                    $("#nameError").hide();
+                    $('#itemCodeError').hide();
+                    $('#nameError').hide();
+                    $('#materialError').hide();
+                    $('#initialStockError').hide();
+                    $('#wholeSalePriceError').hide();
+                    $('#retailPriceError').hide();
                     $("#modalAlert").html(`You have successfully added the product.`);
                     $("#modalAlert").show();
                     $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
@@ -619,9 +614,9 @@
                     default:
                         break;
                 }
-                $("#confirmationAlert").html(mainError);
-                $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#confirmationAlert").show();
+                $("#modalAlert").html(mainError);
+                $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#modalAlert").show();
                 $("#deleteButton").html("Try Again");
             }
         })
