@@ -46,6 +46,11 @@ Route::post('/supplier/update','SupplierController@update');
 Route::post('/supplier/create','SupplierController@create');
 Route::post('/supplier/delete','SupplierController@delete');
 
+Route::get('/crud/supplier_transaction','CRUD\SupplierTransactionController@index');
+Route::post('/crud/supplier_transaction/create','CRUD\SupplierTransactionController@create');
+Route::post('/crud/supplier_transaction/update','CRUD\SupplierTransactionController@update');
+Route::post('/crud/supplier_transaction/delete','CRUD\SupplierTransactionController@delete');
+
 Route::get('/categories', 'CRUD\CategoryController@index');
 Route::get('/categories/ready-made', 'CRUD\ReadyMadeController@index')->name('category.ready-made.index');
 Route::post('/categories/ready-made', 'CRUD\ReadyMadeController@store')->name('category.ready-made.store');

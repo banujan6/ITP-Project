@@ -25,19 +25,20 @@ class Transaction extends Model
         "cheque_payment_id",
         "wholesale_customer_id",
         "retail_customer_id",
-        // "supplier_id"
+        "item_code",
+        "supplier_id"
     ];
 
     /**
     * Get the Cheque Payments on the related Transaction
     */
-    public function cheque(){
+    public function cheque_payment(){
         return $this->belongsTo(ChequePayment::class, "cheque_payment_id","id");
     }
 
     /* Get the Wholesale Customer related Transaction
     */
-    public function wholesaleTransaction(){
+    public function wholesale_customer(){
         return $this->belongsTo(WholesaleCustomer::class, "wholesale_customer_id","id");
     }
 
@@ -48,10 +49,10 @@ class Transaction extends Model
         return $this->belongsTo(RetailCustomer::class, "retail_customer_id","id");
     }
 
-    // /**
-    // * Get the Supplier related Transaction
-    // */
-    // public function supplierTransaction(){
-    //     return $this->belongsTo(Supplier::class, "supplier_id","id");
-    // }
+    /**
+    * Get the Supplier related Transaction
+    */
+    public function supplier(){
+        return $this->belongsTo(Supplier::class, "supplier_id","id");
+    }
 }
