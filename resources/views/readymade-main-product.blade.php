@@ -149,7 +149,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -319,6 +319,17 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive-md">
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <table id="example" class="display" style="width:100%">
                                         <thead>
                                             <tr>
@@ -437,10 +448,6 @@
             autoWidth: false,
             responsive: true,
             columnDefs: [{
-                targets: 1,
-                className: 'noVis'
-            }],
-            columnDefs: [{
                 orderable: false,
                 className: 'select-checkbox',
                 targets: 0
@@ -452,53 +459,11 @@
                         className: ''
                     }
                 },
-                buttons: [{
-                        extend: 'selectAll',
-                        className: 'btn btn-sm btn-secondary border',
-                        titleAttr: 'select All.',
-                        text: 'select All',
-                    }, {
-                        extend: 'selectNone',
-                        className: 'btn btn-sm btn-secondary border',
-                        titleAttr: 'selsect None.',
-                        text: 'select None',
-                    },
-                    {
-                        extend: 'colvis',
-                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
-                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5)'
-
-                    },
-
-                    {
-                        extend: 'collection',
-                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
-                        text: 'Export',
-                        buttons: [{
-                            extend: 'excel',
-                            className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
-                        }, {
-                            extend: 'copy',
-                            className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
-                        }, {
-                            extend: 'pdf',
-                            className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
-                        }, {
-                            extend: 'print',
-                            className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
-                        }],
-                    }
+                buttons: [
                 ]
 
             },
             language: {
-                buttons: {
-                    selectAll: "Select All",
-                    selectNone: "Select None"
                 }
             },
             select: {

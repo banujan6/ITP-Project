@@ -148,7 +148,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -584,7 +584,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         $("#name").val(data.name);
@@ -595,7 +595,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#name").val("");
@@ -621,7 +621,7 @@
         var description = $("#description").val();
 
         var mode = isNaN(parseInt(updateId))?"create":"update";
-    
+
         $.ajax({
             method: "POST",
             url: "{{ url('/crud/retail_customer') }}/"+mode,
@@ -678,9 +678,9 @@
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    
-                    case 400: 
-                        var keys = Object.keys(data.errors); 
+
+                    case 400:
+                        var keys = Object.keys(data.errors);
                         mainError = "Some fiedls have incorrect values";
 
                         for(var i=0; i< keys.length; i++){
@@ -757,7 +757,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:

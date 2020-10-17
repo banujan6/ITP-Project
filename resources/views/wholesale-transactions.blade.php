@@ -148,7 +148,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -343,14 +343,14 @@
                                                                                             <input type="number" class="form-control form-input" id="cheque_Date" placeholder="cheque_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
                                                                                         <div class="col-sm-9">
@@ -358,9 +358,9 @@
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
-                                                                                    
-                                                                                    
+
+
+
                                                                                     <div class="form-group row">
                                                                                         <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
                                                                                         <div class="col-sm-9">
@@ -382,7 +382,7 @@
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
+
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group row mt-2">
@@ -405,14 +405,14 @@
                                                                                             <input type="number" class="form-control form-input" id="amount" placeholder="amount">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="branch" class="col-sm-3 text-left control-label col-form-label">Branch</label>
                                                                                         <div class="col-sm-9">
@@ -465,7 +465,7 @@
                                                                 <th class="font-weight-bold">Depositted Branch</th>
                                                                 <th class="font-weight-bold">Depositted Date</th>
                                                                 <th class="font-weight-bold">New Cheque Date</th>
-                                                                <th class="font-weight-bold">Tranaction Status</th> 
+                                                                <th class="font-weight-bold">Tranaction Status</th>
                                                                 <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                         <i class="fas fa-check text-center"></i>
                                                                     </a></th>
@@ -494,7 +494,7 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                
+
                                                                 <td><button data-data="{{  $transaction }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="editButton{{ $transaction->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
                                                                 <td><button data-invoice="{{ $transaction->invoice_number }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="deleteButton{{ $transaction->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                             </tr>
@@ -507,7 +507,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
                                 <h1>Invoice List Goes Here</h1>
                             </div>
@@ -573,7 +573,7 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/fixedColumns.min.js"></script>
-    
+
     <script>
     $.ajaxSetup({
         headers: {
@@ -602,7 +602,7 @@
                 className: 'select-checkbox',
                 targets: 0
             }],
-            
+
             buttons: {
                 dom: {
                     button: {
@@ -675,7 +675,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         console.log($("#updateId").val(updateId));
@@ -693,7 +693,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#date").val("");
@@ -702,7 +702,7 @@
         $("#invoice_number").val("");
         $("#quantity_or_peices").val("");
         $("#cash").val("");
-        
+
         $(".bd-form-modal-lg").modal('show');
 
         $("#cheque_payment_id").val("");
@@ -757,7 +757,7 @@
                     window.setTimeout(function(){
                         $(".bd-form-modal-lg").modal('hide');
                         $('.form-input').val('');
-                        hideErrors(); 
+                        hideErrors();
                     }, 600)
                     if(mode=="update"){
                         var index = $("#editButton"+updateId).data("index");
@@ -791,7 +791,7 @@
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
-                }           
+                }
             },
             error: function(e){
                 console.log(e);
@@ -799,7 +799,7 @@
                 var mainError = "Something went wrong!";
 
                 switch (e.status){
-                    
+
                     case 400:
                         mainError = "Something went wrong!";
                         // var key = Object.keys(data.errors);
@@ -808,7 +808,7 @@
                         //     var id = key[i];
                         //     var errorMsg=data.errors[id][0];
 
-                            
+
                         //     $("#"+id).addClass("is-invalid");
                         //     $("#"+id+"Error").html(errorMsg);
                         // }
@@ -822,12 +822,12 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();  
-                
+                $("#modalAlert").show();
+
             }
 
         })
-    })  
+    })
 
     $(document).on('click keyup',".form-input", function(){
         hideErrors();
@@ -881,7 +881,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:

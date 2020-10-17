@@ -148,7 +148,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -417,7 +417,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
                                 <h1>Invoice List Goes Here</h1>
                             </div>
@@ -510,7 +510,7 @@
                 className: 'select-checkbox',
                 targets: 0
             }],
-            
+
             buttons: {
                 dom: {
                     button: {
@@ -583,7 +583,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         console.log($("#updateId").val(updateId));
@@ -601,7 +601,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#date").val("");
@@ -611,7 +611,7 @@
         $("#quantity_or_peices").val("");
         $("#cash").val("");
         $("#retail_customer").val("");
-        
+
         $(".bd-form-modal-lg").modal('show');
     });
 
@@ -662,7 +662,7 @@
                     window.setTimeout(function(){
                         $(".bd-form-modal-lg").modal('hide');
                         $('.form-input').val('');
-                        hideErrors(); 
+                        hideErrors();
                     }, 600)
                     if(mode=="update"){
                         var index = $("#editButton"+updateId).data("index");
@@ -696,7 +696,7 @@
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
-                }           
+                }
             },
             error: function(e){
                 console.log(e);
@@ -704,7 +704,7 @@
                 var mainError = "Something went wrong!";
 
                 switch (e.status){
-                    
+
                     case 400:
                         mainError = "Something went wrong!";
                         var key = Object.keys(data.errors);
@@ -713,7 +713,7 @@
                             var id = key[i];
                             var errorMsg=data.errors[id][0];
 
-                            
+
                             $("#"+id).addClass("is-invalid");
                             $("#"+id+"Error").html(errorMsg);
                         }
@@ -727,12 +727,12 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();  
-                
+                $("#modalAlert").show();
+
             }
 
         })
-    })  
+    })
 
     $(document).on('click keyup',".form-input", function(){
         hideErrors();
@@ -786,7 +786,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:
