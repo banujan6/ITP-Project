@@ -27,9 +27,16 @@ Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index')
 Route::get('/crud/readymade_sub/view/{subId}', 'CRUD\ReadymadeSubController@indexView');
 Route::post('/crud/ready_made_sub/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
+
 Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');
 Route::post('/crud/readymade_sub/view/update', 'CRUD\ReadymadeSubController@update');
 Route::post('/crud/readymade_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
+Route::post('/crud/readymade_sub/view/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
+
+Route::post('/crud/fabric_sub/create', 'CRUD\ReadymadeSubController@create');
+Route::post('/crud/fabric_sub/view/update', 'CRUD\ReadymadeSubController@update');
+Route::post('/crud/fabric_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
+Route::post('/crud/v/view/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
 Route::get('/crud/wholesale_transaction','CRUD\WholesaleTransactionController@index');
 Route::post('/crud/wholesale_transaction/create','CRUD\WholesaleTransactionController@create');

@@ -14,9 +14,11 @@
     <title>Mass Line (pvt) Ltd</title>
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../../../assets/libs/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../assets/libs/jquery-minicolors/jquery.minicolors.css">
-    <link href="../../../dist/css/style.min.css" rel="stylesheet">
-    <link href="../../../dist/css/custom.css" rel="stylesheet">
+    <link href="/dist/css/style.min.css" rel="stylesheet">
+    <link href="../../../assets/libs/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../../../assets/libs/datatables/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="../../../assets/libs/datatables/css/select.dataTables.min.css" rel="stylesheet">
+{{--    <link href="../../../dist/css/custom.css" rel="stylesheet">--}}
     <link href="{{url('/assets/libs/dropzone/dropzone.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -292,7 +294,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div id="modal" class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -405,6 +407,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group row">
 {{--                                            <label class="col-md-3">Image</label>--}}
 {{--                                            <div class="col-md-9 custom-file">--}}
@@ -457,6 +460,12 @@
                             <div class="row product-description shadow-sm bg-white-rounded">
 
                                 <div class="col-sm-4 shadow-sm bg-white-rounded">
+                                    <p class="font-weight-bold display-8">Item Code</p>
+                                </div>
+                                <div class="col-sm-8 shadow-sm bg-white-rounded">
+                                    <p class="font-weight-bold display-8"><span>{{$product -> item_code}}</span></p>
+                                </div>
+                                <div class="col-sm-4 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">Initial Stocks</p>
                                 </div>
                                 <div class="col-sm-8 shadow-sm bg-white-rounded">
@@ -488,6 +497,14 @@
                                         <p class="font-weight-bold display-8"><Mark>{{ $supplier-> supplier_id }}</Mark></p>
                                     @endforeach
                                 </div>
+{{--                                <div class="col-sm-4 shadow-sm bg-white-rounded">--}}
+{{--                                    <p class="font-weight-bold display-8">Supplier Link</p>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-sm-8 shadow-sm bg-white-rounded">--}}
+{{--                                    @foreach($product->productSupplier as $supplier)--}}
+{{--                                        <p class="font-weight-bold display-8"><Mark>{{ $supplier-> name}}</Mark></p>--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
                                 <div class="col-sm-4 shadow-sm bg-white-rounded">
                                     <p class="font-weight-bold display-8">Sizes Availble</p>
                                 </div>
@@ -511,67 +528,31 @@
                                 <h5 class="card-title m-b-0">Monthly Sub Product Summary</h5>
                             </div>
                             <div class="table-responsive">
-                                <table class="table">
-                                    <tbody class="customtable">
+                                <table class="table" id="repo">
                                     <thead>
                                     <tr>
-                                        <th scope="col">Item Code</th>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Product Main Catogory</th>
-                                        <th scope="col">Monthly Left Quantity</th>
-                                        <th scope="col">Monthly Sold Quanity</th>
-                                        <th scope="col">Monthly Sales Amount</th>
-                                        <th scope="col">Date of Last Payment</th>
+                                        <th></th>
+                                        <th>Item Code</th>
+                                        <th>Product Main Category</th>
+                                        <th>Monthly Left Quantity</th>
+                                        <th>Monthly Sold Quantity</th>
+                                        <th>Monthly Sales Amount</th>
+                                        <th>Date of Last Payment</th>
                                     </tr>
                                     </thead>
-                                    <tr>
-                                        <td>P001</td>
-                                        <td>Blue Jacket</td>
-                                        <td>Ready Made</td>
-                                        <td>60</td>
-                                        <td>1740</td>
-                                        <td>80000</td>
-                                        <td>2020/02/30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>P002</td>
-                                        <td>Black Jacket</td>
-                                        <td>Ready Made</td>
-                                        <td>130</td>
-                                        <td>1670</td>
-                                        <td>74000</td>
-                                        <td>2019/11/30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>P008</td>
-                                        <td>Black Jeans</td>
-                                        <td>Ready Made</td>
-                                        <td>20</td>
-                                        <td>1880</td>
-                                        <td>120000</td>
-                                        <td>2020/01/26</td>
-                                    </tr>
-                                    <tr>
-                                        <td>P010</td>
-                                        <td>Duck Canvas</td>
-                                        <td>Fabric</td>
-                                        <td>26</td>
-                                        <td>1944</td>
-                                        <td>240000</td>
-                                        <td>2020/01/12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>P011</td>
-                                        <td>Oil CLoth</td>
-                                        <td>Fabric</td>
-                                        <td>12</td>
-                                        <td>1988</td>
-                                        <td>298000</td>
-                                        <td>2020/01/11</td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="submit" class="btn btn-success">Print Report</button></td>
-                                    </tr>
+                                    <tbody>
+                                    @foreach($join as $jo)
+
+                                        <tr>
+                                            <td></td>
+                                            <td>{{$jo->item_code}}</td>
+                                            <td>Ready made</td>
+                                            <td>{{$jo->initial_stocks - $jo->quantity_or_peices}}</td>
+                                            <td>{{$jo->quantity_or_peices}}</td>
+                                            <td>{{$jo->quantity_or_peices * $jo->cash}}</td>
+                                            <td>{{$jo->date}}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -611,7 +592,7 @@
 <script src="../../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="../../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../../../assets/extra-libs/sparkline/sparkline.js"></script>
+{{--<script src="../../../assets/extra-libs/sparkline/sparkline.js"></script>--}}
 <!--Wave Effects -->
 <script src="../../../dist/js/waves.js"></script>
 <!--Menu sidebar -->
@@ -621,6 +602,18 @@
 <!--This page JavaScript -->
 <script src="../../../assets/libs/select2/dist/js/select2.full.min.js"></script>
 <script src="../../../assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+
+
+<script type="text/javascript" src="../../../assets/libs/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/jszip.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/pdfmake.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/vfs_fonts.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/dataTables.select.min.js"></script>
+<script type="text/javascript" src="../../../assets/libs/datatables/js/buttons.print.min.js"></script>
+
 <script src="{{url('/assets/libs/dropzone/dropzone.min.js')}}"></script>
 <script>
     //***********************************//
@@ -633,13 +626,99 @@
         },
     });
 
+    var table;
+
+    $(document).ready(function() {
+        table = $('#repo').DataTable({
+            dom: 'Bfrtip',
+            // scrollX: true,
+            // scrollCollapse: true,
+            paging: true,
+            // fixedColumns: {
+            //     leftColumns: 1,
+            //     rightColumns: 2
+            // },
+            autoWidth: false,
+            responsive: true,
+
+            columnDefs: [{
+                className: 'select-checkbox',
+                targets: 0
+            }],
+
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                    extend: 'selectAll',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect All.',
+                    text: 'select All',
+                }, {
+                    extend: 'selectNone',
+                    className: 'btn btn-sm btn-secondary border',
+                    titleAttr: 'selsect None.',
+                    text: 'select None',
+                },
+                    // {
+                    //     extend: 'colvis',
+                    //     className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                    //     columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+                    //
+                    // },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-customer Records'
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-customer Records'
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-customer Records'
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-customer Records'
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
     var imageUploadDropzone;
 
     $("#modal").on("shown.bs.modal",function(e){
         if(!imageUploadDropzone){
             imageUploadDropzone = new Dropzone("div#uploadImage", {
 
-                url: "/crud/ready_made_sub/fileUpload",
+                url: "/crud/readymade_sub/view/fileUpload",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -647,7 +726,7 @@
                     if(response&&response.success){
                         $("#fileName").val(response.filename);
                         $("#uploadImage").css({
-                            "background-image":"url({{url('/storage/app/public/images/readyMade')}}/"+response.filename+")"
+                            "background-image":"url({{url('/storage/images/readyMade')}}/"+response.filename+")"
                         })
                     } else {
                         $("#fileName").val("");
@@ -661,6 +740,8 @@
         }
     })
 
+    $(".select2").select2();
+
     $('input[type="file"]').change(function(e) {
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
@@ -672,8 +753,6 @@
         $('.invalid-feedback').css("display", "none")
     });
 
-
-    $(".select2").select2();
 
     /*colorpicker*/
     $('.demo').each(function() {
@@ -695,7 +774,7 @@
 
     $(document).on('submit', '#formModal', function(e) {
         e.stopPropagation();
-        //e.preventDefault();
+        e.preventDefault();
 
         var updateId = $("#updateId").val();
         var itemCode = $("#item-code").val();
@@ -709,7 +788,7 @@
         var retailPrice = $("#retail-price").val();
         var size = $("#size").val();
         var description = $("#description").val();
-        var validatedCustomFile = $("#validatedCustomFile").val();
+        var validatedCustomFile = $("#fileName").val();
 
         $.ajax({
             method: "POST",
@@ -749,8 +828,8 @@
                 console.error();
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
+                console.log(data)
                 switch (e.status) {
-
                     case 400:
                         var keys = Object.keys(data.errors);
                         mainError = "Some fiedls have incorrect values";
@@ -790,9 +869,12 @@
         $("#material").val(data.material);
         $("#colour").val(data.colour_id);
         $("#stock").val(data.initial_stocks);
+        // $("#links-of-suppliers").val(data.supplier_link);
+        // $("#size").val(data.available_size);
         $("#wholesale-price").val(data.whole_sale_price);
         $("#retail-price").val(data.retail_price);
         $("#description").val(data.description);
+        $("#fileName").val(data.image);
 
     });
 
@@ -859,6 +941,7 @@
             }
         });
     })
+
 
 
 </script>
