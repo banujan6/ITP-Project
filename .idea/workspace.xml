@@ -25,16 +25,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="418af53e-2474-438c-a01f-658f85f171a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Supplier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Transaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_175242_create_transactions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_18_155242_create_transactions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/dist/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/dist/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/retail-transaction.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/retail-transaction.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_180128_create_table_supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_180128_create_table_supplier.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/supplier.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/supplier.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -213,7 +206,7 @@
       <workItem from="1602924272007" duration="83000" />
       <workItem from="1602925872819" duration="29000" />
       <workItem from="1602938434648" duration="55000" />
-      <workItem from="1602941097065" duration="5612000" />
+      <workItem from="1602941097065" duration="9047000" />
     </task>
     <task id="LOCAL-00001" summary="Added new validation, img bug, relationship issue fix">
       <created>1602157858880</created>
