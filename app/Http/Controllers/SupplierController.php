@@ -72,20 +72,7 @@ class SupplierController extends Controller
         }
 
         $products1 = implode(" | ",$product1);
-//
-//        foreach($supplier->fabrics as $fabric) {
-//
-//            $product2[] = $fabric->name;
-//
-//            if ( $count == 2){
-//                break;}
-//
-//            $count = $count +1;
-//        }
 
-//        $products2 = implode(" | ",$product2);
-
-//        $products = $products1." | ".$products2;
 
         if(strlen($products1) == 0){
 
@@ -145,7 +132,7 @@ class SupplierController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:suppliers,name',
             'contactNo' => 'required|regex:/(0)[0-9]{2}(-)[0-9]{7}\b/',
             'address'=> 'required',
             'description'=>'required',
@@ -209,7 +196,7 @@ class SupplierController extends Controller
         }
 
         $supplier->readymades()->detach();
-//        $supplier->fabrics()->detach();
+
         $supplier->delete();
 
         return [
