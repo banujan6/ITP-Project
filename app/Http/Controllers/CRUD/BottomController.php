@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CRUD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bottom;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class BottomController extends Controller
@@ -62,5 +63,10 @@ class BottomController extends Controller
         return redirect()->back()->with([
             'delete_status' => true
         ]);
+    }
+
+    public function report()
+    {
+     //   Transaction::where()
     }
 }
