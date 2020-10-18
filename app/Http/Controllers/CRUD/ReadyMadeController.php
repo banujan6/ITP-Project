@@ -18,7 +18,7 @@ class ReadyMadeController extends Controller
 
     public function store(Request $request){
         $data = $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:readymade_main,name'
         ]);
 
         if ( !empty($request->get('id'))) {

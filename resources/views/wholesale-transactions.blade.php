@@ -148,7 +148,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -350,12 +350,15 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
+
                                                                                         <label for="price_per_quantity" class="col-sm-3 text-left control-label col-form-label">Price Per quantity</label>
+
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="price_per_quantity" placeholder="Price Here" readonly>
                                                                                             <span id="price_per_quantityError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
+
                                                                                     <div class="form-group row">
                                                                                         <label for="quantity_or_peices" class="col-sm-3 text-left control-label col-form-label">Qty/Pcs</label>
                                                                                         <div class="col-sm-9">
@@ -378,9 +381,11 @@
                                                                                             <input type="Date" class="form-control form-input" id="payment_Date" placeholder="Payment Date">
                                                                                             <span id="payment_DateError" class="text-danger form-error" ></span>
                                                                                         </div>
+
                                                                                     </div> 
                                                                                     <div class="form-group row">
                                                                                         <label for="cheque_number" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
+
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="cheque_number" placeholder="Cheque Number Here">
                                                                                             <span id="cheque_numberError" class="text-danger form-error"></span>
@@ -399,7 +404,7 @@
                                                                                             <input type="number" class="form-control form-input" id="amount" placeholder="Cheque Amount">
                                                                                             <span id="amountError" class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
                                                                                         <div class="col-sm-9">
@@ -480,6 +485,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
+
                                                                 <th>Invoice_number</th>
                                                                 <th>Date</th>
                                                                 <th>Wholesale Customer</th>
@@ -538,7 +544,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
                                 <div class="card">
                                     <div class="card-body">
@@ -634,7 +640,7 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/dataTables.select.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/fixedColumns.min.js"></script>
-    
+
     <script>
     $.ajaxSetup({
         headers: {
@@ -663,7 +669,7 @@
                 className: 'select-checkbox',
                 targets: 0
             }],
-            
+
             buttons: {
                 dom: {
                     button: {
@@ -898,7 +904,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         $("#date").val(data.date);
@@ -925,7 +931,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#date").val("");
@@ -945,9 +951,11 @@
         $("#description").val("");
         $("#price_per_quantity").val("");
         $("#cash").val("");
+
         $("#item_code").val("");
         
         $(".bd-form-modal-xl").modal('show');
+
 
     });
 
@@ -1022,7 +1030,7 @@
                     window.setTimeout(function(){
                         $(".bd-form-modal-xl").modal('hide');
                         $('.form-input').val('');
-                        hideErrors(); 
+                        hideErrors();
                     }, 600)
                     if(mode=="update"){
                         var index = $("#editButton"+updateId).data("index");
@@ -1078,14 +1086,14 @@
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="deleteButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
-                }           
+                }
             },
             error: function(e){
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
 
                 switch (e.status){
-                    
+
                     case 400:
                         mainError = "Something went wrong!";
                         var key = Object.keys(data.errors);
@@ -1093,11 +1101,11 @@
                         for(var i = 0; i < key.length; i++){
                             var id = key[i];
                             var errorMsg=data.errors[id][0];
-
                             
                             $("#"+id).addClass("is-invalid");
                             $("#"+id+"Error").html(errorMsg);
                         }
+
                         break;
                     case 500:
                         mainError = "Server Error!"
@@ -1108,12 +1116,12 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();  
-                
+                $("#modalAlert").show();
+
             }
 
         })
-    })  
+    })
 
     $(document).on('click keyup',".form-input", function(){
         hideErrors();
@@ -1168,7 +1176,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:

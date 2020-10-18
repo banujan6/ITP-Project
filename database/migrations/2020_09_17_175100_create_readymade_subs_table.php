@@ -17,6 +17,7 @@ class CreateReadymadeSubsTable extends Migration
             $table->id();
 
             $table->string('name');
+            $table->string('item_code')->nullable();
             $table->mediumText('image')->nullable();
             $table->string('material');
             $table->string('supplier_link')->nullable();

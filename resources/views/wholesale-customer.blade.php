@@ -150,7 +150,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -440,6 +440,29 @@
                             <div class="tab-pane  p-20" id="credit-report" role="tabpanel">
                                 <div class="p-20">
                                     <h1>Credit Report Table Goes Here</h1>
+                                    <div class="table-responsive">
+
+                                        <table class="table" id="repo">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Name</th>
+                                                <th>Credit Limit</th>
+                                                <th>Status</th>
+                                                <th>Total Credit Amount</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>b</td>
+                                                    <td>c</td>
+                                                    <td>d</td>
+                                                    <td>e</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -512,6 +535,92 @@
             },
         });
         var table ;
+
+        var table2;
+
+        $(document).ready(function() {
+            table2 = $('#repo').DataTable({
+                dom: 'Bfrtip',
+                // scrollX: true,
+                // scrollCollapse: true,
+                paging: true,
+                // fixedColumns: {
+                //     leftColumns: 1,
+                //     rightColumns: 2
+                // },
+                autoWidth: false,
+                responsive: true,
+
+                columnDefs: [{
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+
+                buttons: {
+                    dom: {
+                        button: {
+                            tag: 'button',
+                            className: ''
+                        }
+                    },
+                    buttons: [{
+                        extend: 'selectAll',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect All.',
+                        text: 'select All',
+                    }, {
+                        extend: 'selectNone',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect None.',
+                        text: 'select None',
+                    },
+                        // {
+                        //     extend: 'colvis',
+                        //     className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        //     columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+                        //
+                        // },
+
+                        {
+                            extend: 'collection',
+                            className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                            text: 'Export',
+                            buttons: [{
+                                extend: 'excel',
+                                className: 'dropdown-item',
+                                messageTop: 'wholesale-customer Records'
+                            }, {
+                                extend: 'copy',
+                                className: 'dropdown-item',
+                                messageTop: 'wholesale-customer Records'
+                            }, {
+                                extend: 'pdf',
+                                className: 'dropdown-item',
+                                messageTop: 'wholesale-customer Records'
+                            }, {
+                                extend: 'print',
+                                className: 'dropdown-item',
+                                messageTop: 'wholesale-customer Records'
+                            }],
+                        }
+                    ]
+
+                },
+                language: {
+                    buttons: {
+                        selectAll: "Select All",
+                        selectNone: "Select None"
+                    }
+                },
+                select: {
+                    style: 'multi',
+                    selector: 'td:first-child'
+                },
+                order: [
+                    [1, 'asc']
+                ]
+            });
+        });
 
         table = $('#example').DataTable({
             dom: 'Bfrtip',

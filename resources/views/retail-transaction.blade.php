@@ -148,7 +148,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -434,7 +434,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
                                 <div class="card">
                                     <div class="card-body">
@@ -554,7 +554,7 @@
                 className: 'select-checkbox',
                 targets: 0
             }],
-            
+
             buttons: {
                 dom: {
                     button: {
@@ -727,7 +727,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         console.log($("#updateId").val(updateId));
@@ -746,7 +746,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#date").val("");
@@ -757,7 +757,6 @@
         $("#cash").val("");
         $("#retail_customer").val("");
         $("#item_code").val("");
-        
         $(".bd-form-modal-lg").modal('show');
     });
 
@@ -777,7 +776,6 @@
         $("#quantity_or_peices").val("");
 
         });
-
 
             var price_per_quantity = $("#price_per_quantity");
             var quantity_or_peices = $("#quantity_or_peices");
@@ -857,7 +855,7 @@
                     window.setTimeout(function(){
                         $(".bd-form-modal-lg").modal('hide');
                         $('.form-input').val('');
-                        hideErrors(); 
+                        hideErrors();
                     }, 600)
                     if(mode=="update"){
                         var index = $("#editButton"+updateId).data("index");
@@ -877,7 +875,7 @@
                         ]);
                     } else {
                         var index = table.count();
-
+                        console.log(index);
                         table.rows.add([[
                             "",
                             data.transaction.invoice_number,
@@ -891,7 +889,7 @@
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
-                }           
+                }
             },
             error: function(e){
                 console.log(e);
@@ -901,11 +899,12 @@
                 console.log(data);
 
                 switch (e.status){
-                    
+
                     case 400:
                         mainError = "Something went wrong!";
 
                             var key = Object.keys(data.errors);
+
 
                             for(var i = 0; i < key.length; i++){
                                 var id = key[i];
@@ -929,7 +928,7 @@
             }
 
         })
-    })  
+    })
 
     $(document).on('click keyup',".form-input", function(){
         hideErrors();
@@ -983,7 +982,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:

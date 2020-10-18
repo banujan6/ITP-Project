@@ -27,9 +27,16 @@ Route::get('/crud/ready_made_sub/{mainId}', 'CRUD\ReadymadeSubController@index')
 Route::get('/crud/readymade_sub/view/{subId}', 'CRUD\ReadymadeSubController@indexView');
 Route::post('/crud/ready_made_sub/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
+
 Route::post('/crud/readymade_sub/create', 'CRUD\ReadymadeSubController@create');
 Route::post('/crud/readymade_sub/view/update', 'CRUD\ReadymadeSubController@update');
 Route::post('/crud/readymade_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
+Route::post('/crud/readymade_sub/view/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
+
+Route::post('/crud/fabric_sub/create', 'CRUD\ReadymadeSubController@create');
+Route::post('/crud/fabric_sub/view/update', 'CRUD\ReadymadeSubController@update');
+Route::post('/crud/fabric_sub/view/delete', 'CRUD\ReadymadeSubController@delete');
+Route::post('/crud/v/view/fileUpload', 'CRUD\ReadymadeSubController@fileUpload');
 
 Route::get('/crud/wholesale_transaction','CRUD\WholesaleTransactionController@index');
 Route::post('/crud/wholesale_transaction/create','CRUD\WholesaleTransactionController@create');
@@ -55,6 +62,10 @@ Route::get('/categories', 'CRUD\CategoryController@index');
 Route::get('/categories/ready-made', 'CRUD\ReadyMadeController@index')->name('category.ready-made.index');
 Route::post('/categories/ready-made', 'CRUD\ReadyMadeController@store')->name('category.ready-made.store');
 Route::post('/categories/ready-made/{id}/delete', 'CRUD\ReadyMadeController@destroy')->name('category.ready-made.delete');
+
+Route::get('/categories/bottoms', 'CRUD\BottomController@index');
+Route::post('/categories/bottoms', 'CRUD\BottomController@store')->name('category.bottom.store');
+Route::get('/categories/bottoms/{id}', 'CRUD\BottomController@destroy')->name('category.bottom.destroy');
 
 Route::get('/crud/wholesale','CRUD\WholesaleCustomerController@index');
 Route::post('/crud/wholesale/update', 'CRUD\WholesaleCustomerController@update');

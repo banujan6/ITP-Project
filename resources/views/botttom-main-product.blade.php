@@ -149,7 +149,7 @@
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href="/categories" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
                                 <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
@@ -250,6 +250,9 @@
                                 <button class="btn btn-info shadow-none font-weight-bold" data-toggle="modal" data-target=".bd-example-modal-lg">
                                     <i class="fas fa-plus"></i> Add Bottom</a>
                                 </button>
+                                <button class="btn btn-success shadow-none font-weight-bold">
+                                    <i class="fas fa-file"></i> Get Stock Availability Report</a>
+                                </button>
                                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -261,44 +264,45 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="card">
-                                                    <form class="form-horizontal">
+                                                    <form class="form-horizontal" method="post" action="{{ route('category.bottom.store') }}" enctype="multipart/form-data">
+                                                        @csrf
                                                         <div class="card-body p-1">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group row">
                                                                         <label for="fname" class="col-sm-3 text-left control-label col-form-label">Item Code</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="item-code" placeholder="Item code Here">
+                                                                            <input type="text" class="form-control" id="item-code" name="item_code" placeholder="Item code Here" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label for="lname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="name" placeholder="Name Here">
+                                                                            <input type="text" class="form-control" id="name" name="name" placeholder="Name Here" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Brand</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="brand" placeholder="Brand Here">
+                                                                            <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand Here" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Colors Available</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="colors" placeholder="Colors Here">
+                                                                            <input type="text" class="form-control" id="colors" name="colors" placeholder="Colors Here" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Initial Stocks</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="brand" placeholder="Initial Stock Here">
+                                                                            <input type="number" class="form-control" id="init_stocks"  name="init_stocks"  placeholder="Initial Stock Here" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Links Of Suppliers</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="links-of-suppliers" placeholder="Supplier Links Here">
+                                                                            <input type="text" class="form-control" id="links-of-suppliers"  name="suppliers" placeholder="Supplier Links Here" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -306,7 +310,7 @@
                                                                     <div class="form-group row">
                                                                         <label class="col-md-3">Sizes Available</label>
                                                                         <div class="col-md-9">
-                                                                            <select class="select2 form-control m-t-15" multiple="multiple" style="height: 50px;width: 100%;">
+                                                                            <select class="select2 form-control m-t-15" multiple="multiple" style="height: 50px;width: 100%;" id="sizes" name="sizes[]" required>
                                                                                 <optgroup label="Kids">
                                                                                     <option value="Kids-SM">Kids-SM</option>
                                                                                     <option value="Kids-MD">Kids-MD</option>
@@ -334,7 +338,7 @@
                                                                         </div>
                                                                         <div class="col-lg-9 col-md-12">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" placeholder="100.000" aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                                                                <input type="number" class="form-control" placeholder="100.00" aria-label="Recipient 's username" id="whole_sale_price" name="wholesale_price" aria-describedby="basic-addon2" required>
                                                                                 <div class="input-group-append">
                                                                                     <span class="input-group-text" id="basic-addon2">$</span>
                                                                                 </div>
@@ -347,7 +351,7 @@
                                                                         </div>
                                                                         <div class="col-lg-9 col-md-12">
                                                                             <div class="input-group">
-                                                                                <input type="text" class="form-control" placeholder="50.000" aria-label="Recipient 's username" aria-describedby="basic-addon2">
+                                                                                <input type="number" class="form-control" placeholder="50.00" aria-label="Recipient 's username" id="retail_price" name="retail_price" aria-describedby="basic-addon2" required>
                                                                                 <div class="input-group-append">
                                                                                     <span class="input-group-text" id="basic-addon2">$</span>
                                                                                 </div>
@@ -357,13 +361,13 @@
                                                                     <div class="form-group row">
                                                                         <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                         <div class="col-sm-9">
-                                                                            <textarea class="form-control"></textarea>
+                                                                            <textarea class="form-control" name="description" id="description" required></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group row">
                                                                         <label class="col-md-3">Image</label>
                                                                         <div class="col-md-9 custom-file">
-                                                                            <input type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*" required>
+                                                                            <input type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*" name="image" required>
                                                                             <label class="custom-file-label mx-2 shadow-sm bg-white-rounded" for="validatedCustomFile">Choose an image...</label>
                                                                             <div class="invalid-feedback remove">Remove</div>
                                                                         </div>
@@ -371,8 +375,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save changes</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -382,6 +386,29 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive-md">
+
+                                    @if(session()->has('create_update_status'))
+                                        <div class="alert alert-success">
+                                            The product has been added / updated successfully.
+                                        </div>
+                                    @endif
+
+                                        @if(session()->has('delete_status'))
+                                            <div class="alert alert-success">
+                                                The product has been deleted successfully.
+                                            </div>
+                                        @endif
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <table id="example" class="display" style="width:100%">
                                         <thead>
                                             <tr>
@@ -406,54 +433,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td>Item 0001</td>
-                                                <td>Bottom 1</td>
-                                                <td>Adidas</td>
-                                                <td>Black, Green</td>
-                                                <td>100</td>
-                                                <td>www.google.com</td>
-                                                <td>xl,sm</td>
-                                                <td>100</td>
-                                                <td>50</td>
-                                                <td>Lorem ipsum</td>
-                                                <td>1.jpg</td>
-                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>Item 0001</td>
-                                                <td>Bottom 1</td>
-                                                <td>Adidas</td>
-                                                <td>Black, Green</td>
-                                                <td>100</td>
-                                                <td>www.google.com</td>
-                                                <td>xl,sm</td>
-                                                <td>100</td>
-                                                <td>50</td>
-                                                <td>Lorem ipsum</td>
-                                                <td>1.jpg</td>
-                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>Item 0001</td>
-                                                <td>Bottom 1</td>
-                                                <td>Adidas</td>
-                                                <td>Black, Green</td>
-                                                <td>100</td>
-                                                <td>www.google.com</td>
-                                                <td>xl,sm</td>
-                                                <td>100</td>
-                                                <td>50</td>
-                                                <td>Lorem ipsum</td>
-                                                <td>1.jpg</td>
-                                                <td data-toggle="modal" data-target=".bd-example-modal-lg"><button type="button" class="btn btn-cyan btn-sm">Edit</button></td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                            </tr>
+                                            @foreach($bottoms as $bottom)
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{ $bottom->item_code }}</td>
+                                                    <td>{{ $bottom->name }}</td>
+                                                    <td>{{ $bottom->brand }}</td>
+                                                    <td>{{ $bottom->colors }}</td>
+                                                    <td>{{ $bottom->initial_stocks }}</td>
+                                                    <td>{{ $bottom->suppliers }}</td>
+                                                    <td>{{ $bottom->sizes }}</td>
+                                                    <td>{{ number_format($bottom->whole_sale_price, 2, '.', ',') }}</td>
+                                                    <td>{{ number_format($bottom->retail_price, 2, '.', ',') }}</td>
+                                                    <td>{{ $bottom->description }}</td>
+                                                    <td>
+                                                        <img src="{{ asset('storage/'.$bottom->image) }}" style="width: 50px"/>
+                                                    </td>
+                                                    <td><button type="button" class="btn btn-cyan btn-sm" data-type="edit" data-set="{{
+                                                        json_encode([
+                                                            'item_code' => $bottom->item_code,
+                                                            'name' => $bottom->name,
+                                                            'brand' => $bottom->brand,
+                                                            'colors' => $bottom->colors,
+                                                            'initial_stocks' => $bottom->initial_stocks,
+                                                            'suppliers' => $bottom->suppliers,
+                                                            'sizes' => $bottom->sizes,
+                                                            'whole_sale_price' => $bottom->whole_sale_price,
+                                                            'retail_price' => $bottom->retail_price,
+                                                            'description' => $bottom->description
+                                                        ])
+                                                    }}">Edit</button></td>
+                                                    <td>
+                                                        <a href="{{ route('category.bottom.destroy', ['id' => $bottom->id ]) }}">
+                                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -561,24 +577,7 @@
                         className: ''
                     }
                 },
-                buttons: [{
-                        extend: 'selectAll',
-                        className: 'btn btn-sm btn-secondary border',
-                        titleAttr: 'selsect All.',
-                        text: 'select All',
-                    }, {
-                        extend: 'selectNone',
-                        className: 'btn btn-sm btn-secondary border',
-                        titleAttr: 'selsect None.',
-                        text: 'select None',
-                    },
-                    {
-                        extend: 'colvis',
-                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
-                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
-
-                    },
-
+                buttons: [
                     {
                         extend: 'collection',
                         className: 'btn btn-sm btn-secondary dropdown-toggle border',
@@ -642,6 +641,30 @@
             theme: 'bootstrap'
         });
     });
+
+
+    $('button[data-type="edit"]').click(function () {
+        const data = $(this).data('set');
+
+        $('#item-code').val(data['item_code']);
+        $('#name').val(data['name']);
+        $('#brand').val(data['brand']);
+        $('#colors').val(data['colors']);
+        $('#init_stocks').val(data['initial_stocks']);
+        $('#links-of-suppliers').val(data['suppliers']);
+
+        const sizes = data['sizes'].split(',');
+        $('#sizes').val(sizes);
+        $('#sizes').trigger('change');
+
+        $('#whole_sale_price').val(data['whole_sale_price']);
+        $('#retail_price').val(data['retail_price']);
+        $('#description').val(data['description']);
+
+        $('.bd-example-modal-lg').modal('show');
+    });
+
+
     </script>
 </body>
 

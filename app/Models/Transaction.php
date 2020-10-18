@@ -17,6 +17,7 @@ class Transaction extends Model
     protected $fillable = [
         "date",
         "invoice_number",
+        "item_code",
         "description",
         "quantity_or_peices",
         "price_per_quantity",

@@ -17481,3 +17481,7 @@ table.dataTable {
     background-repeat: no-repeat;
     cursor: pointer;
 }
+
+#debt-table_wrapper{
+    margin-bottom: 20px;
+}

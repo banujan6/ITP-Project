@@ -21,12 +21,12 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger("quantity_or_peices")->nullable();
             $table->unsignedBigInteger("price_per_quantity")->nullable();
             $table->string("item_code");
-
             $table->enum("payment_type",["cash","cheque_wholesale","cheque_supplier"]);
 
             $table->unsignedBigInteger("cash")->nullable();
 
             $table->unsignedBigInteger("cheque_payment_id")->nullable();
+
 
             $table->unsignedBigInteger("wholesale_customer_id")->nullable();
 
@@ -39,6 +39,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger("supplier_id")->nullable();
 
             $table->foreign("supplier_id")->references("id")->on("suppliers");
+
 
             $table->timestamps();
         });
