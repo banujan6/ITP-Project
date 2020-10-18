@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CRUD;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
@@ -14,8 +15,12 @@ class WholesaleCustomerController extends Controller
 {
     public function index(){
         $wholesale_customers = WholesaleCustomer::all();
+
+        $join = Transaction::join('wholesale_customer','wholesale_customer.id','=','transaction.wholesale_customer_id')->
+            select('transaction.cash', 'wholesale_customer.name', 'wholesale_customer.id', 'wholesale_customer.credit_limit')->get();
         return view("wholesale-customer",[
-            "customers"=> $wholesale_customers
+            "customers"=> $wholesale_customers,
+            "join"=>$join
         ]);
 
     }
@@ -34,7 +39,7 @@ class WholesaleCustomerController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'contactNumber' => 'required',
+            'contactNumber' => 'required|regex:/(0)[0-9]{9}\b/',
             'address'=> 'required',
             'creditLimit'=> 'required'
         ]);

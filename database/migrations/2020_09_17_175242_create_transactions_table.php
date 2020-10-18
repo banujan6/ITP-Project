@@ -34,6 +34,7 @@ class CreateTransactionsTable extends Migration
             // $table->foreign("wholesale_customer_id")->references("id")->on("wholesale_customer");
 
             $table->unsignedBigInteger("retail_customer_id")->nullable();
+            $table->unsignedBigInteger("wholesale_customer_id")->nullable();
 
             $table->foreign("retail_customer_id")->references("id")->on("retail_customer");
 

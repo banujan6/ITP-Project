@@ -25,6 +25,7 @@ class Transaction extends Model
         // "cheque_payment_id"
         // "wholesale_customer_id",
         "retail_customer_id",
+        "wholesale_customer_id",
         // "supplier_id"
     ];
 
