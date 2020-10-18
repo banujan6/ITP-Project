@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+
 Route::get('/crud/retail_customer','CRUD\RetailCustomerController@index');
 Route::post('/crud/retail_customer/update', 'CRUD\RetailCustomerController@update');
 Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@create');
@@ -77,10 +79,10 @@ Route::post('/crud/vehicle_finance/create','CRUD\vehicleFinanceController@create
 Route::post('/crud/vehicle_finance/update', 'CRUD\vehicleFinanceController@update');
 Route::post('/crud/vehicle_finance/delete', 'CRUD\vehicleFinanceController@delete');
 
-//Route::get('/crud/vehicle', 'CRUD\vehicleController@index');
-//Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
-//Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
-//Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
+Route::get('/crud/vehicle', 'CRUD\vehicleController@index');
+Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
+Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
+Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
 
 Route::get('/employee','EmployeeBasicController@index');
 //Route::post('/employee/update','EmployeeController@update');
