@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
@@ -258,7 +259,9 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="card-body">
-                                            <form class="form-horizontal">
+                                            <form class="form-horizontal" id="formCreate">
+                                                <div class="col-12 alert" role="alert" id="modalAlert1" style="display:none;">
+                                                </div>
 
                                                 <div class="col-12">
                                                     <hr>
@@ -284,7 +287,7 @@
                                                     <div class="form-group row">
                                                         <label for="year_of_purchase" class="col-sm-3 text-left control-label col-form-label">Year of Purchase</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control form-input" id="year_of_purchase" placeholder="Enter vehicle registered year">
+                                                            <input type="number" class="form-control form-input" id="year_of_purchase" placeholder="Enter vehicle registered year">
                                                             <span id="year_of_purchaseError" class="text-danger form-error" ></span>
                                                         </div>
                                                     </div>
@@ -313,14 +316,14 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing1">
-                                                        <label class="custom-control-label" for="customControlAutosizing1"> Tick the check box if the vehicle is under a finance!</label>
-                                                    </div>
+{{--                                                    <div class="custom-control custom-checkbox">--}}
+{{--                                                        <input type="checkbox" class="custom-control-input" id="customControlAutosizing1">--}}
+{{--                                                        <label class="custom-control-label" for="customControlAutosizing1"> Tick the check box if the vehicle is under a finance!</label>--}}
+{{--                                                    </div>--}}
 
                                                     <div class="border-top">
                                                         <div class="card-body float-right">
-                                                            <button type="button" class="btn btn-primary">Submit</button>
+                                                            <button type="submit" class="btn btn-primary btn-submit">Submit</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,6 +343,36 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="card-body">
+
+                                            <div class="modal fade bd-confirmation-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-weight-bold" id="confirmationModalLabel">Confirmation</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="card mb-0">
+                                                                <form id="confirmationModal" class="form-horizontal">
+                                                                    <div class="form-group row">
+                                                                        <span class="alert col-12" role="alert" style="display:none" id="confirmationAlert"></span>
+                                                                    </div>
+                                                                    <div>Are u sure to delete.." </div>
+                                                                    <div class="card-body float-right">
+                                                                        <input type="hidden" name="delete_id" id="deleteId"/>
+                                                                        <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
+                                                                        <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                             <div class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content">
@@ -355,53 +388,61 @@
                                                                     <div class="card-body p-1">
                                                                         <div class="row">
                                                                             <div class="col-12">
-                                                                                <input type="hidden" id="ptype" name="payment_type" value="cash">
+                                                                                <div class="col-12 alert" role="alert" id="modalAlert" style="display:none;">
+                                                                                </div>
+                                                                                <input type="hidden" id="updateId" name="update" />
 
 
                                                                                 <div class="form-group row">
-                                                                                    <label for="price" class="col-sm-3 text-left control-label col-form-label">Vehicle Make</label>
+                                                                                    <label for="make1" class="col-sm-3 text-left control-label col-form-label">Vehicle Make</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="price" placeholder="Enter vehicle Make">
+                                                                                        <input type="text" class="form-control form-input" id="make1" placeholder="Enter vehicle Make">
+                                                                                        <span id="make1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="invoiceNo" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                                                    <label for="model1" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control" id="invoiceNo" placeholder="Enter vehcle model">
+                                                                                        <input type="text" class="form-control form-input" id="model1" placeholder="Enter vehcle model">
+                                                                                        <span id="model1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="quantity" class="col-sm-3 text-left control-label col-form-label">Year Of Purchase</label>
+                                                                                    <label for="year_of_purchase1" class="col-sm-3 text-left control-label col-form-label">Year Of Purchase</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="quantity" placeholder="Enter vehicle registered Year">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group row">
-                                                                                    <label for="cash" class="col-sm-3 text-left control-label col-form-label">Registered Number</label>
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control" id="cash" placeholder="Enter Vehicle Registered Number">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group row">
-                                                                                    <label for="date" class="col-sm-3 text-left control-label col-form-label">Colour</label>
-                                                                                    <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control" id="date" placeholder="Enter Vehicle Colour">
+                                                                                        <input type="number" class="form-control form-input" id="year_of_purchase1" placeholder="Enter vehicle registered Year">
+                                                                                        <span id="year_of_purchase1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="form-group row">
-                                                                                    <label for="date" class="col-sm-3 text-left control-label col-form-label">Capacity</label>
+                                                                                    <label for="registered_number1" class="col-sm-3 text-left control-label col-form-label">Registered Number</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control" id="date" placeholder="Enter Vehicle Capacity">
+                                                                                        <input type="text" class="form-control form-input" id="registered_number1" placeholder="Enter Vehicle Registered Number">
+                                                                                        <span id="registered_number1Error" class="text-danger form-error" ></span>
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="custom-control custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1">
-                                                                                    <label class="custom-control-label" for="customControlAutosizing1"> Tick the check box if the vehicle is under a finance!</label>
+                                                                                <div class="form-group row">
+                                                                                    <label for="colour1" class="col-sm-3 text-left control-label col-form-label">Colour</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control form-input" id="colour1" placeholder="Enter Vehicle Colour">
+                                                                                        <span id="colour1Error" class="text-danger form-error" ></span>
+                                                                                    </div>
                                                                                 </div>
+
+                                                                                <div class="form-group row">
+                                                                                    <label for="capacity1" class="col-sm-3 text-left control-label col-form-label">Capacity</label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text" class="form-control form-input" id="capacity1" placeholder="Enter Vehicle Capacity">
+                                                                                        <span id="capacity1Error" class="text-danger form-error" ></span>
+                                                                                    </div>
+                                                                                </div>
+
+{{--                                                                                <div class="custom-control custom-checkbox">--}}
+{{--                                                                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing1">--}}
+{{--                                                                                    <label class="custom-control-label" for="customControlAutosizing1"> Tick the check box if the vehicle is under a finance!</label>--}}
+{{--                                                                                </div>--}}
 
                                                                             </div>
                                                                         </div>
@@ -420,12 +461,14 @@
                                                     <thead>
                                                     <tr>
 
+                                                        <th></th>
                                                         <th class="font-weight-bold">Vehicle Make</th>
                                                         <th class="font-weight-bold">Vehicle Model</th>
                                                         <th class="font-weight-bold">Year Of Purchase</th>
                                                         <th class="font-weight-bold">Registered Number</th>
                                                         <th class="font-weight-bold">Colour</th>
                                                         <th class="font-weight-bold">Capacity</th>
+
 
                                                         <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                 <i class="fas fa-check text-center"></i>
@@ -436,18 +479,19 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {{--@foreach($vehicles as $key=> $vehicle)
-                                                    <tr>
-                                                        <td>{{$vehicle->make}}</td>
-                                                        <td>{{$vehicle->model}}</td>
-                                                        <td>{{$vehicle->year_of_purchase}}</td>
-                                                        <td>{{$vehicle->registered_number}}</td>
-                                                        <td>{{$vehicle->colour}}</td>
-                                                        <td>{{$vehicle->capacity}}</td>
-                                                        <td><button data-data="{{  $vehicle }}" data-index="{{ $key }}" data-id='{{ $vehicle->getKey() }}' id="editButton{{ $vehicle->getKey() }}" type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-form-modal-lg">Edit</button> </td>
-                                                        <td><button data-name="{{ $vehicle->make }}" data-index="{{ $key }}" data-id='{{ $vehicle->getKey() }}' id="deleteButton{{ $vehicle->getKey() }}" type="button" class="btn btn-danger btn-sm">Delete</button> </td>
-                                                    </tr>
-                                                        @endforeach--}}
+                                                    @foreach($vehicles as $key => $vehicle)
+                                                        <tr>
+                                                             <td> </td>
+                                                            <td>{{$vehicle->make}}</td>
+                                                            <td>{{$vehicle->model}}</td>
+                                                            <td>{{$vehicle->year_of_purchase}}</td>
+                                                            <td>{{$vehicle->registered_number}}</td>
+                                                            <td>{{$vehicle->colour}}</td>
+                                                            <td>{{$vehicle->capacity}}</td>
+                                                            <td><button data-data="{{$vehicle}}" data-index="{{$key}}" data-id='{{$vehicle->getkey()}}' id="editButton{{$vehicle->getkey()}}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
+                                                            <td><button  data-index="{{$key}}" data-id='{{$vehicle->getkey()}}' id="deleteButton{{$vehicle->getkey()}}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
+                                                        </tr>
+                                                    @endforeach
 
                                                     </tbody>
                                                 </table>
@@ -479,7 +523,7 @@
 <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- slimscrollbar scrollbar JavaScript - ->
 <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<!-- Wave Effects -->
+ Wave Effects -->
 <script src="../../dist/js/waves.js"></script>
 <!--Menu sidebar -->
 <script src="../../dist/js/sidebarmenu.js"></script>
@@ -554,19 +598,19 @@
                         buttons: [{
                             extend: 'excel',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle Records'
                         }, {
                             extend: 'copy',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle Records'
                         }, {
                             extend: 'pdf',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle Records'
                         }, {
                             extend: 'print',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle Records'
                         }],
                     }
                 ]
@@ -622,6 +666,7 @@
                     window.setTimeout(function(){
                         $("#modalAlert1").alert('close');
                         $('.form-input').val('');
+                        location.reload();
                         hideErrors();
                     }, 600)
 
@@ -701,6 +746,7 @@
         var colour = $("#colour1").val();
         var capacity = $("#capacity1").val();
 
+
         $("#modalAlert").show();
 
 
@@ -731,15 +777,17 @@
                     }, 600)
 
                     var index = $("#editButton"+updateId).data("index");
+
                     table.row(index).data([
                         "",
-                        data.vehicle_finance.model,
-                        data.vehicle_finance.finance_company,
-                        data.vehicle_finance.account_number,
-                        data.vehicle_finance.monthly_payment_amount,
-                        data.vehicle_finance.payment_date,
-                        `<button data-data='${JSON.stringify(data.vehicle_finance)}' data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
-                        `<button  data-index="${index}" data-id="${data.vehicle_finance.id}" id="editButton${data.vehicle_finance.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                        data.vehicle.make,
+                        data.vehicle.model,
+                        data.vehicle.year_of_purchase,
+                        data.vehicle.registered_number,
+                        data.vehicle.colour,
+                        data.vehicle.capacity,
+                        `<button data-data='${JSON.stringify(data.vehicle)}' data-index="${index}" data-id="${data.vehicle.id}" id="editButton${data.vehicle.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                        `<button  data-index="${index}" data-id="${data.vehicle.id}" id="deleteButton${data.vehicle.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                     ]);
 
                 }
@@ -807,14 +855,14 @@
 
         $.ajax({
             method: "POST",
-            url: "{{ url('/crud/vehicle_finance/delete') }}",
+            url: "{{ url('/crud/vehicle/delete') }}",
             dataType: "json",
             data: {
                 id: deleteId
             },
             success: function(data){
                 if(data.success){
-                    $("#confirmationAlert").html(`You have successfully deleted the finance details.`);
+                    $("#confirmationAlert").html(`You have successfully deleted the vehicle details.`);
                     $("#confirmationAlert").show();
                     $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
                     window.setTimeout(function(){

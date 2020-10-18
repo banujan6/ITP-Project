@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/vehicle-management', function () {
-    return view('vehicle-management');
-});
+//Route::get('/vehicle-management', function () {
+//    return view('vehicle-management');
+//});
 
 /*Route::get('/vehicle-finance', function () {
     return view('vehicle-finance');
@@ -36,9 +36,9 @@ Route::post('/crud/vehicle_finance/create','CRUD\vehicleFinanceController@create
 Route::post('/crud/vehicle_finance/update', 'CRUD\vehicleFinanceController@update');
 Route::post('/crud/vehicle_finance/delete', 'CRUD\vehicleFinanceController@delete');
 
-//Route::get('/crud/vehicle', 'CRUD\vehicleController@index');
-//Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
-//Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
-//Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
+Route::get('/crud/vehicle', 'CRUD\vehicleController@index');
+Route::post('/crud/vehicle/create', 'CRUD\vehicleController@create');
+Route::post('/crud/vehicle/update', 'CRUD\vehicleController@update');
+Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
 
 

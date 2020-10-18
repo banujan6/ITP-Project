@@ -270,10 +270,15 @@
                                                         <hr>
 
                                                         <div class="form-group row">
-                                                            <label for="model" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                            <label for="vehicles" class="col-sm-3 text-left control-label col-form-label">Vehicle Registration Number</label>
                                                             <div class="col-sm-9">
-                                                                <input type="text" class="form-control form-input" id="model" placeholder="Enter Vehicle model">
-                                                                <span id="modelError" class="text-danger form-error" ></span>
+                                                                    <select type="text" class="form-control form-input" id="vehicles" placeholder="Vehicle Registration Number">
+                                                                        <option value="" >Select Vehicle </option>
+                                                                        @foreach($vehicles as $vehicle)
+                                                                            <option value="{{$vehicle->getKey()}}">{{$vehicle->registered_number}}</option>
+                                                                        @endForeach
+                                                                    </select>
+                                                                    <span id="vehiclesError" class="text-danger form-error" ></span>
                                                             </div>
                                                         </div>
 
@@ -301,7 +306,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label for="payment_date" class="col-sm-3 text-left control-label col-form-label">Date</label>
+                                                            <label for="payment_date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                             <div class="col-sm-9">
                                                                 <input type="Date" class="form-control form-input" id="payment_date" placeholder="Payment Date Here">
                                                                 <span id="payment_dateError" class="text-danger form-error" ></span>
@@ -344,7 +349,7 @@
                                                                         <div class="form-group row">
                                                                             <span class="alert col-12" role="alert" style="display:none" id="confirmationAlert"></span>
                                                                         </div>
-                                                                        <div>NOTICE: You are going to delete the  the "<b id="deleteModel"></b>". </div>
+                                                                        <div> Are you sure to delete.. </div>
                                                                         <div class="card-body float-right">
                                                                             <input type="hidden" name="delete_id" id="deleteId"/>
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
@@ -377,10 +382,14 @@
                                                                                 <div class="col-12 alert" role="alert" id="modalAlert" style="display:none;">
                                                                                 </div>
                                                                                 <div class="form-group row">
-                                                                                    <label for="model1" class="col-sm-3 text-left control-label col-form-label">Vehicle Model</label>
+                                                                                    <label for="model1" class="col-sm-3 text-left control-label col-form-label">Vehicle Registration Number</label>
                                                                                     <div class="col-sm-9">
-                                                                                        <input type="text" class="form-control form-input" id="model1" placeholder="Enter vehicle model">
-                                                                                        <span id="model1Error" class="text-danger form-error" ></span>
+                                                                                        <select type="text" class="form-control form-input" id="model1" placeholder="Vehicle Registration Number">
+                                                                                            <option value="" >Select Vehicle Registered Number </option>
+                                                                                            @foreach($vehicles as $vehicle)
+                                                                                                <option value="{{$vehicle->getKey()}}">{{$vehicle->registered_number}}</option>
+                                                                                            @endForeach
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group row">
@@ -432,22 +441,12 @@
                                                     <thead>
                                                     <tr>
                                                         <th></th>
-                                                        <th class="font-weight-bold">Vehicle Model</th>
+                                                        <th class="font-weight-bold">Vehicle Registered Number</th>
                                                         <th class="font-weight-bold">Finance Company</th>
                                                         <th class="font-weight-bold">Account Number</th>
                                                         <th class="font-weight-bold">Monthly payment Amount</th>
                                                         <th class="font-weight-bold">Payment Date</th>
-{{--                                                        <th class="font-weight-bold">Cash</th>--}}
-                                                        <!-- <th class="font-weight-bold">Cheque Number</th>
-                                                        <th class="font-weight-bold">Payment Date</th>
-                                                        <th class="font-weight-bold">Bank</th>
-                                                        <th class="font-weight-bold">Branch</th>
-                                                        <th class="font-weight-bold">Depositted Bank Account</th>
-                                                        <th class="font-weight-bold">Deposited Bank</th>
-                                                        <th class="font-weight-bold">Depositted Branch</th>
-                                                        <th class="font-weight-bold">Depositted Date</th>
-                                                        <th class="font-weight-bold">New Cheque Date</th>
-                                                        <th class="font-weight-bold">Tranaction Status</th> -->
+
                                                         <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                 <i class="fas fa-check text-center"></i>
                                                             </a></th>
@@ -460,7 +459,7 @@
                                                  @foreach($vehicle_finances as $key => $vehicle_finance)
                                                     <tr>
                                                         <td></td>
-                                                        <td>{{$vehicle_finance->model}}</td>
+                                                        <td>{{$vehicle_finance->vehicles->registered_number}}</td>
                                                         <td>{{$vehicle_finance->finance_company}}</td>
                                                         <td>{{$vehicle_finance->account_number}}</td>
                                                         <td>{{$vehicle_finance->monthly_payment_amount}}</td>
@@ -574,19 +573,19 @@
                         buttons: [{
                             extend: 'excel',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle-Finance Records'
                         }, {
                             extend: 'copy',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle-Finance Records'
                         }, {
                             extend: 'pdf',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle-Finance Records'
                         }, {
                             extend: 'print',
                             className: 'dropdown-item',
-                            messageTop: 'retail-customer Records'
+                            messageTop: 'Vehicle-Finance Records'
                         }],
                     }
                 ]
@@ -615,24 +614,23 @@
         e.stopPropagation()
         e.preventDefault();
 
-        var model = $("#model").val();
+        var vehicles = $("#vehicles").val();
         var finance_company = $("#finance_company").val();
         var account_number = $("#account_number").val();
         var monthly_payment_amount = $("#monthly_payment_amount").val();
         var payment_date = $("#payment_date").val();
 
-        console.log(model,finance_company,account_number,monthly_payment_amount,payment_date);
 
         $.ajax({
             method: "POST",
             url: "{{ url('/crud/vehicle_finance/create') }}",
             dataType: "json",
             data: {
-                model: model,
+                vehicles: vehicles,
                 finance_company: finance_company,
                 account_number: account_number,
                 monthly_payment_amount: monthly_payment_amount,
-                 payment_date: payment_date
+                payment_date: payment_date
             },
             success: function(data){
                 if(data.success){
@@ -701,7 +699,7 @@
 
         $("#updateId").val(updateId);
 
-        $("#model1").val(data.model);
+        $("#model1").val(data.vehicles.id);
         $("#finance_company1").val(data.finance_company);
         $("#account_number1").val(data.account_number);
         $("#monthly_payment_amount1").val(data.monthly_payment_amount);
@@ -714,7 +712,7 @@
         e.preventDefault();
 
         var updateId = $("#updateId").val();
-        var model = $("#model1").val();
+        var vehicles = $("#model1").val();
         var finance_company = $("#finance_company1").val();
         var account_number = $("#account_number1").val();
         var monthly_payment_amount = $("#monthly_payment_amount1").val();
@@ -729,7 +727,7 @@
         url: "{{ url('/crud/vehicle_finance/update') }}",
         dataType: "json",
         data: {
-            model: model,
+            vehicles: vehicles,
             finance_company: finance_company,
             account_number: account_number,
             monthly_payment_amount: monthly_payment_amount,
@@ -751,7 +749,7 @@
                 var index = $("#editButton"+updateId).data("index");
                 table.row(index).data([
                     "",
-                    data.vehicle_finance.model,
+                    data.vehicle_finance.vehicles.registered_number,
                     data.vehicle_finance.finance_company,
                     data.vehicle_finance.account_number,
                     data.vehicle_finance.monthly_payment_amount,

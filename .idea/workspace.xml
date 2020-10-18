@@ -23,13 +23,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CRUD/VehicleFinanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CRUD/VehicleFinanceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CRUD/vehicleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CRUD/vehicleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/employee_basic_details.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/vehicle.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/vehicle.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/vehicle_emp.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/vehicle_emp.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/vehicle_finance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/vehicle_finance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_12_192654_create_vehicles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_12_192654_create_vehicles_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_12_195411_create_vehicle_finances_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_12_195411_create_vehicle_finances_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_15_221144_create_employee_basic_details_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_16_162645_create_vehicle_emps_table.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/vehicle-finance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vehicle-finance.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/vehicle-management.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vehicle-management.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
@@ -201,7 +198,18 @@
       <workItem from="1599295820613" duration="2467000" />
       <workItem from="1599578009587" duration="677000" />
       <workItem from="1600365176331" duration="7527000" />
-      <workItem from="1600405347189" duration="52710000" />
+      <workItem from="1600405347189" duration="59150000" />
+      <workItem from="1600875727477" duration="1402000" />
+      <workItem from="1600886428802" duration="1061000" />
+      <workItem from="1601894779781" duration="1977000" />
+      <workItem from="1602098008661" duration="9006000" />
+      <workItem from="1602249044420" duration="10194000" />
+      <workItem from="1602345981236" duration="28000" />
+      <workItem from="1602706420431" duration="4082000" />
+      <workItem from="1602766792623" duration="15312000" />
+      <workItem from="1602931692764" duration="21672000" />
+      <workItem from="1602970674010" duration="895000" />
+      <workItem from="1602992566703" duration="4037000" />
     </task>
     <task id="LOCAL-00001" summary="Vehicle Finance Models And Relation Ships">
       <created>1600368459076</created>
