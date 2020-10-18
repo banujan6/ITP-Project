@@ -251,7 +251,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="wholesale-transaction" role="tabpanel" style="cursor: pointer;">
-                                <div class="bg-info btn-create" id="createButton" data-toggle="modal" data-target=".bd-form-modal-lg">
+                                <div class="bg-info btn-create" id="createButton" data-toggle="modal" data-target=".bd-form-modal-xl">
                                     <i class="fas fa-plus text-white p-2"></i><span class="font-weight-bold text-white">Add A Wholesale Transaction</span>
                                 </div>
                                 <div class="container-fluid">
@@ -289,8 +289,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="modal fade bd-form-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
+                                                <div class="modal fade bd-form-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Add a Wholesale customer Transaction</h5>
@@ -302,11 +302,10 @@
                                                                 <div class="card">
                                                                     <form id="formModal" class="form-horizontal">
                                                                         <div class="card-body p-1">
-                                                                            <div class="row d-flex">
+                                                                            <div class="row d-flex justify-content-around align-items-stretch ">
+                                                                            <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
                                                                                 <div class="col-md-6">
-                                                                                    <div class="form-group row">
-                                                                                        <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
-                                                                                    </div>
+
                                                                                     <input type="hidden" id="ptype" name="ptype" value="cheque_wholesale" />
                                                                                     <input type="hidden" id="updateId" name="update" />
                                                                                     <div class="form-group row">
@@ -324,6 +323,43 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
+                                                                                        <label for="wholesale_customer" class="col-sm-3 text-left control-label col-form-label">Customer</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <select type="text" class="form-control form-input" id="wholesale_customer" placeholder="Wholesale Customer Name">
+                                                                                                <option value="" >Select Wholesale Customer </option>
+                                                                                                @foreach($wholesale_customers as $wholesale_customer)
+                                                                                                    <option value="{{$wholesale_customer->getKey()}}">{{$wholesale_customer->name}}</option>
+                                                                                                @endForeach
+                                                                                            </select>
+                                                                                            <span id="wholesaleError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                         <label for="item_code" class="col-sm-3 text-left control-label col-form-label">Product Code</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <select type="text" class="form-control form-input" id="item_code" placeholder="Item Code">
+                                                                                                <option value="" >Select Product Code </option>
+                                                                                                @foreach($readymade_subs as $readymade_sub)
+                                                                                                    <option value="{{$readymade_sub->item_code}}" data-price="{{ $readymade_sub->whole_sale_price }}" data-stocks="{{ $readymade_sub->initial_stocks }}">{{$readymade_sub->item_code}}</option>
+                                                                                                @endForeach
+                                                                                                @foreach($bottoms as $bottom)
+                                                                                                    <option value="{{$bottom->item_code}}" data-price="{{ $bottom->whole_sale_price }}" data-stocks="{{ $bottom->initial_stocks }}">{{$bottom->item_code}}</option>
+                                                                                                @endForeach
+                                                                                            </select>
+                                                                                            <span id="item_codeError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+
+                                                                                        <label for="price_per_quantity" class="col-sm-3 text-left control-label col-form-label">Price Per quantity</label>
+
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="price_per_quantity" placeholder="Price Here" readonly>
+                                                                                            <span id="price_per_quantityError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group row">
                                                                                         <label for="quantity_or_peices" class="col-sm-3 text-left control-label col-form-label">Qty/Pcs</label>
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="quantity_or_peices" placeholder="Qty/Pcs here">
@@ -331,114 +367,113 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
-                                                                                        <label for="cheque_number" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
+                                                                                        <label for="cash" class="col-sm-3 text-left control-label col-form-label">Amount</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cheque_number" placeholder="cheque_number">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="cash" placeholder="Amount" readonly>
+                                                                                            <span id="cashError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="form-group row">
+                                                                                        <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="Date" class="form-control form-input" id="payment_Date" placeholder="Payment Date">
+                                                                                            <span id="payment_DateError" class="text-danger form-error" ></span>
+                                                                                        </div>
+
+                                                                                    </div> 
+                                                                                    <div class="form-group row">
+                                                                                        <label for="cheque_number" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
+
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="cheque_number" placeholder="Cheque Number Here">
+                                                                                            <span id="cheque_numberError" class="text-danger form-error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="cheque_Date" class="col-sm-3 text-left control-label col-form-label">Cheque Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cheque_Date" placeholder="cheque_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="Date" class="form-control form-input" id="cheque_Date" placeholder="Cheque Date Here">
+                                                                                            <span id="cheque_DateError" class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div> 
                                                                                     <div class="form-group row">
-                                                                                        <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
+                                                                                        <label for="amount" class="col-sm-3 text-left control-label col-form-label">Cheque Amount</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="amount" placeholder="Cheque Amount">
+                                                                                            <span id="amountError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="bank" placeholder="bank">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-
-
-
-                                                                                    <div class="form-group row">
-                                                                                        <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="deposited_bank_account" placeholder="deposited_bank_account">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="deposited_bank" class="col-sm-3 text-left control-label col-form-label">Depositted Bank</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="deposited_bank" placeholder="deposited_bank">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="new_cheque_date" class="col-sm-3 text-left control-label col-form-label">New Cheque Date</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="new_cheque_date" placeholder="new_cheque_date">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group row mt-2">
-                                                                                        <label for="wholesale" class="col-sm-3 text-left control-label col-form-label">Wholesale Customer</label>
-                                                                                        <div class="col-sm-9">
-                                                                                        <input type="number" class="form-control form-input" id="wholesale" placeholder="transaction_status">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="price_per_quantity" class="col-sm-3 text-left control-label col-form-label">Price Per quantity</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="price_per_quantity" placeholder="Price Here">
-                                                                                            <span id="price_per_quantityError" class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="amount" class="col-sm-3 text-left control-label col-form-label">Cheque Amount</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="amount" placeholder="amount">
-                                                                                            <span class="text-danger form-error" ></span>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="text" class="form-control form-input" id="bank" placeholder="Bank Name Here">
+                                                                                            <span id="bankError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="branch" class="col-sm-3 text-left control-label col-form-label">Branch</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="branch" placeholder="branch">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="text" class="form-control form-input" id="branch" placeholder="Branch Name Here">
+                                                                                            <span id="branchError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="form-group row">
+                                                                                    <div class="form-group row p-0 m-b-0">
                                                                                         <label for="description" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <textarea id="description" class="form-control form-input"></textarea>
+                                                                                            <textarea id="description" class="form-control form-input" row="5"></textarea>
+                                                                                            <span id="descriptionError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>   
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <div class="form-group row d-flex-column">
+                                                                                        <label id="transaction_status_label" for="transaction_status" class="col-12 text-left control-label col-form-label">Cheque Status</label>
+                                                                                        <div class="col-12" id="status_select">
+                                                                                            <select type="text" class="form-control form-input" id="transaction_status" placeholder="Transaction Status">
+                                                                                                <option value="" selected>Select Transaction Status </option>
+                                                                                                    @foreach ($status as $status)
+                                                                                                        <option value="{{$status}}">{{$status}}</option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                            <span id="transaction_statusError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
+                                                                                </div>
+                                                                                <div id="status_1" class="col-md-6" style="display:none;">
+                                                                                <div class="form-group row">
+                                                                                            <label for="deposited_bank" class="col-sm-3 text-left control-label col-form-label">Depositted Bank</label>
+                                                                                            <div class="col-sm-9">
+                                                                                                <input type="text" class="form-control form-input" id="deposited_bank" placeholder="Deposited Bank">
+                                                                                                <span id="deposited_bankError" class="text-danger form-error" ></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                
                                                                                     <div class="form-group row">
-                                                                                        <label for="transaction_status" class="col-sm-3 text-left control-label col-form-label">Transaction Status</label>
+                                                                                        <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="transaction_status" placeholder="transaction_status">
-                                                                                            <span class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="deposited_bank_account" placeholder="Depositted Bank Account Number Here">
+                                                                                            <span id="deposited_bank_accountError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="status_2" class="col-md-6" style="display:none;">
+                                                                                <div class="form-group row">
+                                                                                        <label for="new_cheque_date" class="col-sm-3 text-left control-label col-form-label">New Cheque Date</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="Date" class="form-control form-input" id="new_cheque_date" placeholder="New Cheque Date">
+                                                                                            <span id="new_cheque_dateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-info demo-btn">Add Data</button>
                                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                                             </div>
                                                                         </div>
+                                                                       
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -450,22 +485,24 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
-                                                                <th class="font-weight-bold sorting_desc">Invoice Number</th>
-                                                                <th class="font-weight-bold">Date</th>
-                                                                <th class="font-weight-bold">Wholesasle Customer Name</th>
-                                                                <th class="font-weight-bold">Description</th>
-                                                                <th class="font-weight-bold">Quantity / Peices</th>
-                                                                <th class="font-weight-bold">Price Per Quantity</th>
-                                                                <th class="font-weight-bold">Cheque Number</th>
-                                                                <th class="font-weight-bold">Payment Date</th>
-                                                                <th class="font-weight-bold">Bank</th>
-                                                                <th class="font-weight-bold">Branch</th>
-                                                                <th class="font-weight-bold">Depositted Bank Account</th>
-                                                                <th class="font-weight-bold">Deposited Bank</th>
-                                                                <th class="font-weight-bold">Depositted Branch</th>
-                                                                <th class="font-weight-bold">Depositted Date</th>
-                                                                <th class="font-weight-bold">New Cheque Date</th>
-                                                                <th class="font-weight-bold">Tranaction Status</th>
+
+                                                                <th>Invoice_number</th>
+                                                                <th>Date</th>
+                                                                <th>Wholesale Customer</th>
+                                                                <th>Description</th>
+                                                                <th>Quantity Or Peices</th>
+                                                                <th>Price Per Quantity</th>
+                                                                <th>Amount</th>
+                                                                <th>Cheque Number</th>
+                                                                <th>Cheque Date</th>
+                                                                <th>Cheque Amount</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Bank</th>
+                                                                <th>Branch</th>
+                                                                <th>Deposited Bank Account</th>
+                                                                <th>Deposited Bank</th>
+                                                                <th>New Cheque Date</th>
+                                                                <th>Transaction Status</th>
                                                                 <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                         <i class="fas fa-check text-center"></i>
                                                                     </a></th>
@@ -480,21 +517,21 @@
                                                                 <td></td>
                                                                 <td>{{ $transaction ->invoice_number }}</td>
                                                                 <td>{{ $transaction ->date }}</td>
+                                                                <td>{{ $transaction ->wholesale_customer->name }}</td>
                                                                 <td>{{ $transaction ->description }}</td>
                                                                 <td>{{ $transaction ->quantity_or_peices }}</td>
                                                                 <td>{{ $transaction ->price_per_quantity }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-
+                                                                <td>{{ $transaction ->cash }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->cheque_number }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->cheque_Date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->amount }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->payment_Date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->bank }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->branch }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->deposited_bank_account }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->deposited_bank }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->new_cheque_date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->transaction_status }}</td>
                                                                 <td><button data-data="{{  $transaction }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="editButton{{ $transaction->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
                                                                 <td><button data-invoice="{{ $transaction->invoice_number }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="deleteButton{{ $transaction->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                             </tr>
@@ -509,7 +546,38 @@
                             </div>
 
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
-                                <h1>Invoice List Goes Here</h1>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive-md">
+                                            <table id="invoice" class="display" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Invoice_number</th>
+                                                        <th>Date</th>
+                                                        <th>Wholesale Customer</th>
+                                                        <th>Amount</th>
+                                                        <th>Cheque Amount</th>
+                                                        <th>Balance</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($transactions as $key=> $transaction)
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>{{ $transaction ->invoice_number }}</td>
+                                                        <td>{{ $transaction ->date }}</td>
+                                                        <td>{{ $transaction ->wholesale_customer->name }}</td>       
+                                                        <td>{{ $transaction ->cash }}</td>
+                                                        <td>{{ $transaction ->cheque_payment->amount }}</td>
+                                                        <td>{{ (int)$transaction ->cash - (int)$transaction ->cheque_payment->amount }}</td>
+                                                        </tr>
+                                                 @endForeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -570,7 +638,6 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.print.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/fixedColumns.min.js"></script>
 
@@ -669,8 +736,170 @@
         });
     });
 
+    var table1;
+
+    $(document).ready(function() {
+        table1 = $('#invoice').DataTable({
+            dom: 'Bfrtip',
+            autoWidth: false,
+            responsive: true,
+            columnDefs: [{
+                className: 'noVis'
+            }],
+            columnDefs: [{
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                        extend: 'selectAll',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect All.',
+                        text: 'select All',
+                    }, {
+                        extend: 'selectNone',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect None.',
+                        text: 'select None',
+                    },
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+
+                    },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-transaction Records'
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-transaction Records'
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-transaction Records'
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'wholesale-transaction Records'
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
+
+    $(document).ready(function(){
+
+    $(".demo-btn").on('click', function(){
+
+        $("#date").val("2020-10-15");
+        $("#invoice_number").val("00001");
+        $("#quantity_or_peices").val("10");
+        $("#cheque_number").val(123456789);
+        $("#cheque_Date").val("2020-10-20");
+        $("#payment_Date").val("2020-10-15");
+        $("#bank").val("HNB Bank");
+        $("#deposited_bank_account").val(9004399);
+        $("#transaction_status").val("pending");
+        $("#wholesale_customer").val("Mahadi");
+        $("#amount").val(10000);
+        $("#branch").val("Mutwal");
+        $("#deposited_bank").val("Commercial Bank");
+        $("#description").val("Wholesale Transaction Done");
+        $("#price_per_quantity").val(10);
+        $("#item_code").val("RS001");
+    });
+
+    var stocks;
+    var price;
+
+    $("#item_code").on('change', function() {
+
+    price = $(this).children('option:selected').data('price');
+    stocks = $(this).children('option:selected').data('stocks');
+    $('#price_per_quantity').val(price);
+
+    $("#quantity_or_peices").val("");
+
+    });
+
+    $("#status_select").on('change', function() {
+
+
+        var option = $('#status_select option:selected').text();
+        
+        if(option === 'depositted'){
+            $( "#status_1" ).css( "display", "block" ); 
+            $( "#status_2" ).css( "display", "none" );
+        } else if(option === 'returned'){
+             $( "#status_1" ).css( "display", "block" ); 
+             $( "#status_2" ).css( "display", "block" );
+        } else {
+            $( "#status_1" ).css( "display", "none" ); 
+            $( "#status_2" ).css( "display", "none" );
+        } 
+         
+    });
+
+        var price_per_quantity = $("#price_per_quantity");
+        var quantity_or_peices = $("#quantity_or_peices");
+
+        $("#quantity_or_peices").keyup(function(){
+        
+            if(parseInt(quantity_or_peices.val()) > parseInt(stocks)){
+                
+                $(document).on('click keyup',".form-input", function(){
+
+                    $("#quantity_or_peices").addClass("is-invalid");
+                    $("#quantity_or_peicesError").html(`Qunatity should be under the limit ${stocks} `);
+                });
+
+            } else{
+
+                $(document).on('click keyup',".form-input", function(){
+                    $("#quantity_or_peicesError").html("");
+                    $("#quantity_or_peices").removeClass("is-invalid");
+                });
+                var total=isNaN(parseInt(quantity_or_peices.val()* $("#price_per_quantity").val())) ? 0 :(quantity_or_peices.val()* $("#price_per_quantity").val())
+
+                $("#cash").val(total);
+            }
+        });
+
+    });
+
     $(document).on('click','.btn-edit', function(){
-        $(".bd-form-modal-lg").modal('show');
+        $(".bd-form-modal-xl").modal('show');
 
         var updateId = $(this).data("id");
 
@@ -678,18 +907,27 @@
 
         $("#updateId").val(updateId);
 
-        console.log($("#updateId").val(updateId));
-
         $("#date").val(data.date);
-        $("#description").val(data.description);
-        $("#price_per_quantity").val(data.price_per_quantity);
         $("#invoice_number").val(data.invoice_number);
         $("#quantity_or_peices").val(data.quantity_or_peices);
+        $("#cheque_number").val(data.cheque_payment.cheque_number);
+        $("#cheque_Date").val(data.cheque_payment.cheque_Date);
+        $("#payment_Date").val(data.cheque_payment.payment_Date);
+        $("#bank").val(data.cheque_payment.bank);
+        $("#deposited_bank_account").val(data.cheque_payment.deposited_bank_account);
+        $("#transaction_status").val(data.cheque_payment.transaction_status);
+        $("#new_cheque_date").val(data.cheque_payment.new_cheque_date);
+        $("#wholesale_customer").val(data.wholesale_customer.id);
+        $("#amount").val(data.cheque_payment.amount);
+        $("#payment_Date").val(data.cheque_payment.payment_Date);
+        $("#branch").val(data.cheque_payment.branch);
+        $("#deposited_bank").val(data.cheque_payment.deposited_bank);
+        $("#description").val(data.description);
+        $("#price_per_quantity").val(data.price_per_quantity);
         $("#cash").val(data.cash);
+        $("#item_code").val(data.item_code);
 
         hideErrors();
-
-        $("#cheque_payment_id").val(data.cheque_payment_id);
     });
 
     $(document).on('click','.btn-create', function(){
@@ -697,25 +935,38 @@
         $("#updateId").val("");
 
         $("#date").val("");
-        $("#description").val("");
-        $("#price_per_quantity").val("");
         $("#invoice_number").val("");
         $("#quantity_or_peices").val("");
+        $("#cheque_number").val("");
+        $("#cheque_Date").val("");
+        $("#payment_Date").val("");
+        $("#bank").val("");
+        $("#deposited_bank_account").val("");
+        $("#transaction_status").val("");
+        $("#new_cheque_date").val("");
+        $("#wholesale_customer").val("");
+        $("#amount").val("");
+        $("#branch").val("");
+        $("#deposited_bank").val("");
+        $("#description").val("");
+        $("#price_per_quantity").val("");
         $("#cash").val("");
 
-        $(".bd-form-modal-lg").modal('show');
+        $("#item_code").val("");
+        
+        $(".bd-form-modal-xl").modal('show');
 
-        $("#cheque_payment_id").val("");
+
     });
 
 
     $(document).on('submit', '#formModal', function(e){
 
+
         e.stopPropagation();
         e.preventDefault();
 
         var updateId = $("#updateId").val();
-        console.log(updateId+"submitId");
 
         var payment_type = $("#ptype").val();
 
@@ -724,12 +975,22 @@
         var price_per_quantity = $("#price_per_quantity").val();
         var invoice_number = $("#invoice_number").val();
         var quantity_or_peices = $("#quantity_or_peices").val();
+        var cheque_number = $("#cheque_number").val();
+        var cheque_Date = $("#cheque_Date").val();
+        var payment_Date = $("#payment_Date").val();
+        var deposited_bank_account = $("#deposited_bank_account").val();
+        var transaction_status = $("#transaction_status").val();
+        var new_cheque_date = $("#new_cheque_date").val();
+        var wholesale_customer = $("#wholesale_customer").val();
+        var amount = $("#amount").val();
+        var deposited_bank = $("#deposited_bank").val();
+        var branch = $("#branch").val();
         var cash = $("#cash").val();
-
+        var bank = $("#bank").val();
+        var item_code = $("#item_code").val();
+        var cheque_payment = $("#cheque_payment").val()
 
         $("#modalAlert").alert();
-
-        var cheque_payment_id = $("#cheque_payment_id").val();
 
         var mode = isNaN(parseInt(updateId))?"create":"update";
 
@@ -738,15 +999,27 @@
             url: "{{ url('/crud/wholesale_transaction') }}/"+mode,
             dataType: "json",
             data: {
-                date:date,
-                description:description,
-                price_per_quantity:price_per_quantity,
-                invoice_number:invoice_number,
-                quantity_or_peices:quantity_or_peices,
+                date:date, 
+                description:description, 
+                price_per_quantity:price_per_quantity, 
+                invoice_number:invoice_number, 
+                quantity_or_peices:quantity_or_peices, 
                 cash:cash,
-                payment_type:payment_type,
-                updateId:updateId,
-                cheque_payment_id:cheque_payment_id
+                payment_type:payment_type, 
+                cheque_number:cheque_number, 
+                cheque_Date:cheque_Date, 
+                payment_Date:payment_Date, 
+                bank:bank,
+                deposited_bank_account:deposited_bank_account, 
+                transaction_status:transaction_status, 
+                new_cheque_date:new_cheque_date, 
+                wholesale_customer:wholesale_customer, 
+                amount:amount,
+                branch:branch,
+                deposited_bank:deposited_bank,
+                item_code:item_code, 
+                updateId:updateId, 
+
             },
             success: function(data){
                 if(data.success){
@@ -755,7 +1028,7 @@
                     $("#modalAlert").show();
                     $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
                     window.setTimeout(function(){
-                        $(".bd-form-modal-lg").modal('hide');
+                        $(".bd-form-modal-xl").modal('hide');
                         $('.form-input').val('');
                         hideErrors();
                     }, 600)
@@ -764,37 +1037,58 @@
                         console.log(index);
 
                         table.row(index).data([
-                            "",
+                            "",   
                             data.transaction.invoice_number,
                             data.transaction.date,
+                            data.transaction.wholesale_customer.name,
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
                             data.transaction.cash,
+                            data.transaction.cheque_payment.cheque_number,
+                            data.transaction.cheque_payment.cheque_Date,
+                            data.transaction.cheque_payment.amount,
+                            data.transaction.cheque_payment.payment_Date,
+                            data.transaction.cheque_payment.bank,
+                            data.transaction.cheque_payment.branch,
+                            data.transaction.cheque_payment.deposited_bank_account,
+                            data.transaction.cheque_payment.deposited_bank,
+                            data.transaction.cheque_payment.new_cheque_date,
+                            data.transaction.cheque_payment.transaction_status,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
-                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="deleteButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]);
                     } else {
-                        var index = table.count();
-                        console.log(index+"count")
+                        var index = table.rows().count();
+
+                        console.log(data.transaction);
 
                         table.rows.add([[
-                            "",
+                            "",   
                             data.transaction.invoice_number,
                             data.transaction.date,
+                            data.transaction.wholesale_customer.name,
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
                             data.transaction.cash,
-                            data.transaction.cheque_payment_id,
+                            data.transaction.cheque_payment.cheque_number,
+                            data.transaction.cheque_payment.cheque_Date,
+                            data.transaction.cheque_payment.amount,
+                            data.transaction.cheque_payment.payment_Date,
+                            data.transaction.cheque_payment.bank,
+                            data.transaction.cheque_payment.branch,
+                            data.transaction.cheque_payment.deposited_bank_account,
+                            data.transaction.cheque_payment.deposited_bank,
+                            data.transaction.cheque_payment.new_cheque_date,
+                            data.transaction.cheque_payment.transaction_status,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
-                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="deleteButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
                 }
             },
             error: function(e){
-                console.log(e);
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
 
@@ -802,16 +1096,16 @@
 
                     case 400:
                         mainError = "Something went wrong!";
-                        // var key = Object.keys(data.errors);
+                        var key = Object.keys(data.errors);
 
-                        // for(var i = 0; i < key.length; i++){
-                        //     var id = key[i];
-                        //     var errorMsg=data.errors[id][0];
+                        for(var i = 0; i < key.length; i++){
+                            var id = key[i];
+                            var errorMsg=data.errors[id][0];
+                            
+                            $("#"+id).addClass("is-invalid");
+                            $("#"+id+"Error").html(errorMsg);
+                        }
 
-
-                        //     $("#"+id).addClass("is-invalid");
-                        //     $("#"+id+"Error").html(errorMsg);
-                        // }
                         break;
                     case 500:
                         mainError = "Server Error!"
@@ -871,11 +1165,12 @@
                     $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
                     window.setTimeout(function(){
                         $(".bd-confirmation-modal-lg").modal('hide');
+                        
+
+                        var index = $("#deleteButton"+deleteId).data("index");
+
+                        table.row(index).remove().draw();
                     }, 600);
-
-                    var index = $("#deleteButton"+deleteId).data("index");
-
-                    table.row(index).remove().draw();
                 }
             },
             error: function(e){
