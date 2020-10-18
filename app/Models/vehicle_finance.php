@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Vehicle;
 
 class Vehicle_finance extends Model
 
@@ -11,11 +12,13 @@ class Vehicle_finance extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-//        'vehicle_id',
-        'model','finance_company','account_number','monthly_payment_amount','payment_date'];
+        'vehicle_id',
+        'finance_company',
+        'account_number','monthly_payment_amount','payment_date'];
 
-//    public function finance()
-//    {
-//        return $this->belongsTo('App\vehicle_finance', 'vehicle_id');
-//    }
+    public function vehicles()
+    {
+        return $this->belongsTo(Vehicle::class,"vehicle_id","id");
+//        return $this->hasOne('App\Models\Vehicle','vehicle_id',);
+    }
 }

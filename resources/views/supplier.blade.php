@@ -321,30 +321,30 @@
                                                                         <div class="form-group row">
                                                                             <label for="fname" class="col-sm-3 text-left control-label col-form-label">Name</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control form-input" id="name" placeholder="Name Here">
-                                                                                <span id="nameError" class="text-danger form-error" ></span>
+                                                                                <input type="text" class="form-control form-input1" id="name" placeholder="Name Here">
+                                                                                <span id="nameError" class="text-danger form-error1" ></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
                                                                             <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Contact No</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control form-input" id="contactNo" placeholder="Contact No Here">
-                                                                                <span id="contactNoError" class="text-danger form-error" ></span>
+                                                                                <input type="text" class="form-control form-input2" id="contactNo" placeholder="Contact No Here">
+                                                                                <span id="contactNoError" class="text-danger form-error2" ></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group row">
                                                                             <label for="email1" class="col-sm-3 text-left control-label col-form-label">Address</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control form-input" id="address" placeholder="Address Here">
-                                                                                <span id="addressError" class="text-danger form-error" ></span>
+                                                                                <input type="text" class="form-control form-input3" id="address" placeholder="Address Here">
+                                                                                <span id="addressError" class="text-danger form-error3" ></span>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="form-group row">
                                                                             <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                             <div class="col-sm-9">
-                                                                                <textarea class="form-control form-input" id="description"></textarea>
-                                                                                <span id="descriptionError" class="text-danger form-error" ></span>
+                                                                                <textarea class="form-control form-input4" id="description"></textarea>
+                                                                                <span id="descriptionError" class="text-danger form-error4" ></span>
                                                                             </div>
                                                                         </div>
 
@@ -352,13 +352,13 @@
                                                                         <div class="form-group row">
                                                                             <label for="lname" class="col-sm-3 text-left control-label col-form-label">Name of bank</label>
                                                                             <div class="col-sm-9">
-                                                                                <select type="text" class="form-control form-input" id="bankname" placeholder="Occupation">
+                                                                                <select type="text" class="form-control form-input5" id="bankname" placeholder="Occupation">
                                                                                     <option value="" >Select An Bank</option>
                                                                                     @foreach($banks as $bank)
                                                                                         <option value="{{$bank->getKey()}}">{{$bank->name}}</option>
                                                                                     @endForeach
                                                                                 </select>
-                                                                                <span id="banknameError" class="text-danger form-error" ></span>
+                                                                                <span id="bankError" class="text-danger form-error5" ></span>
                                                                             </div>
                                                                         </div>
 
@@ -1161,15 +1161,63 @@
         hideErrors();
     });
 
-    $(document).on('click keyup',".form-input", function(){
-        hideErrors();
+
+    $(document).on('click keypress',".form-input1", function(){
+        $("#modalAlert").hide();
+        $(".form-error1").html("");
+        $(".form-input1").removeClass("is-invalid");
+    });
+
+    $(document).on('click keypress',".form-input2", function(){
+        $("#modalAlert").hide();
+        $(".form-error2").html("");
+        $(".form-input2").removeClass("is-invalid");
+    });
+
+    $(document).on('click keypress',".form-input3", function(){
+        $("#modalAlert").hide();
+        $(".form-error3").html("");
+        $(".form-input3").removeClass("is-invalid");
+    });
+
+    $(document).on('click keypress',".form-input4", function(){
+        $("#modalAlert").hide();
+        $(".form-error4").html("");
+        $(".form-input4").removeClass("is-invalid");
+    });
+
+    $(document).on('click keypress',".form-input5", function(){
+        $("#modalAlert").hide();
+        $(".form-error5").html("");
+        $(".form-input5").removeClass("is-invalid");
     });
 
     function hideErrors(){
         $("#modalAlert").hide();
-        $(".form-error").html("");
-        $(".form-input").removeClass("is-invalid");
+        $(".form-error1").html("");
+        $(".form-input1").removeClass("is-invalid");
+
+        $(".form-error2").html("");
+        $(".form-input2").removeClass("is-invalid");
+
+        $(".form-error3").html("");
+        $(".form-input3").removeClass("is-invalid");
+
+        $(".form-error4").html("");
+        $(".form-input4").removeClass("is-invalid");
+
+        $(".form-error5").html("");
+        $(".form-input5").removeClass("is-invalid");
+
+        $(".form-error6").html("");
+        $(".form-input6").removeClass("is-invalid");
     };
+
+    // function hideErrors(){
+    //     $("#modalAlert").hide();
+    //     $(".form-error").html("");
+    //     $(".form-input").removeClass("is-invalid");
+    // };
 
     $(document).on('click', '.btn-delete', function(){
         var deleteId = $(this).data('id');

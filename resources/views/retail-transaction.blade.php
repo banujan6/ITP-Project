@@ -336,6 +336,21 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
+                                                                                         <label for="item_code" class="col-sm-3 text-left control-label col-form-label">Product Code</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <select type="text" class="form-control form-input" id="item_code" placeholder="Item Code">
+                                                                                                <option value="" >Select Product Code </option>
+                                                                                                @foreach($readymade_subs as $readymade_sub)
+                                                                                                    <option value="{{$readymade_sub->item_code}}" data-price="{{ $readymade_sub->retail_price }}" data-stocks="{{ $readymade_sub->initial_stocks }}">{{$readymade_sub->item_code}}</option>
+                                                                                                @endForeach
+                                                                                                @foreach($bottoms as $bottom)
+                                                                                                    <option value="{{$bottom->item_code}}" data-price="{{ $bottom->retail_price }}" data-stocks="{{ $bottom->initial_stocks }}">{{$bottom->item_code}}</option>
+                                                                                                @endForeach
+                                                                                            </select>
+                                                                                            <span id="item_codeError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
                                                                                         <label for="description" class="col-sm-3 text-left control-label col-form-label">Description</label>
                                                                                         <div class="col-sm-9">
                                                                                             <textarea id="description" class="form-control form-input"></textarea>
@@ -344,8 +359,9 @@
                                                                                     <div class="form-group row">
                                                                                         <label for="price_per_quantity" class="col-sm-3 text-left control-label col-form-label">Price Per quantity</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="price_per_quantity" placeholder="Price Here">
-                                                                                            <span id="price_per_quantityError" class="text-danger form-error" ></span>
+                                                                                            <input type="number" class="form-control form-input" id="price_per_quantity" placeholder="Price Here" value=""
+                                                                                            readonly>
+                                                                                            <span id="price_per_quantityError" class="text-danger form-error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
@@ -358,13 +374,14 @@
                                                                                     <div class="form-group row">
                                                                                         <label for="cash" class="col-sm-3 text-left control-label col-form-label">Cash</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control form-input" id="cash" placeholder="Cash here">
+                                                                                            <input type="number" class="form-control form-input" id="cash" placeholder="Cash here" readonly>
                                                                                             <span id="cashError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-info demo-btn">Add Data</button>
                                                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                                                             </div>
                                                                         </div>
@@ -395,7 +412,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($transactions as $key=> $transaction)
+                                                       `     @foreach($transactions as $key=> $transaction)
                                                             <tr>
                                                                 <td></td>
                                                                 <td>{{ $transaction ->invoice_number }}</td>
@@ -419,7 +436,34 @@
                             </div>
 
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
-                                <h1>Invoice List Goes Here</h1>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive-md">
+                                            <table id="invoice" class="display" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Invoice_number</th>
+                                                        <th>Date</th>
+                                                        <th>Retail Customer</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($transactions as $key=> $transaction)
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>{{ $transaction ->invoice_number }}</td>
+                                                        <td>{{ $transaction ->date }}</td>
+                                                        <td>{{ $transaction ->retail_customer->name }}</td>       
+                                                        <td>{{ $transaction ->cash }}</td>
+                                                    </tr>
+                                                 @endForeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -543,19 +587,119 @@
                         buttons: [{
                             extend: 'excel',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Retail Transaction Records'
                         }, {
                             extend: 'copy',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Retail Transaction Records'
                         }, {
                             extend: 'pdf',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Retail Transaction Records'
                         }, {
                             extend: 'print',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Retail Transaction Records'
+                        }],
+                    }
+                ]
+
+            },
+            language: {
+                buttons: {
+                    selectAll: "Select All",
+                    selectNone: "Select None"
+                }
+            },
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            order: [
+                [1, 'asc']
+            ]
+        });
+    });
+
+    $(document).ready(function() {
+        $(".demo-btn").on('click', function(){
+            $("#date").val("2020-02-20");
+            $("#description").val("Retail Transaction Done");
+            $("#price_per_quantity").val("10");
+            $("#invoice_number").val(0001);
+            $("#quantity_or_peices").val(10);
+            $("#retail_customer").val("Mahadi");
+            $("#item_code").val("RS001");
+        });
+    });
+
+    var table1;
+
+    $(document).ready(function() {
+        table1 = $('#invoice').DataTable({
+            dom: 'Bfrtip',
+            // scrollX: true,
+            // scrollCollapse: true,
+            paging: true,
+            // fixedColumns: {
+            //     leftColumns: 1,
+            //     rightColumns: 2
+            // },
+            autoWidth: false,
+            responsive: true,
+            columnDefs: [{
+                className: 'noVis'
+            }],
+            columnDefs: [{
+                className: 'select-checkbox',
+                targets: 0
+            }],
+            
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: ''
+                    }
+                },
+                buttons: [{
+                        extend: 'selectAll',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect All.',
+                        text: 'select All',
+                    }, {
+                        extend: 'selectNone',
+                        className: 'btn btn-sm btn-secondary border',
+                        titleAttr: 'selsect None.',
+                        text: 'select None',
+                    },
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        columns: ':eq(1),:eq(2),:eq(3),:eq(4),:eq(5),:eq(6),:eq(7)'
+
+                    },
+
+                    {
+                        extend: 'collection',
+                        className: 'btn btn-sm btn-secondary dropdown-toggle border',
+                        text: 'Export',
+                        buttons: [{
+                            extend: 'excel',
+                            className: 'dropdown-item',
+                            messageTop: 'Retail Invoice Records'
+                        }, {
+                            extend: 'copy',
+                            className: 'dropdown-item',
+                            messageTop: 'Retail Invoice Records'
+                        }, {
+                            extend: 'pdf',
+                            className: 'dropdown-item',
+                            messageTop: 'Retail Invoice Records'
+                        }, {
+                            extend: 'print',
+                            className: 'dropdown-item',
+                            messageTop: 'Retail Invoice Records'
                         }],
                     }
                 ]
@@ -595,6 +739,7 @@
         $("#quantity_or_peices").val(data.quantity_or_peices);
         $("#cash").val(data.cash);
         $("#retail_customer").val(data.retail_customer.id);
+        $("#item_code").val(data.item_code);
 
         hideErrors();
 
@@ -611,8 +756,54 @@
         $("#quantity_or_peices").val("");
         $("#cash").val("");
         $("#retail_customer").val("");
-
+        $("#item_code").val("");
         $(".bd-form-modal-lg").modal('show');
+    });
+
+
+
+    $(document).ready(function(){
+
+        var stocks;
+        var price;
+
+        $("#item_code").on('change', function() {
+
+        price = $(this).children('option:selected').data('price');
+        stocks = $(this).children('option:selected').data('stocks');
+        $('#price_per_quantity').val(price);
+
+        $("#quantity_or_peices").val("");
+
+        });
+
+            var price_per_quantity = $("#price_per_quantity");
+            var quantity_or_peices = $("#quantity_or_peices");
+        
+            $("#quantity_or_peices").keyup(function(){
+            
+                if(parseInt(quantity_or_peices.val()) > parseInt(stocks)){
+                    
+                    $(document).on('click keyup',".form-input", function(){
+
+                        $("#quantity_or_peices").addClass("is-invalid");
+                        $("#quantity_or_peicesError").html(`Qunatity should be under the limit ${stocks} `);
+                    });
+
+                } else{
+
+                    $(document).on('click keyup',".form-input", function(){
+                        $("#quantity_or_peicesError").html("");
+                        $("#quantity_or_peices").removeClass("is-invalid");
+                    });
+                    var total=isNaN(parseInt(quantity_or_peices.val()* $("#price_per_quantity").val())) ? 0 :(quantity_or_peices.val()* $("#price_per_quantity").val())
+
+                    $("#cash").val(total);
+                }
+            });
+        
+
+
     });
 
 
@@ -633,6 +824,7 @@
         var quantity_or_peices = $("#quantity_or_peices").val();
         var cash = $("#cash").val();
         var retail_customer =$("#retail_customer").val();
+        var item_code=$("#item_code").val();
 
         $("#modalAlert").alert();
 
@@ -651,7 +843,8 @@
                 cash:cash,
                 payment_type:payment_type,
                 updateId:updateId,
-                retail_customer:retail_customer
+                retail_customer:retail_customer,
+                item_code:item_code
             },
             success: function(data){
                 if(data.success){
@@ -671,12 +864,12 @@
                         table.row(index).data([
                             "",
                             data.transaction.invoice_number,
+                            data.transaction.retail_customer.name,
                             data.transaction.date,
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
                             data.transaction.cash,
-                            data.transaction.retail_customer.name,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]);
@@ -686,12 +879,12 @@
                         table.rows.add([[
                             "",
                             data.transaction.invoice_number,
+                            data.transaction.retail_customer.name,
                             data.transaction.date,
                             data.transaction.description,
                             data.transaction.quantity_or_peices,
                             data.transaction.price_per_quantity,
                             data.transaction.cash,
-                            data.transaction.retail_customer.name,
                             `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
@@ -703,20 +896,24 @@
                 var data = e.responseJSON;
                 var mainError = "Something went wrong!";
 
+                console.log(data);
+
                 switch (e.status){
 
                     case 400:
                         mainError = "Something went wrong!";
-                        var key = Object.keys(data.errors);
 
-                        for(var i = 0; i < key.length; i++){
-                            var id = key[i];
-                            var errorMsg=data.errors[id][0];
+                            var key = Object.keys(data.errors);
 
 
-                            $("#"+id).addClass("is-invalid");
-                            $("#"+id+"Error").html(errorMsg);
-                        }
+                            for(var i = 0; i < key.length; i++){
+                                var id = key[i];
+                                var errorMsg=data.errors[id][0];
+
+                                $("#"+id).addClass("is-invalid");
+                                $("#"+id+"Error").html(errorMsg);
+                            }
+                        
                         break;
                     case 500:
                         mainError = "Server Error!"
@@ -727,8 +924,7 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();
-
+                $("#modalAlert").show();             
             }
 
         })

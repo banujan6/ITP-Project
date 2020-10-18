@@ -5,25 +5,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\RetailCustomer;
+use App\Models\ReadymadeSub;
+use App\Models\Bottom;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Rule;
 
 class RetailTransactionController extends Controller
 {
     public function index(){
         $transactions = Transaction::with("retail_customer")->get();
         $retail_customers = RetailCustomer::all();
+        $readymade_subs = ReadymadeSub::all();
+        $bottoms = Bottom::all();
 
         return view("retail-transaction",[
             "transactions"=> $transactions->where("payment_type","cash"),
-            "retail_customers"=> $retail_customers
+            "retail_customers"=> $retail_customers,
+            "readymade_subs"=> $readymade_subs,
+            "bottoms" => $bottoms
         ]);
     }
 
     public function update(Request $request){
 
         $id= $request->input("updateId");
+        $item_code = $request->input("item_code");
         $payment_type= $request->input("payment_type");
+        $price_per_quantity = $request->input("price_per_quantity");
+        $quantity_or_peices = $request->input("quantity_or_peices");
+
+        $total = $price_per_quantity * $quantity_or_peices;
 
         if(empty($id) || $payment_type !=='cash'){
             return abort(400);
@@ -38,8 +50,28 @@ class RetailTransactionController extends Controller
             'price_per_quantity'=>'required',
             'quantity_or_peices'=>'required',
             'payment_type'=>'required',
-            'cash'=>'required',
+            'cash'=>[
+                'required',
+                function ($attribute, $value, $fail) use ($total) {
+                    if ($value !== strval($total)) {
+                        $fail($attribute.' is invalid.');
+                    }
+                },
+            ],
             'retail_customer'=>'required',
+            'item_code'=>[
+                'required',
+                function ($attribute, $value, $fail) use($item_code, $quantity_or_peices) {
+
+                    $readymade_subs_availability = ReadymadeSub::select('item_code','initial_stocks')->where('item_code','=',$item_code)->where('initial_stocks', '>', $quantity_or_peices)->exists();
+
+                    $bottom_availability = Bottom::select('item_code','initial_stocks')->where('item_code','=',$item_code)->where('initial_stocks', '>', $quantity_or_peices)->exists();
+
+                    if ($readymade_subs_availability === false && $bottom_availability === false) {
+                        $fail('Required Qunatity is not available under this product');
+                    } 
+                },
+            ]
         ]);
 
         if ($validator->fails()) {
@@ -57,7 +89,8 @@ class RetailTransactionController extends Controller
             "quantity_or_peices"=> $request->input("quantity_or_peices"),
             "payment_type"=> $request->input("payment_type"),
             "cash" => $request->input("cash"),
-            "retail_customer_id" => $request->input("retail_customer")
+            "retail_customer_id" => $request->input("retail_customer"),
+            'item_code'=>$request->input("item_code"),
         ]);
 
         return [
@@ -70,11 +103,12 @@ class RetailTransactionController extends Controller
                 "price_per_quantity"=>$transaction->price_per_quantity,
                 "quantity_or_peices"=>$transaction->quantity_or_peices,
                 "payment_type"=>$transaction->payment_type,
-                "cash"=> $transaction->cash,
+                "cash"=>$transaction->cash,
                 "retail_customer" =>[
                     "id" => $transaction->retail_customer->getkey(),
                     "name"=> $transaction->retail_customer->name
-                ]
+                ],
+                "item_code"=> $transaction->item_code,
             ]
         ];
     }
@@ -82,20 +116,48 @@ class RetailTransactionController extends Controller
     public function create(Request $request){
 
         $payment_type = $request->input("payment_type");
+        $item_code = $request->input("item_code");
+        $price_per_quantity = $request->input("price_per_quantity");
+        $quantity_or_peices = $request->input("quantity_or_peices");
 
+        
         if($payment_type !=='cash'){
             return abort(400);
         }
+
         
-        $validator = Validator::make($request->all(), [
+        $total = $price_per_quantity * $quantity_or_peices;
+
+    
+        $validator = Validator::make($request->all(),[
             'invoice_number'=>'required',
             'date'=>'required',
             'description',
             'price_per_quantity'=>'required',
             'quantity_or_peices'=>'required',
             'payment_type'=>'required',
-            'cash'=>'required',
-            'retail_customer'=>'required'
+            'cash'=>[
+                'required',
+                function ($attribute, $value, $fail) use ($total) {
+                    if ($value !== strval($total)) {
+                        $fail($attribute.' is invalid.');
+                    }
+                },
+            ],
+            'retail_customer'=>'required',
+            'item_code'=>[
+                'required',
+                function ($attribute, $value, $fail) use($item_code, $quantity_or_peices) {
+
+                    $readymade_subs_availability = ReadymadeSub::select('item_code','initial_stocks')->where('item_code','=',$item_code)->where('initial_stocks', '>', $quantity_or_peices)->exists();
+
+                    $bottom_availability = Bottom::select('item_code','initial_stocks')->where('item_code','=',$item_code)->where('initial_stocks', '>', $quantity_or_peices)->exists();
+
+                    if ($readymade_subs_availability === false && $bottom_availability === false) {
+                        $fail('Required Qunatity is not available under this product');
+                    } 
+                },
+            ],
         ]);
 
 
@@ -114,7 +176,8 @@ class RetailTransactionController extends Controller
             "quantity_or_peices"=> $request->input("quantity_or_peices"),
             "payment_type"=> $request->input("payment_type"),
             "cash" => $request->input("cash"),
-            "retail_customer_id" => $request->input("retail_customer")
+            "retail_customer_id" => $request->input("retail_customer"),
+            "item_code" => $request->input("item_code")
         ]);
 
         return [
@@ -131,7 +194,8 @@ class RetailTransactionController extends Controller
                 "retail_customer" =>[
                     "id" => $transaction->retail_customer->getkey(),
                     "name"=> $transaction->retail_customer->name
-                ]
+                ],
+                "item_code" =>$request->input("item_code")
             ]
         ];
     }

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" href="../../assets/images/logo-sm2.png">
     <title>Mass Line (pvt) Ltd</title>
@@ -245,12 +246,11 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs nav-justified" role="tablist">
                             <li class="nav-item"> <a class="nav-link active font-weight-bold  border-bottom-0 border-right-0 border-top-5 border-primary" data-toggle="tab" href="#supplier-transaction" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Supplier Transaction Details</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link font-weight-bold  border-bottom-0 border-right-0 border-top-5 border-primary" data-toggle="tab" href="#invoice-list" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Invoice List</span></a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content tabcontent-border">
                             <div class="tab-pane active" id="supplier-transaction" role="tabpanel" style="cursor: pointer;">
-                                <div class="bg-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <div class="bg-primary" data-toggle="modal" data-target=".bd-form-modal-xl">
                                     <i class="fas fa-plus text-white p-2"></i><span class="font-weight-bold text-white">Add A Supplier Transaction</span>
                                 </div>
                                 <div class="container-fluid">
@@ -260,133 +260,192 @@
                                     <div class="row mt-2">
                                         <div class="col-12">
                                             <div class="card-body">
-                                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
+                                                    <div class="modal fade bd-confirmation-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Add a Supplier customer Transaction</h5>
+                                                                <h5 class="modal-title font-weight-bold" id="confirmationModalLabel">Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="card mb-0">
+                                                                    <form id="confirmationModal" class="form-horizontal">
+                                                                        <div class="form-group row">
+                                                                            <span class="alert col-12" role="alert" style="display:none" id="confirmationAlert"></span>
+                                                                        </div>
+                                                                        <div>NOTICE: You are going to delete the  invoice number "<b id="deleteInvoiceNumber"></b>". </div>
+                                                                        <div class="card-body float-right">
+                                                                            <input type="hidden" name="delete_id" id="deleteId"/>
+                                                                            <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
+                                                                            <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
+                                                                        </div>
+                                                                        
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade bd-form-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Add a Supplier Transaction</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="card">
-                                                                    <form class="form-horizontal">
+                                                                    <form id="formModal" class="form-horizontal">
                                                                         <div class="card-body p-1">
-                                                                            <div class="row">
+                                                                            <div class="row d-flex justify-content-around align-items-stretch ">
+                                                                            <span class="alert col-12" role="alert" style="display:none" id="modalAlert"></span>
+                                                                                <div class="col-md-6">
+
+                                                                                    <input type="hidden" id="ptype" name="ptype" value="cheque_supplier" />
+                                                                                    <input type="hidden" id="updateId" name="update" />
+                                                                                    <div class="form-group row">
+                                                                                        <label for="date" class="col-sm-3 text-left control-label col-form-label">Date</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="Date" class="form-control form-input" id="date" placeholder="Date Here">
+                                                                                            <span id="dateError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <label for="invoice_number" class="col-sm-3 text-left control-label col-form-label">Invoice Number</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="text" class="form-control form-input" id="invoice_number" placeholder="Invoice number Here">
+                                                                                            <span id="invoice_numberError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                        <label for="supplier" class="col-sm-3 text-left control-label col-form-label">Customer</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <select type="text" class="form-control form-input" id="supplier" placeholder="Supplier Name">
+                                                                                                <option value="" >Select Supplier </option>
+                                                                                                @foreach($suppliers as $supplier)
+                                                                                                    <option value="{{$supplier->getKey()}}">{{$supplier->name}}</option>
+                                                                                                @endForeach
+                                                                                            </select>
+                                                                                            <span id="supplierError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row">
+                                                                                         <label for="item_code" class="col-sm-3 text-left control-label col-form-label">Product Code</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <select type="text" class="form-control form-input" id="item_code" placeholder="Item Code">
+                                                                                                <option value="" >Select Product Code </option>
+                                                                                                @foreach($readymade_subs as $readymade_sub)
+                                                                                                    <option value="{{$readymade_sub->item_code}}" >{{$readymade_sub->item_code}}</option>
+                                                                                                @endForeach
+                                                                                                @foreach($bottoms as $bottom)
+                                                                                                    <option value="{{$bottom->item_code}}" >{{$bottom->item_code}}</option>
+                                                                                                @endForeach
+                                                                                            </select>
+                                                                                            <span id="item_codeError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group row">
-                                                                                        <label for="fname" class="col-sm-3 text-left control-label col-form-label">Date</label>
+                                                                                        <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="Date" class="form-control" id="fname" placeholder="Date Here">
+                                                                                            <input type="Date" class="form-control form-input" id="payment_Date" placeholder="Payment Date">
+                                                                                            <span id="payment_DateError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="form-group row">
+                                                                                        <label for="cheque_number" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="cheque_number" placeholder="Cheque Number Here">
+                                                                                            <span id="cheque_numberError" class="text-danger form-error"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
-                                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Description</label>
+                                                                                        <label for="cheque_Date" class="col-sm-3 text-left control-label col-form-label">Cheque Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <textarea class="form-control"></textarea>
+                                                                                            <input type="Date" class="form-control form-input" id="cheque_Date" placeholder="Cheque Date Here">
+                                                                                            <span id="cheque_DateError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="form-group row">
+                                                                                        <label for="amount" class="col-sm-3 text-left control-label col-form-label">Cheque Amount</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="amount" placeholder="Cheque Amount">
+                                                                                            <span id="amountError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                    <div class="form-group row">
+                                                                                        <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="text" class="form-control form-input" id="bank" placeholder="Bank Name Here">
+                                                                                            <span id="bankError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Price</label>
+                                                                                        <label for="branch" class="col-sm-3 text-left control-label col-form-label">Branch</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control" id="email1" placeholder="Price Here">
+                                                                                            <input type="text" class="form-control form-input" id="branch" placeholder="Branch Name Here">
+                                                                                            <span id="branchError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group row p-0 m-b-0">
+                                                                                        <label for="description" class="col-sm-3 text-left control-label col-form-label">Description</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <textarea id="description" class="form-control form-input" row="5"></textarea>
+                                                                                            <span id="descriptionError" class="text-danger form-error" ></span>
+                                                                                        </div>
+                                                                                    </div>   
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <div class="form-group row d-flex-column">
+                                                                                        <label id="transaction_status_label" for="transaction_status" class="col-12 text-left control-label col-form-label">Cheque Status</label>
+                                                                                        <div class="col-12" id="status_select">
+                                                                                            <select type="text" class="form-control form-input" id="transaction_status" placeholder="Transaction Status">
+                                                                                                <option value="" selected>Select Transaction Status </option>
+                                                                                                    @foreach ($status as $status)
+                                                                                                        <option value="{{$status}}">{{$status}}</option>
+                                                                                                    @endforeach
+                                                                                                </select>
+                                                                                            <span id="transaction_statusError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col col-md-6">
-                                                                                    <div class="form-group row">
-                                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Invoice Number</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="text" class="form-control" id="cono1" placeholder="Invoice number Here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Qty/Pcs</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control" id="email1" placeholder="Qty/Pcs here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                                                        <input type="radio" id="customRadioInline1" class="custom-control-input" name="collapseGroup" value="cash">
-                                                                                        <label class="custom-control-label" for="customRadioInline1">Cash</label>
-                                                                                    </div>
-                                                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                                                        <input type="radio" id="customRadioInline2" class="custom-control-input" name="collapseGroup" value="cheque">
-                                                                                        <label class="custom-control-label" for="customRadioInline2">Cheque</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row collapse" id="collapseCheque">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group row">
-                                                                                        <label for="fname" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="Date" class="form-control" id="fname" placeholder="Payment Date Here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Cheque Number</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control" id="email1" placeholder="Cheque number here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Amount</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control" id="email1" placeholder="Amount Here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label class="col-md-3">Dep/Paid</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" class="custom-control-input" id="customControlValidation1" name="radio-stacked" required>
-                                                                                                <label class="custom-control-label" for="customControlValidation1">Depositted</label>
+                                                                                <div id="status_1" class="col-md-6" style="display:none;">
+                                                                                <div class="form-group row">
+                                                                                            <label for="deposited_bank" class="col-sm-3 text-left control-label col-form-label">Depositted Bank</label>
+                                                                                            <div class="col-sm-9">
+                                                                                                <input type="text" class="form-control form-input" id="deposited_bank" placeholder="Deposited Bank">
+                                                                                                <span id="deposited_bankError" class="text-danger form-error" ></span>
                                                                                             </div>
-                                                                                            <div class="custom-control custom-radio">
-                                                                                                <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-                                                                                                <label class="custom-control-label" for="customControlValidation2">Paid</label>
-                                                                                            </div>
+                                                                                        </div>
+                                                                                
+                                                                                    <div class="form-group row">
+                                                                                        <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
+                                                                                        <div class="col-sm-9">
+                                                                                            <input type="number" class="form-control form-input" id="deposited_bank_account" placeholder="Depositted Bank Account Number Here">
+                                                                                            <span id="deposited_bank_accountError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group row">
-                                                                                        <label for="cono1" class="col-sm-3 text-left control-label col-form-label">Bank</label>
+                                                                                <div id="status_2" class="col-md-6" style="display:none;">
+                                                                                <div class="form-group row">
+                                                                                        <label for="new_cheque_date" class="col-sm-3 text-left control-label col-form-label">New Cheque Date</label>
                                                                                         <div class="col-sm-9">
-                                                                                            <input type="text" class="form-control" id="cono1" placeholder="Bank name Here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Branch</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="text" class="form-control" id="email1" placeholder="Branch here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">cheque date</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="date" class="form-control" id="email1" placeholder="cheque date here">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row collapse" id="collapseCash">
-                                                                                <div class="col-md-6">
-                                                                                    <div class="form-group row">
-                                                                                        <label for="email1" class="col-sm-3 text-left control-label col-form-label">Debit</label>
-                                                                                        <div class="col-sm-9">
-                                                                                            <input type="number" class="form-control" id="email1" placeholder="Debit Here">
+                                                                                            <input type="Date" class="form-control form-input" id="new_cheque_date" placeholder="New Cheque Date">
+                                                                                            <span id="new_cheque_dateError" class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                <button type="submit" class="btn btn-primary">Submit</button>
                                                                             </div>
                                                                         </div>
+                                                                       
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -398,17 +457,20 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
-                                                                <th class="font-weight-bold">Item code</th>
-                                                                <th class="font-weight-bold">Name</th>
-                                                                <th class="font-weight-bold">Brand</th>
-                                                                <th class="font-weight-bold">Colours Available</th>
-                                                                <th class="font-weight-bold">Initial stocks</th>
-                                                                <th class="font-weight-bold">Links of suppliers</th>
-                                                                <th class="font-weight-bold">Sizes Available</th>
-                                                                <th class="font-weight-bold">Whole Sale price</th>
-                                                                <th class="font-weight-bold">supplier Sale price</th>
-                                                                <th class="font-weight-bold">Description</th>
-                                                                <th class="font-weight-bold">Image</th>
+                                                                <th>Invoice_number</th>
+                                                                <th>Date</th>
+                                                                <th>Wholesale Customer</th>
+                                                                <th>Description</th>
+                                                                <th>Cheque Number</th>
+                                                                <th>Cheque Date</th>
+                                                                <th>Cheque Amount</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Bank</th>
+                                                                <th>Branch</th>
+                                                                <th>Deposited Bank Account</th>
+                                                                <th>Deposited Bank</th>
+                                                                <th>New Cheque Date</th>
+                                                                <th>Transaction Status</th>
                                                                 <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                         <i class="fas fa-check text-center"></i>
                                                                     </a></th>
@@ -418,70 +480,27 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                        @foreach($transactions as $key=> $transaction)
                                                             <tr>
                                                                 <td></td>
-                                                                <td>P001</td>
-                                                                <td>Bottom1</td>
-                                                                <td>Brand1</td>
-                                                                <td>Black<br>white</td>
-                                                                <td>100</td>
-                                                                <td>https://www.google.com/</td>
-                                                                <td>xl<br>large</td>
-                                                                <td>500</td>
-                                                                <td>3000</td>
-                                                                <td>Lorem ipsum dolor sit amet</td>
-                                                                <td class='clickable-row' data-href='index.html'>1.jpg</td>
-                                                                <td><button type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+                                                                <td>{{ $transaction ->invoice_number }}</td>
+                                                                <td>{{ $transaction ->date }}</td>
+                                                                <td>{{ $transaction ->supplier->name }}</td>
+                                                                <td>{{ $transaction ->description }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->cheque_number }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->cheque_Date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->amount }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->payment_Date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->bank }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->branch }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->deposited_bank_account }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->deposited_bank }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->new_cheque_date }}</td>
+                                                                <td>{{ $transaction ->cheque_payment->transaction_status }}</td>
+                                                                <td><button data-data="{{  $transaction }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="editButton{{ $transaction->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
+                                                                <td><button data-invoice="{{ $transaction->invoice_number }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="deleteButton{{ $transaction->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>P001</td>
-                                                                <td>Bottom1</td>
-                                                                <td>Brand1</td>
-                                                                <td>Black<br>white</td>
-                                                                <td>100</td>
-                                                                <td>https://www.google.com/</td>
-                                                                <td>xl<br>large</td>
-                                                                <td>500</td>
-                                                                <td>3000</td>
-                                                                <td>Lorem ipsum dolor sit amet</td>
-                                                                <td class='clickable-row' data-href='index.html'>1.jpg</td>
-                                                                <td><button type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>P001</td>
-                                                                <td>Bottom1</td>
-                                                                <td>Brand1</td>
-                                                                <td>Black<br>white</td>
-                                                                <td>100</td>
-                                                                <td>https://www.google.com/</td>
-                                                                <td>xl<br>large</td>
-                                                                <td>500</td>
-                                                                <td>3000</td>
-                                                                <td>Lorem ipsum dolor sit amet</td>
-                                                                <td class='clickable-row' data-href='index.html'>1.jpg</td>
-                                                                <td><button type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>P001</td>
-                                                                <td>Bottom1</td>
-                                                                <td>Brand1</td>
-                                                                <td>Black<br>white</td>
-                                                                <td>100</td>
-                                                                <td>https://www.google.com/</td>
-                                                                <td>xl<br>large</td>
-                                                                <td>500</td>
-                                                                <td>3000</td>
-                                                                <td>Lorem ipsum dolor sit amet</td>
-                                                                <td class='clickable-row' data-href='index.html'>1.jpg</td>
-                                                                <td><button type="button" class="btn btn-cyan btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button></td>
-                                                                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
-                                                            </tr>
+                                                            @endForeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -489,9 +508,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
-                                <h1>Invoice List Goes Here</h1>
                             </div>
                         </div>
                     </div>
@@ -549,14 +565,22 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/jszip.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/pdfmake.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.3.1/js/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="../../assets/libs/datatables/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
+    <script type="text/javascript" src="../../assets/libs/datatables/js/fixedColumns.min.js"></script>
     <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+    });
+
+    var table;
     $(document).ready(function() {
-        var table = $('#example').DataTable({
+        table = $('#example').DataTable({
             dom: 'Bfrtip',
             scrollX: true,
             scrollCollapse: true,
@@ -608,19 +632,19 @@
                         buttons: [{
                             extend: 'excel',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Supplier Transaction Records'
                         }, {
                             extend: 'copy',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Supplier Transaction Records'
                         }, {
                             extend: 'pdf',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Supplier Transaction Records'
                         }, {
                             extend: 'print',
                             className: 'dropdown-item',
-                            messageTop: 'wholesale-customer Records'
+                            messageTop: 'Supplier Transaction Records'
                         }],
                     }
                 ]
@@ -642,19 +666,306 @@
         });
     });
 
-    $('[name="collapseGroup"]').on('change', function() {
-        if ($(this).val() === "cheque") {
-            $('#collapseCheque').collapse('show')
-        } else {
-            $('#collapseCheque').collapse('hide')
-        }
+    $(document).ready(function(){
 
-        if ($(this).val() === "cash") {
-            $('#collapseCash').collapse('show')
-        } else {
-            $('#collapseCash').collapse('hide')
-        }
+        $("#status_select").on('change', function() {
+
+
+            var option = $('#status_select option:selected').text();
+            
+            if(option === 'depositted'){
+                $( "#status_1" ).css( "display", "block" ); 
+                $( "#status_2" ).css( "display", "none" );
+            } else if(option === 'returned'){
+                $( "#status_1" ).css( "display", "block" ); 
+                $( "#status_2" ).css( "display", "block" );
+            } else {
+                $( "#status_1" ).css( "display", "none" ); 
+                $( "#status_2" ).css( "display", "none" );
+            } 
+            
+        });
     });
+
+    $(document).on('click','.btn-edit', function(){
+        $(".bd-form-modal-xl").modal('show');
+
+        var updateId = $(this).data("id");
+
+        var data = $(this).data("data");
+        
+        $("#updateId").val(updateId);
+
+        $("#date").val(data.date);
+        $("#invoice_number").val(data.invoice_number);
+        $("#quantity_or_peices").val(data.quantity_or_peices);
+        $("#cheque_number").val(data.cheque_payment.cheque_number);
+        $("#cheque_Date").val(data.cheque_payment.cheque_Date);
+        $("#payment_Date").val(data.cheque_payment.payment_Date);
+        $("#bank").val(data.cheque_payment.bank);
+        $("#deposited_bank_account").val(data.cheque_payment.deposited_bank_account);
+        $("#transaction_status").val(data.cheque_payment.transaction_status);
+        $("#new_cheque_date").val(data.cheque_payment.new_cheque_date);
+        $("#supplier").val(data.supplier.id);
+        $("#amount").val(data.cheque_payment.amount);
+        $("#payment_Date").val(data.cheque_payment.payment_Date);
+        $("#branch").val(data.cheque_payment.branch);
+        $("#deposited_bank").val(data.cheque_payment.deposited_bank);
+        $("#description").val(data.description);
+        $("#price_per_quantity").val(data.price_per_quantity);
+        $("#cash").val(data.cash);
+        $("#item_code").val(data.item_code);
+
+        hideErrors();
+    });
+
+    $(document).on('click','.btn-create', function(){
+        
+        $("#updateId").val("");
+
+        $("#date").val("");
+        $("#invoice_number").val("");
+        $("#cheque_number").val("");
+        $("#cheque_Date").val("");
+        $("#payment_Date").val("");
+        $("#bank").val("");
+        $("#deposited_bank_account").val("");
+        $("#transaction_status").val("");
+        $("#new_cheque_date").val("");
+        $("#supplier").val("");
+        $("#amount").val("");
+        $("#branch").val("");
+        $("#deposited_bank").val("");
+        $("#description").val("");
+        $("#item_code").val("");
+        
+        $(".bd-form-modal-xl").modal('show');
+
+    });
+
+
+    $(document).on('submit', '#formModal', function(e){
+
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        var updateId = $("#updateId").val();
+
+        var payment_type = $("#ptype").val();
+
+        var date = $("#date").val();
+        var description = $("#description").val();
+        var invoice_number = $("#invoice_number").val();
+        var cheque_number = $("#cheque_number").val();
+        var cheque_Date = $("#cheque_Date").val();
+        var payment_Date = $("#payment_Date").val();
+        var deposited_bank_account = $("#deposited_bank_account").val();
+        var transaction_status = $("#transaction_status").val();
+        var new_cheque_date = $("#new_cheque_date").val();
+        var supplier = $("#supplier").val();
+        var amount = $("#amount").val();
+        var deposited_bank = $("#deposited_bank").val();
+        var branch = $("#branch").val();
+        var bank = $("#bank").val();
+        var item_code = $("#item_code").val();
+        var cheque_payment = $("#cheque_payment").val()
+
+        $("#modalAlert").alert();
+
+        var mode = isNaN(parseInt(updateId))?"create":"update";
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/supplier_transaction') }}/"+mode,
+            dataType: "json",
+            data: {
+                date:date, 
+                description:description, 
+                invoice_number:invoice_number, 
+                payment_type:payment_type, 
+                cheque_number:cheque_number, 
+                cheque_Date:cheque_Date, 
+                payment_Date:payment_Date, 
+                bank:bank,
+                deposited_bank_account:deposited_bank_account, 
+                transaction_status:transaction_status, 
+                new_cheque_date:new_cheque_date, 
+                supplier:supplier, 
+                amount:amount,
+                branch:branch,
+                deposited_bank:deposited_bank,
+                item_code:item_code, 
+                updateId:updateId, 
+
+            },
+            success: function(data){
+                if(data.success){
+                    console.log("success");
+                    $("#modalAlert").html(`You Have Success Fully  ${mode}d ${data.transaction.invoice_number} invoice`);
+                    $("#modalAlert").show();
+                    $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-form-modal-xl").modal('hide');
+                        $('.form-input').val('');
+                        hideErrors(); 
+                    }, 600)
+                    if(mode=="update"){
+                        var index = $("#editButton"+updateId).data("index");
+                        console.log(index);
+
+                        table.row(index).data([
+                            "",   
+                            data.transaction.invoice_number,
+                            data.transaction.date,
+                            data.transaction.supplier.name,
+                            data.transaction.description,
+                            data.transaction.cheque_payment.cheque_number,
+                            data.transaction.cheque_payment.cheque_Date,
+                            data.transaction.cheque_payment.amount,
+                            data.transaction.cheque_payment.payment_Date,
+                            data.transaction.cheque_payment.bank,
+                            data.transaction.cheque_payment.branch,
+                            data.transaction.cheque_payment.deposited_bank_account,
+                            data.transaction.cheque_payment.deposited_bank,
+                            data.transaction.cheque_payment.new_cheque_date,
+                            data.transaction.cheque_payment.transaction_status,
+                            `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="deleteButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                        ]);
+                    } else {
+                        var index = table.rows().count();
+
+                        console.log(data.transaction);
+
+                        table.rows.add([[
+                            "",   
+                            data.transaction.invoice_number,
+                            data.transaction.date,
+                            data.transaction.supplier.name,
+                            data.transaction.description,
+                            data.transaction.cheque_payment.cheque_number,
+                            data.transaction.cheque_payment.cheque_Date,
+                            data.transaction.cheque_payment.amount,
+                            data.transaction.cheque_payment.payment_Date,
+                            data.transaction.cheque_payment.bank,
+                            data.transaction.cheque_payment.branch,
+                            data.transaction.cheque_payment.deposited_bank_account,
+                            data.transaction.cheque_payment.deposited_bank,
+                            data.transaction.cheque_payment.new_cheque_date,
+                            data.transaction.cheque_payment.transaction_status,
+                            `<button data-data='${JSON.stringify(data.transaction)}' data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button>`,
+                            `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="deleteButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
+                        ]]).draw();
+                    }
+                }           
+            },
+            error: function(e){
+                var data = e.responseJSON;
+                var mainError = "Something went wrong!";
+
+                switch (e.status){
+                    
+                    case 400:
+                        mainError = "Something went wrong!";
+                        var key = Object.keys(data.errors);
+
+                        for(var i = 0; i < key.length; i++){
+                            var id = key[i];
+                            var errorMsg=data.errors[id][0];
+
+                            
+                            $("#"+id).addClass("is-invalid");
+                            $("#"+id+"Error").html(errorMsg);
+                        }
+                        break;
+                    case 500:
+                        mainError = "Server Error!"
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#modalAlert").html(mainError);
+                $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#modalAlert").show();  
+                
+            }
+
+        })
+    })  
+
+    $(document).on('click keyup',".form-input", function(){
+        hideErrors();
+    });
+
+    function hideErrors(){
+        $("#modalAlert").hide();
+        $(".form-error").html("");
+        $(".form-input").removeClass("is-invalid");
+    }
+
+    $(document).on('click', '.btn-delete', function(){
+        var deleteId = $(this).data('id');
+
+        $("#deleteId").val(deleteId);
+
+        var invoice = $(this).data("invoice");
+
+        $("#deleteInvoiceNumber").html(invoice);
+        $("#confirmationAlert").hide();
+
+        $(".bd-confirmation-modal-lg").modal('show');
+    })
+
+    $(document).on("submit", "#confirmationModal", function(e){
+        e.preventDefault();
+        var deleteId = $("#deleteId").val();
+        $("#confirmationAlert").hide();
+
+        $.ajax({
+            method: "POST",
+            url: "{{ url('/crud/supplier_transaction/delete') }}",
+            dataType: "json",
+            data: {
+                id: deleteId
+            },
+            success: function(data){
+                if(data.success){
+                    $("#confirmationAlert").html(`You have successfully deleted the invoice`);
+                    $("#confirmationAlert").show();
+                    $("#confirmationAlert").removeClass('alert-danger').addClass('alert-success');
+                    window.setTimeout(function(){
+                        $(".bd-confirmation-modal-lg").modal('hide');
+                        
+
+                        var index = $("#deleteButton"+deleteId).data("index");
+
+                        table.row(index).remove().draw();
+                    }, 600);
+                }
+            },
+            error: function(e){
+                var mainError = "Something went wrong!";
+                switch (e.status) {
+                    case 400: 
+                        mainError = "Invalid request";
+                        break;
+                    case 500:
+                        mainError = "Server error appeared";
+                        break;
+                    default:
+                        break;
+                }
+
+                $("#confirmationAlert").html(mainError);
+                $("#confirmationAlert").removeClass('alert-success').addClass('alert-danger');
+                $("#confirmationAlert").show();
+                $("#deleteButton").html("Try Again");
+            }
+        });
+    })
+
     </script>>
 </body>
 

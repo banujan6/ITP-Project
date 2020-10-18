@@ -15,9 +15,8 @@ class CreateVehicleFinancesTable extends Migration
     {
         Schema::create('vehicle_finances', function (Blueprint $table) {
             $table->id();
-//            $table->integer('vehicle_id')->unsigned()->nullable();
-//            $table->foreign('vehicle_id')->references('id')->on('vehicles');
-            $table->string('model');
+            $table->unsignedBigInteger("vehicle_id")->nullable();
+            $table->foreign("vehicle_id")->references("id")->on("vehicles");
             $table->string('finance_company');
             $table->integer('account_number');
             $table->float('monthly_payment_amount');

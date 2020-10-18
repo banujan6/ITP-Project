@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use App\Models\Vehicle_finance;
+use App\Models\Vehicle;
 
 class VehicleFinanceController extends Controller
 {
     public function index()
     {
-          $vehicle_finances = Vehicle_finance::all();
+          $vehicle_finances = Vehicle_finance::with('vehicles')->get();
+          $vehicles = Vehicle::all();
+
+
           return view('vehicle-finance',[
-              "vehicle_finances" => $vehicle_finances
+              "vehicle_finances" => $vehicle_finances,
+              "vehicles" => $vehicles
           ]);
 
 //        $vehicle_finances = vehicle_finance::with('vehicle')->get();
@@ -31,10 +36,10 @@ class VehicleFinanceController extends Controller
         $vehicle_finance = Vehicle_finance::find($id);
 
         $validator = Validator::make($request->all(), [
-            'model' => 'required',
+            'vehicles' => 'required',
             'finance_company' => 'required',
-            'account_number'=> 'required',
-            'monthly_payment_amount'=> 'required',
+            'account_number'=> 'required|max:10',
+            'monthly_payment_amount'=> 'required|max:15',
             'payment_date'=> 'required'
         ]);
 
@@ -46,7 +51,7 @@ class VehicleFinanceController extends Controller
         }
 
         $vehicle_finance->update([
-            "model"=> $request->input("model"),
+            "vehicle_id"=> $request->input("vehicles"),
             "finance_company"=> $request->input("finance_company"),
             "account_number"=> $request->input("account_number"),
             "monthly_payment_amount"=> $request->input("monthly_payment_amount"),
@@ -57,7 +62,10 @@ class VehicleFinanceController extends Controller
             'success'=> true,
             "vehicle_finance"=> [
                 "id"=> $vehicle_finance->getKey(),
-                "model"=> $vehicle_finance->model,
+                "vehicles" =>[
+                    "id" => $vehicle_finance->vehicles->getkey(),
+                    "registered_number"=> $vehicle_finance->vehicles->registered_number
+                ],
                 "finance_company"=> $vehicle_finance->finance_company,
                 "account_number"=> $vehicle_finance->account_number,
                 "monthly_payment_amount"=> $vehicle_finance->monthly_payment_amount,
@@ -69,10 +77,10 @@ class VehicleFinanceController extends Controller
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'model' => 'required',
+            'vehicles' => 'required',
             'finance_company' => 'required',
-            'account_number'=> 'required',
-            'monthly_payment_amount'=> 'required',
+            'account_number'=> 'required|max:10',
+            'monthly_payment_amount'=> 'required|max:15',
             'payment_date'=> 'required'
         ]);
 
@@ -84,7 +92,7 @@ class VehicleFinanceController extends Controller
         }
 
         $vehicle_finance = Vehicle_finance::create([
-            "model"=> $request->input("model"),
+            "vehicle_id"=> $request->input("vehicles"),
             "finance_company"=> $request->input("finance_company"),
             "account_number"=> $request->input("account_number"),
             "monthly_payment_amount"=> $request->input("monthly_payment_amount"),
@@ -97,11 +105,14 @@ class VehicleFinanceController extends Controller
             'success'=> true,
             "vehicle_finance"=> [
                 "id"=> $vehicle_finance->getKey(),
-                "model"=> $vehicle_finance->model,
                 "finance_company"=> $vehicle_finance->finance_company,
                 "account_number"=> $vehicle_finance->account_number,
                 "monthly_payment_amount"=> $vehicle_finance->monthly_payment_amount,
-                "payment_date"=> $vehicle_finance->payment_date
+                "payment_date"=> $vehicle_finance->payment_date,
+                "vehicles" =>[
+                    "id" => $vehicle_finance->vehicles->getkey(),
+                    "registered_number"=> $vehicle_finance->vehicles->registered_number
+                ]
 
             ]
 

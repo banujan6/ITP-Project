@@ -12,14 +12,10 @@ class Vehicle extends Model
 
     protected $fillable =['make','model','year_of_purchase','registered_number','colour','capacity'];
 
-    public function vehicle()
-    {
-        return $this->hasOne('App\Models\vehicle');
-    }
-
-    public function employee_basic_details(){
-        return $this->belongsToMany(employee_basic_details::class, 'app\Models\vehicle_emps');
-    }
+//    public function vehicle()
+//    {
+//        return $this->hasOne('App\Models\vehicle');
+//    }
 
 }
 
