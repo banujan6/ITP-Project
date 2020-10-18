@@ -422,9 +422,48 @@
                                 </div>
                             </div>
                             <div class="tab-pane  p-20" id="marketing-report" role="tabpanel">
-                                <div class="p-20">
-                                    <h1>Marketing Report Table Goes Here</h1>
-                                </div>
+
+				<table id="example" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th class="font-weight-bold">Occupation</th>
+                                                                <th class="font-weight-bold">Total Amount</th>
+								<th class="font-weight-bold">Min Date</th>
+								<th class="font-weight-bold">Max Date</th>
+                                                                <th class="font-weight-bold">Top Customers</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($report_results as $key=> $result)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>{{ $result->name }}</td>
+                                                                <td>{{ $result->amount }}</td>
+                                                                <td>{{ $result->min_date }}</td>
+								<td>{{ $result->max_date }}</td>
+								<td>
+									@foreach($result->top_customers as $customer)
+										{{$customer->name}}
+										<br/>
+									@endForeach
+								</td>
+                                                            </tr>
+                                                            @endForeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th></th>
+                                                                <th class="font-weight-bold">Name</th>
+                                                                <th class="font-weight-bold">Contact No</th>
+                                                                <th class="font-weight-bold">Address</th>
+                                                                <th class="font-weight-bold">Occupation</th>
+                                                                <th class="font-weight-bold">Description</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
                             </div>
                         </div>
                     </div>
