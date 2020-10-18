@@ -44,7 +44,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.blade.php">
+                    <a class="navbar-brand" href={{"/"}}>
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -134,22 +134,22 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.blade.php" aria-expanded="false"><i class="fas fa-th"></i><span class="hide-menu pl-1">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href={{"/"}} aria-expanded="false"><i class="fas fa-th"></i><span class="hide-menu pl-1">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="fa fa-users fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Customers</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="wholesale-customer.blade.php" class="sidebar-link"><i class="fas fa-people-carry fa-3x"></i><span class="hide-menu">Wholesale Customer</span></a></li>
-                                <li class="sidebar-item"><a href="retail-customer.blade.php" class="sidebar-link"><i class="fas fa-street-view fa-3x" aria-hidden="true"></i><span class="hide-menu">Retail Customers</span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/wholesale"}} class="sidebar-link"><i class="fas fa-people-carry fa-3x"></i><span class="hide-menu">Wholesale Customer</span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/retail_customer"}} class="sidebar-link"><i class="fas fa-street-view fa-3x" aria-hidden="true"></i><span class="hide-menu">Retail Customers</span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="supplier.blade.php" aria-expanded="false"><i class="fas fa-truck-loading fa-lg"></i></i><span class="hide-menu">&#X00A0;Suppliers</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href={{"/supplier"}} aria-expanded="false"><i class="fas fa-truck-loading fa-lg"></i></i><span class="hide-menu">&#X00A0;Suppliers</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                                 <i class="fas fa-th-list fa-lg" aria-hidden="true"></i><span class="hide-menu pl-1">Categories</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="add-category.blade.php" class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
-                                <li class="sidebar-item"><a href="main-categories-summary.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/crud/add_cat"}} class="sidebar-link"><i class="fas fa-tasks"></i><span class="hide-menu">Manage Categories </span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/main_category_summary"}} class="sidebar-link">
                                         <i class="far fa-chart-bar"></i><span class="hide-menu">View Summary</span>
                                     </a></li>
                             </ul>
@@ -158,25 +158,25 @@
                                 <i class="fas fa-exchange-alt" aria-hidden="true"></i><span class="hide-menu pl-1">Transaction</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="wholesale-transactions.blade.php" class="sidebar-link"><i class="fas fa-money-bill-alt" aria-hidden="true"></i><span class="hide-menu">Wholesale transaction </span></a></li>
-                                <li class="sidebar-item"><a href="retail-transaction.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/crud/wholesale_transaction"}} class="sidebar-link"><i class="fas fa-money-bill-alt" aria-hidden="true"></i><span class="hide-menu">Wholesale transaction </span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/retail_transaction"}} class="sidebar-link">
                                         <i class="fas fa-hand-holding-usd"></i><span class="hide-menu">Retail transactions</span>
                                     </a></li>
-                                <li class="sidebar-item"><a href="supplier-transaction.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/crud/supplier_transaction"}} class="sidebar-link">
                                         <i class="fas fa-credit-card"></i><span class="hide-menu">Supplier transactions</span>
                                     </a></li>
-                                <li class="sidebar-item"><a href="deposited-returned-cheques.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/crud/manage_cheques"}} class="sidebar-link">
                                         <i class="fas fa-undo"></i><span class="hide-menu">Manage Cheques</span>
                                     </a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="invoice.blade.php" aria-expanded="false"><i class="fas fa-newspaper"></i><span class="hide-menu">Generate Invoice</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="employee.blade.php" aria-expanded="false">
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href={{"/crud/invoice"}} aria-expanded="false"><i class="fas fa-newspaper"></i><span class="hide-menu">Generate Invoice</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href={{"/employee"}} aria-expanded="false">
                                 <i class="fa fa-address-card" aria-hidden="true"></i><span class="hide-menu pl-1">Employees</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="employee.blade.php" class="sidebar-link"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="hide-menu">Manage Employees </span></a></li>
-                                <li class="sidebar-item"><a href="employee-salary.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/employee"}} class="sidebar-link"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="hide-menu">Manage Employees </span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/employee_salary"}} class="sidebar-link">
                                         <i class="fas fa-table" aria-hidden="true"></i><span class="hide-menu">Salary Report</span>
                                     </a></li>
                             </ul>
@@ -185,16 +185,16 @@
                                 <i class="fa fa-car" aria-hidden="true"></i><span class="hide-menu pl-1">Vehicle</span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="vehicle-management.blade.php" class="sidebar-link"><i class="fas fa-cogs"></i><span class="hide-menu">Manage Vehicles</span></a></li>
-                                <li class="sidebar-item"><a href="vehicle-finance.blade.php" class="sidebar-link">
+                                <li class="sidebar-item"><a href={{"/crud/vehicle_management"}} class="sidebar-link"><i class="fas fa-cogs"></i><span class="hide-menu">Manage Vehicles</span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/vehicle_finance"}} class="sidebar-link">
                                         <i class="fas fa-table" aria-hidden="true"></i><span class="hide-menu">Vehicle Finance</span>
                                     </a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-user-secret"></i><span class="hide-menu">Authentication </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="authentication-login.blade.php" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span class="hide-menu"> Login </span></a></li>
-                                <li class="sidebar-item"><a href="authentication-register.blade.php" class="sidebar-link"><i class="fas fa-user-plus"></i><span class="hide-menu"> Register </span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/login"}} class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span class="hide-menu"> Login </span></a></li>
+                                <li class="sidebar-item"><a href={{"/crud/register"}} class="sidebar-link"><i class="fas fa-user-plus"></i><span class="hide-menu"> Register </span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -282,7 +282,7 @@
                                                                             <button data-dismiss="modal" type="button" class="btn btn-secondary">Cancel</button>
                                                                             <button type="submit" id="deleteButton" autofocus class="btn btn-success">Continue</button>
                                                                         </div>
-                                                                        
+
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -343,14 +343,14 @@
                                                                                             <input type="number" class="form-control form-input" id="cheque_Date" placeholder="cheque_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="bank" class="col-sm-3 text-left control-label col-form-label">Bank</label>
                                                                                         <div class="col-sm-9">
@@ -358,9 +358,9 @@
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
-                                                                                    
-                                                                                    
+
+
+
                                                                                     <div class="form-group row">
                                                                                         <label for="deposited_bank_account" class="col-sm-3 text-left control-label col-form-label">Depositted Bank Account</label>
                                                                                         <div class="col-sm-9">
@@ -382,7 +382,7 @@
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
                                                                                     </div>
-                                                                                    
+
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <div class="form-group row mt-2">
@@ -405,14 +405,14 @@
                                                                                             <input type="number" class="form-control form-input" id="amount" placeholder="amount">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="payment_Date" class="col-sm-3 text-left control-label col-form-label">Payment Date</label>
                                                                                         <div class="col-sm-9">
                                                                                             <input type="number" class="form-control form-input" id="payment_Date" placeholder="payment_Date">
                                                                                             <span class="text-danger form-error" ></span>
                                                                                         </div>
-                                                                                    </div> 
+                                                                                    </div>
                                                                                     <div class="form-group row">
                                                                                         <label for="branch" class="col-sm-3 text-left control-label col-form-label">Branch</label>
                                                                                         <div class="col-sm-9">
@@ -465,7 +465,7 @@
                                                                 <th class="font-weight-bold">Depositted Branch</th>
                                                                 <th class="font-weight-bold">Depositted Date</th>
                                                                 <th class="font-weight-bold">New Cheque Date</th>
-                                                                <th class="font-weight-bold">Tranaction Status</th> 
+                                                                <th class="font-weight-bold">Tranaction Status</th>
                                                                 <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
                                                                         <i class="fas fa-check text-center"></i>
                                                                     </a></th>
@@ -478,11 +478,6 @@
                                                         @foreach($transactions as $key=> $transaction)
                                                             <tr>
                                                                 <td></td>
-                                                                <td>{{ $transaction ->invoice_number }}</td>
-                                                                <td>{{ $transaction ->date }}</td>
-                                                                <td>{{ $transaction ->description }}</td>
-                                                                <td>{{ $transaction ->quantity_or_peices }}</td>
-                                                                <td>{{ $transaction ->price_per_quantity }}</td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
@@ -494,7 +489,12 @@
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+
                                                                 <td><button data-data="{{  $transaction }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="editButton{{ $transaction->getKey() }}" type="button" class="btn btn-cyan btn-sm btn-edit">Edit</button></td>
                                                                 <td><button data-invoice="{{ $transaction->invoice_number }}" data-index="{{ $key }}" data-id='{{ $transaction->getKey() }}' id="deleteButton{{ $transaction->getKey() }}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button></td>
                                                             </tr>
@@ -507,7 +507,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="tab-pane  p-20" id="invoice-list" role="tabpanel">
                                 <h1>Invoice List Goes Here</h1>
                             </div>
@@ -573,7 +573,7 @@
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="../../assets/libs/datatables/js/fixedColumns.min.js"></script>
-    
+
     <script>
     $.ajaxSetup({
         headers: {
@@ -602,7 +602,7 @@
                 className: 'select-checkbox',
                 targets: 0
             }],
-            
+
             buttons: {
                 dom: {
                     button: {
@@ -675,7 +675,7 @@
         var updateId = $(this).data("id");
 
         var data = $(this).data("data");
-        
+
         $("#updateId").val(updateId);
 
         console.log($("#updateId").val(updateId));
@@ -693,7 +693,7 @@
     });
 
     $(document).on('click','.btn-create', function(){
-        
+
         $("#updateId").val("");
 
         $("#date").val("");
@@ -702,7 +702,7 @@
         $("#invoice_number").val("");
         $("#quantity_or_peices").val("");
         $("#cash").val("");
-        
+
         $(".bd-form-modal-lg").modal('show');
 
         $("#cheque_payment_id").val("");
@@ -757,7 +757,7 @@
                     window.setTimeout(function(){
                         $(".bd-form-modal-lg").modal('hide');
                         $('.form-input').val('');
-                        hideErrors(); 
+                        hideErrors();
                     }, 600)
                     if(mode=="update"){
                         var index = $("#editButton"+updateId).data("index");
@@ -791,7 +791,7 @@
                             `<button data-invoice="${data.transaction.invoice_number}" data-index="${index}" data-id="${data.transaction.id}" id="editButton${data.transaction.id}" type="button" class="btn btn-danger btn-sm btn-delete">Delete</button>`
                         ]]).draw();
                     }
-                }           
+                }
             },
             error: function(e){
                 console.log(e);
@@ -799,7 +799,7 @@
                 var mainError = "Something went wrong!";
 
                 switch (e.status){
-                    
+
                     case 400:
                         mainError = "Something went wrong!";
                         // var key = Object.keys(data.errors);
@@ -808,7 +808,7 @@
                         //     var id = key[i];
                         //     var errorMsg=data.errors[id][0];
 
-                            
+
                         //     $("#"+id).addClass("is-invalid");
                         //     $("#"+id+"Error").html(errorMsg);
                         // }
@@ -822,12 +822,12 @@
 
                 $("#modalAlert").html(mainError);
                 $("#modalAlert").removeClass('alert-success').addClass('alert-danger');
-                $("#modalAlert").show();  
-                
+                $("#modalAlert").show();
+
             }
 
         })
-    })  
+    })
 
     $(document).on('click keyup',".form-input", function(){
         hideErrors();
@@ -881,7 +881,7 @@
             error: function(e){
                 var mainError = "Something went wrong!";
                 switch (e.status) {
-                    case 400: 
+                    case 400:
                         mainError = "Invalid request";
                         break;
                     case 500:

@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ReadymadeMainSeeder::class);
         $this->call(ReadymadeSubSeeder::class);
         $this->call(SizesSeeder::class);
+        $this->call(BankSeeder::class);
+        $this->call(BloodGroupSeeder::class);
+        $this->call(EducationSeeder::class);
     }
 }

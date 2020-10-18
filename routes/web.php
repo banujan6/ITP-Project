@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+
 Route::get('/crud/retail_customer','CRUD\RetailCustomerController@index');
 Route::post('/crud/retail_customer/update', 'CRUD\RetailCustomerController@update');
 Route::post('/crud/retail_customer/create', 'CRUD\RetailCustomerController@create');
@@ -49,6 +51,8 @@ Route::post('/supplier/update','SupplierController@update');
 Route::post('/supplier/create','SupplierController@create');
 Route::post('/supplier/delete','SupplierController@delete');
 
+
+
 Route::get('/categories', 'CRUD\CategoryController@index');
 Route::get('/categories/bottoms', 'CRUD\BottomsController@index');
 Route::get('/categories/ready-made', 'CRUD\ReadyMadeController@index')->name('category.ready-made.index');
@@ -70,6 +74,63 @@ Route::post('/crud/vehicle_finance/delete', 'CRUD\vehicleFinanceController@delet
 //Route::post('/crud/vehicle/delete', 'CRUD\vehicleController@delete');
 
 Route::get('/employee','EmployeeBasicController@index');
-//Route::post('/employee/update','EmployeeController@update');
+Route::post('/employee/update','EmployeeBasicController@update');
 Route::post('/employee/create','EmployeeBasicController@create');
-//Route::post('/employee/delete','EmployeeController@delete');
+Route::post('/employee/delete','EmployeeBasicController@delete');
+
+Route::get('/crud/supplier_transaction', function () {
+    return view('supplier-transaction');
+});
+
+Route::get('/crud/manage_cheques', function () {
+    return view('deposited-returned-cheques');
+});
+
+Route::get('/crud/employee_salary', function () {
+    return view('employee-salary');
+});
+
+Route::get('/crud/main_category_summary', function () {
+    return view('main-categories-summary');
+});
+
+
+Route::get('/crud/invoice', function () {
+    return view('invoice');
+});
+
+Route::get('/crud/login', function () {
+    return view('authentication-login');
+});
+
+Route::get('/crud/register', function () {
+    return view('authentication-register');
+});
+
+Route::get('/crud/vehicle_management', function () {
+    return view('vehicle-management');
+});
+
+Route::get('/crud/add_cat', function () {
+    return view('add-category');
+});
+
+Route::get('/crud/bottom_main_product', function () {
+    return view('botttom-main-product');
+});
+
+Route::get('/crud/fabric_main_product', function () {
+    return view('fabric-main-product');
+});
+
+Route::get('/crud/fabric_sub_product', function () {
+    return view('fabric-sub-product');
+});
+
+Route::get('/crud/fabric_sub_product_view', function () {
+    return view('fabric-sub-product-view');
+});
+
+
+
+
