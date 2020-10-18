@@ -257,14 +257,6 @@
                                     <div></div>
                                     <h4 class="m-b-0">Fabric</h4>
                                     <ul class="float-right list-style-none">
-                                        <li class="dropdown">
-                                            <a class="pr-2 d-inline" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>
-                                            </a>
-                                            <div class="dropdown-menu mr-3 dropdown-menu-right shadow-sm bg-white-rounded" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item pl-2" href="#">Edit</a>
-                                                <a class="dropdown-item pl-2" href="#">Delete</a>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -283,16 +275,8 @@
                                 </div>
                                 <div class="el-card-content d-flex justify-content-between">
                                     <div></div>
-                                    <h4 class="m-b-0">Bottom</h4>
+                                    <a href="{{ route('category.bottom.index') }}"><h4 class="m-b-0">Bottom</h4></a>
                                     <ul class="float-right list-style-none">
-                                        <li class="dropdown">
-                                            <a class="pr-2 d-inline" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>
-                                            </a>
-                                            <div class="dropdown-menu mr-3 dropdown-menu-right shadow-sm bg-white-rounded" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item pl-2" href="#">Edit</a>
-                                                <a class="dropdown-item pl-2" href="#">Delete</a>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -315,14 +299,6 @@
                                         <h4 class="m-b-0">Readymade</h4>
                                     </a>
                                     <ul class="float-right list-style-none">
-                                        <li class="dropdown">
-                                            <a class="pr-2 d-inline" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>
-                                            </a>
-                                            <div class="dropdown-menu mr-3 dropdown-menu-right shadow-sm bg-white-rounded" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item pl-2" href="#">Edit</a>
-                                                <a class="dropdown-item pl-2" href="#">Delete</a>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -343,14 +319,6 @@
                                     <div></div>
                                     <h4 class="m-b-0">Accessories</h4>
                                     <ul class="float-right list-style-none">
-                                        <li class="dropdown">
-                                            <a class="pr-2 d-inline" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis-v p-2"></i>
-                                            </a>
-                                            <div class="dropdown-menu mr-3 dropdown-menu-right shadow-sm bg-white-rounded" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item pl-2" href="#">Edit</a>
-                                                <a class="dropdown-item pl-2" href="#">Delete</a>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>

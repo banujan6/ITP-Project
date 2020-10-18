@@ -217,7 +217,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-md-6 d-flex no-block align-items-center">
-                        <h4 class="page-title">Bottom Category Main Products
+                        <h4 class="page-title">Bottom Category Stock Report
                         </h4>
                     </div>
                     <div class="col-md-6 d-flex no-block align-items-center">
@@ -247,14 +247,6 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <button class="btn btn-info shadow-none font-weight-bold" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                    <i class="fas fa-plus"></i> Add Bottom
-                                </button>
-                                <a href="{{ route('category.bottom.report') }}" target="_blank">
-                                    <button class="btn btn-success shadow-none font-weight-bold">
-                                        <i class="fas fa-file"></i> Get Stock Availability Report
-                                    </button>
-                                </a>
                                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -415,61 +407,22 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th class="font-weight-bold">Item code</th>
+                                                <th class="font-weight-bold">Item Code</th>
                                                 <th class="font-weight-bold">Name</th>
-                                                <th class="font-weight-bold">Brand</th>
-                                                <th class="font-weight-bold">Colours Available</th>
-                                                <th class="font-weight-bold">Initial stocks</th>
-                                                <th class="font-weight-bold">Links of suppliers</th>
-                                                <th class="font-weight-bold">Sizes Available</th>
-                                                <th class="font-weight-bold">Whole Sale price</th>
-                                                <th class="font-weight-bold">Retail Sale price</th>
-                                                <th class="font-weight-bold">Description</th>
-                                                <th class="font-weight-bold">Image</th>
-                                                <th class="font-weight-bold"><a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                        <i class="fas fa-check text-center"></i>
-                                                    </a></th>
-                                                <th><a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        </i><i class=" far fa-times-circle"></i>
-                                                    </a> </th>
+                                                <th class="font-weight-bold">Initial Stock</th>
+                                                <th class="font-weight-bold">Sold Out</th>
+                                                <th class="font-weight-bold">In Hand</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($bottoms as $bottom)
+                                            @foreach($data as $record)
                                                 <tr>
                                                     <td></td>
-                                                    <td>{{ $bottom->item_code }}</td>
-                                                    <td>{{ $bottom->name }}</td>
-                                                    <td>{{ $bottom->brand }}</td>
-                                                    <td>{{ $bottom->colors }}</td>
-                                                    <td>{{ $bottom->initial_stocks }}</td>
-                                                    <td>{{ $bottom->suppliers }}</td>
-                                                    <td>{{ $bottom->sizes }}</td>
-                                                    <td>{{ number_format($bottom->whole_sale_price, 2, '.', ',') }}</td>
-                                                    <td>{{ number_format($bottom->retail_price, 2, '.', ',') }}</td>
-                                                    <td>{{ $bottom->description }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/'.$bottom->image) }}" style="width: 50px"/>
-                                                    </td>
-                                                    <td><button type="button" class="btn btn-cyan btn-sm" data-type="edit" data-set="{{
-                                                        json_encode([
-                                                            'item_code' => $bottom->item_code,
-                                                            'name' => $bottom->name,
-                                                            'brand' => $bottom->brand,
-                                                            'colors' => $bottom->colors,
-                                                            'initial_stocks' => $bottom->initial_stocks,
-                                                            'suppliers' => $bottom->suppliers,
-                                                            'sizes' => $bottom->sizes,
-                                                            'whole_sale_price' => $bottom->whole_sale_price,
-                                                            'retail_price' => $bottom->retail_price,
-                                                            'description' => $bottom->description
-                                                        ])
-                                                    }}">Edit</button></td>
-                                                    <td>
-                                                        <a href="{{ route('category.bottom.destroy', ['id' => $bottom->id ]) }}">
-                                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                                        </a>
-                                                    </td>
+                                                    <td>{{ $record->item_code }}</td>
+                                                    <td>{{ $record->name }}</td>
+                                                    <td>{{ $record->initial_stocks }}</td>
+                                                    <td>{{ $record->sold }}</td>
+                                                    <td>{{ (int)$record->initial_stocks - (int)$record->sold }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -644,27 +597,6 @@
         });
     });
 
-
-    $('button[data-type="edit"]').click(function () {
-        const data = $(this).data('set');
-
-        $('#item-code').val(data['item_code']);
-        $('#name').val(data['name']);
-        $('#brand').val(data['brand']);
-        $('#colors').val(data['colors']);
-        $('#init_stocks').val(data['initial_stocks']);
-        $('#links-of-suppliers').val(data['suppliers']);
-
-        const sizes = data['sizes'].split(',');
-        $('#sizes').val(sizes);
-        $('#sizes').trigger('change');
-
-        $('#whole_sale_price').val(data['whole_sale_price']);
-        $('#retail_price').val(data['retail_price']);
-        $('#description').val(data['description']);
-
-        $('.bd-example-modal-lg').modal('show');
-    });
 
 
     </script>

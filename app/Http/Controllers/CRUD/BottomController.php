@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bottom;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BottomController extends Controller
 {
@@ -67,6 +68,7 @@ class BottomController extends Controller
 
     public function report()
     {
-     //   Transaction::where()
+        $queryResult = DB::select(DB::raw("SELECT bottoms.item_code, bottoms.name, bottoms.initial_stocks, SUM(transaction.quantity_or_peices) as sold from bottoms INNER JOIN transaction ON transaction.item_code = bottoms.item_code GROUP BY bottoms.name, bottoms.initial_stocks, bottoms.item_code ORDER BY bottoms.item_code"));
+        return view('botttom-main-product-report', ['data' => $queryResult]);
     }
 }
