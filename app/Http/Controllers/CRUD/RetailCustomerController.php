@@ -9,16 +9,50 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\RetailCustomer;
 use App\Models\Occupation;
 use Illuminate\Support\Facades\Response;
+use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
+
 
 class RetailCustomerController extends Controller {
     public function index(){
 
         $retail_customers = RetailCustomer::with("occupation")->get();
-        $occupations = Occupation::all();
+	$occupations = Occupation::all();
+
+	$results = DB::table('transaction AS t')
+			->join('retail_customer AS c', 't.retail_customer_id','c.id')
+			->join('occupation AS o', 'o.id', 'c.occupation_id')
+			->select([
+				'o.name', 
+				DB::raw('SUM(t.cash) AS amount'), 
+				DB::raw('MIN(t.created_at) AS min_date'), 
+				DB::raw('MAX(t.updated_at) AS max_date'), 
+				'o.id'
+			])
+			->groupBy(['o.id','o.name'])
+			->get();
+
+		$results = $results->map(function($result){
+			$customers = RetailCustomer::join('transaction AS t', 't.retail_customer_id','retail_customer.id')
+				->groupBy([
+					'retail_customer.id',
+					'retail_customer.name'
+				])
+				->select(['retail_customer.name'])
+				->orderBy(DB::raw('SUM(t.cash)'), "DESC")
+				->limit(10)
+				->get();
+
+			$result->top_customers = $customers;
+
+			return $result;
+		});
+
 
         return view("retail-customer",[
             "customers"=> $retail_customers,
-            "occupations"=> $occupations
+	    "occupations"=> $occupations,
+	    "report_results"=> $results
         ]);
     }
 
@@ -36,9 +70,9 @@ class RetailCustomerController extends Controller {
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'contactNumber' => 'required',
-            'address'=> 'required',
+            'name' => 'required|min:6',
+            'contactNumber' => 'required|numeric',
+            'address'=> 'required|min:12',
             'occupation'=> 'required|exists:occupation,id'
         ]);
 
@@ -76,9 +110,9 @@ class RetailCustomerController extends Controller {
     public function create(Request $request){
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'contactNumber' => 'required',
-            'address'=> 'required',
+            'name' => 'required|min:3',
+            'contactNumber' => 'required|numeric',
+            'address'=> 'required|min:12',
             'occupation'=> 'required|exists:occupation,id'
         ]);
 
