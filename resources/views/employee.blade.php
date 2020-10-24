@@ -178,9 +178,6 @@
                         </a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="employee.html" class="sidebar-link"><i class="fa fa-user-plus" aria-hidden="true"></i><span class="hide-menu">Manage Employees </span></a></li>
-                            <li class="sidebar-item"><a href="employee-salary.html" class="sidebar-link">
-                                    <i class="fas fa-table" aria-hidden="true"></i><span class="hide-menu">Salary Report</span>
-                                </a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="vehicle.html" aria-expanded="false">
@@ -1325,7 +1322,7 @@
                         $(".bd-form-modal-lg").modal('hide');
 
                         var index = $("#editButton"+updateId).data("index");
-                        $("#modalAlert").html(`You have successfully updated the supplier.`);
+                        $("#modalAlert").html(`You have successfully updated the employee.`);
                         $("#modalAlert").show();
                         $("#modalAlert").removeClass('alert-danger').addClass('alert-success');
 

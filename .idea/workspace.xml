@@ -20,52 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="418af53e-2474-438c-a01f-658f85f171a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ITP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ITP.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CRUD/ReadymadeSubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CRUD/ReadymadeSubController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeBasicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeBasicController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/EmployeeBasicDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EmployeeBasicDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ReadymadeSub.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ReadymadeSub.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Supplier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_175100_create_readymade_subs_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_17_180128_create_table_supplier.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_17_180128_create_table_supplier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_18_161925_create_employee_basic_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_18_161925_create_employee_basic_details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/dist/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/dist/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/accessories-main-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/accessories-main-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/add-category.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add-category.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/botttom-main-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/botttom-main-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/deposited-returned-cheques.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/deposited-returned-cheques.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/employee-salary.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee-salary.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/fabric-main-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/fabric-main-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/fabric-sub-product-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/fabric-sub-product-view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/fabric-sub-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/fabric-sub-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/invoice.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/invoice.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/main-categories-summary.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/main-categories-summary.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/readymade-main-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-main-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product-view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/readymade-sub-product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/retail-customer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/retail-customer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/retail-transaction.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/retail-transaction.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/supplier-transaction.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/supplier-transaction.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/supplier.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/supplier.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vehicle-finance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vehicle-finance.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vehicle-management.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vehicle-management.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/wholesale-customer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/wholesale-customer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/wholesale-transactions.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/wholesale-transactions.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -195,15 +158,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\app\Models" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Desktop\Janitha New\janith" />
+      <recent name="C:\Users\ASUS\Desktop\Janitha New\janith\vendor" />
       <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\resources\views" />
       <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\app\Http\Controllers\CRUD" />
       <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\app\Models" />
-      <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\database\migrations" />
-      <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Pasindu Jayawardena\Desktop\final\ITP-Project\app\Models" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -224,6 +187,15 @@
       <workItem from="1602141114944" duration="3094000" />
       <workItem from="1602830777356" duration="47281000" />
       <workItem from="1602912158496" duration="49473000" />
+      <workItem from="1603018031932" duration="7094000" />
+      <workItem from="1603072313208" duration="11000" />
+      <workItem from="1603351416586" duration="154000" />
+      <workItem from="1603355236540" duration="2117000" />
+      <workItem from="1603364665338" duration="76000" />
+      <workItem from="1603366737987" duration="708000" />
+      <workItem from="1603429689853" duration="1053000" />
+      <workItem from="1603462753550" duration="1198000" />
+      <workItem from="1603466772013" duration="824000" />
     </task>
     <servers />
   </component>
@@ -243,6 +215,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="543" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603018949787">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="543" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1603018949787" />
     <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602951862439">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
